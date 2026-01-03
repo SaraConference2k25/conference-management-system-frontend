@@ -62,18 +62,18 @@ export default function LoginSection() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
       <div className="w-full max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
           {/* Left Side - Login Form */}
           <div className="w-full">
             <div className="relative">
               {/* Back Button */}
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-8 text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6 sm:mb-8 text-xs sm:text-sm font-medium transition-colors"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 Back to Home
@@ -82,52 +82,52 @@ export default function LoginSection() {
               {/* Form Card */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 px-8 sm:px-10 py-8 sm:py-10">
-                  <h1 className="text-3xl sm:text-4xl font-black text-white mb-2 tracking-tight">Welcome Back</h1>
-                  <p className="text-blue-100 text-lg">Sign in to access SARA 2025 Conference Portal</p>
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 px-6 sm:px-8 lg:px-10 py-6 sm:py-8 lg:py-10">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 tracking-tight">Welcome Back</h1>
+                  <p className="text-blue-100 text-sm sm:text-base lg:text-lg">Sign in to access SARA 2025 Conference Portal</p>
                 </div>
 
                 {/* Form Content */}
-                <div className="px-8 sm:px-10 py-8 sm:py-10">
+                <div className="px-6 sm:px-8 lg:px-10 py-6 sm:py-8 lg:py-10">
                   {/* Error Message */}
                   {error && (
-                    <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
+                    <div className="mb-5 sm:mb-6 p-3 sm:p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
                       <svg className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-red-800 dark:text-red-200 text-sm font-medium">{error}</p>
+                      <p className="text-red-800 dark:text-red-200 text-xs sm:text-sm font-medium">{error}</p>
                     </div>
                   )}
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
+                      <label htmlFor="email" className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
                         Email Address
                       </label>
                       <div className="relative">
-                        <EnvelopeIcon className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                        <EnvelopeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2" />
                         <input
                           id="email"
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="w-full pl-12 pr-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           required
                         />
                       </div>
-                      <p className="mt-1.5 text-xs text-gray-600 dark:text-gray-400">
+                      <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
                         Try: participant@sara2025.ac.in
                       </p>
                     </div>
 
                     {/* Role Selection */}
                     <div>
-                      <label htmlFor="role" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
+                      <label htmlFor="role" className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-3 tracking-wide">
                         Select Role
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                         {[
                           { value: 'participant', label: 'Participant', icon: UserIcon },
                           { value: 'evaluator', label: 'Evaluator', icon: CogIcon },

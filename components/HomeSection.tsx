@@ -24,48 +24,48 @@ export default function HomeSection() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight leading-tight">
               SARA 2025 National Conference
             </h2>
-            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto font-medium">
+            <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed px-2">
               Join leading researchers, academicians, and industry professionals to share groundbreaking research
               and innovative ideas across engineering, technology, and applied sciences.
             </p>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center border-t-4 border-blue-600">
-              <div className="text-4xl font-black text-blue-600 mb-2">2</div>
-              <p className="text-gray-600 dark:text-gray-300 font-semibold">Conference Days</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">April 3 & 4, 2026</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-14">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg text-center border-t-4 border-blue-600 hover:shadow-xl transition-shadow">
+              <div className="text-3xl sm:text-4xl font-black text-blue-600 mb-2">2</div>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-semibold">Conference Days</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">April 3 & 4, 2026</p>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center border-t-4 border-indigo-600">
-              <div className="text-4xl font-black text-indigo-600 mb-2">500+</div>
-              <p className="text-gray-600 dark:text-gray-300 font-semibold">Expected Participants</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">From academia & industry</p>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg text-center border-t-4 border-indigo-600 hover:shadow-xl transition-shadow">
+              <div className="text-3xl sm:text-4xl font-black text-indigo-600 mb-2">500+</div>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-semibold">Expected Participants</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">From academia & industry</p>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center border-t-4 border-purple-600">
-              <div className="text-4xl font-black text-purple-600 mb-2">2</div>
-              <p className="text-gray-600 dark:text-gray-300 font-semibold">Research Tracks</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Multiple specializations</p>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg text-center border-t-4 border-purple-600 hover:shadow-xl transition-shadow">
+              <div className="text-3xl sm:text-4xl font-black text-purple-600 mb-2">2</div>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-semibold">Research Tracks</p>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">Multiple specializations</p>
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/register"
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl text-center"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl text-center text-base sm:text-lg w-full sm:w-auto"
             >
               Register Now
             </Link>
             <Link
               href="/login"
-              className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors text-center"
+              className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors text-center text-base sm:text-lg w-full sm:w-auto"
             >
               Sign In
             </Link>
@@ -74,44 +74,44 @@ export default function HomeSection() {
       </section>
 
       {/* About Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-8 border-b border-gray-200 dark:border-gray-800">
+      <section className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">About the Conference</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-blue-50 dark:bg-gray-800 rounded-xl p-8 border-l-4 border-blue-600">
-              <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
-                <LightBulbIcon /> Our Mission
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 tracking-tight">About the Conference</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            <div className="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 sm:p-8 border-l-4 border-blue-600 hover:shadow-lg transition-shadow">
+              <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-3">
+                <LightBulbIcon className="w-6 h-6" /> Our Mission
               </h4>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
                 SARA 2025 brings together leading researchers, academicians, and industry professionals to share
                 groundbreaking research and innovative ideas. We provide a platform for intellectual exchange and
                 collaboration across various disciplines of engineering, technology, and applied sciences.
               </p>
             </div>
-            <div className="bg-indigo-50 dark:bg-gray-800 rounded-xl p-8 border-l-4 border-indigo-600">
-              <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
-                <AwardIcon /> Why Attend
+            <div className="bg-indigo-50 dark:bg-gray-800 rounded-xl p-6 sm:p-8 border-l-4 border-indigo-600 hover:shadow-lg transition-shadow">
+              <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-3">
+                <AwardIcon className="w-6 h-6" /> Why Attend
               </h4>
-              <ul className="text-gray-700 dark:text-gray-300 space-y-2 font-medium">
+              <ul className="text-sm sm:text-base text-gray-700 dark:text-gray-300 space-y-2 sm:space-y-3 font-medium">
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-0.5">•</span>
-                  Network with industry leaders and researchers
+                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
+                  <span>Network with industry leaders and researchers</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-0.5">•</span>
-                  Present your research to a focused audience
+                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
+                  <span>Present your research to a focused audience</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-0.5">•</span>
-                  Discover the latest trends and innovations
+                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
+                  <span>Discover the latest trends and innovations</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-0.5">•</span>
-                  Collaborate on future research initiatives
+                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
+                  <span>Collaborate on future research initiatives</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-0.5">•</span>
-                  Publish in conference proceedings
+                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
+                  <span>Publish in conference proceedings</span>
                 </li>
               </ul>
             </div>
@@ -140,17 +140,17 @@ export default function HomeSection() {
       </section>
 
       {/* Conference Tracks Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-8 border-b border-gray-200 dark:border-gray-800">
+      <section className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center tracking-tight">Research Tracks</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 text-center tracking-tight">Research Tracks</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {tracks.map((track, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-700 dark:to-blue-800 rounded-xl p-8 text-white shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-700 dark:to-blue-800 rounded-xl p-6 sm:p-8 text-white shadow-lg hover:shadow-xl transition-shadow"
               >
-                <h4 className="text-2xl font-bold mb-3 tracking-tight">{track.title}</h4>
-                <p className="text-blue-100 leading-relaxed">{track.description}</p>
+                <h4 className="text-xl sm:text-2xl font-bold mb-3 tracking-tight">{track.title}</h4>
+                <p className="text-blue-100 text-sm sm:text-base leading-relaxed">{track.description}</p>
               </div>
             ))}
           </div>
@@ -158,16 +158,16 @@ export default function HomeSection() {
       </section>
 
       {/* Venue Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-8 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <section className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">Conference Venue</h3>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 tracking-tight">Conference Venue</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 sm:p-8 shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <div>
-                <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                  <MapPinIcon /> Saranathan College of Engineering
+                <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <MapPinIcon className="w-5 h-5 sm:w-6 sm:h-6" /> Saranathan College of Engineering
                 </h4>
-                <div className="space-y-3 text-gray-700 dark:text-gray-300 font-medium">
+                <div className="space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium">
                   <p>
                     <strong className="text-gray-900 dark:text-white">Location:</strong><br />
                     Panjappur, Trichy - 620012<br />
@@ -180,8 +180,8 @@ export default function HomeSection() {
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-6">
-                <p className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+              <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-5 sm:p-6">
+                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
                   The conference will be held at our state-of-the-art campus facilities, providing an ideal environment
                   for academic discourse and professional networking. Our modern infrastructure includes spacious
                   auditoriums, seminar halls, and excellent accommodation options.

@@ -156,3 +156,99 @@ export function LockClosedIcon({ className = "w-5 h-5" }: { className?: string }
     </svg>
   )
 }
+
+export function PlusIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M10.5 1.5H9.5V9H1.5v1h7.5v7.5h1V10h7.5V9h-7.5V1.5z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function LogOutIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function MenuIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function XIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function BarChartIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+    </svg>
+  )
+}
+
+export function DownloadIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function TrashIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function ClockIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00-.293.707l-3 3a1 1 0 101.414 1.414L9 11.414V6z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function CheckIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function AlertIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function ChevronDownIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+export function UploadIcon({ className = "w-5 h-5" }: { className?: string } = {}) {
+  return (
+    <svg className={`${className} inline`} fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+  )
+}
