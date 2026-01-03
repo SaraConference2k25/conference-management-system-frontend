@@ -3,10 +3,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/lib/auth-context'
+import { useToast } from '@/lib/toast-context'
 import { EnvelopeIcon, EyeIcon, EyeOffIcon, UserIcon, CogIcon, TrendingUpIcon, LockClosedIcon, DocumentIcon } from './Icons'
 
 export default function LoginSection() {
   const router = useRouter()
+  const { login, isLoading: authLoading } = useAuth()
+  const { addToast } = useToast()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('participant')
@@ -19,43 +23,44 @@ export default function LoginSection() {
     e.preventDefault()
     setError('')
 
-    if (!email || !password || !role) {
-      setError('Please fill in all fields and select a role.')
+    // Validation
+    if (!email || !password) {
+      setError('Please fill in all fields.')
+      return
+    }
+
+    if (!role) {
+      setError('Please select a role.')
       return
     }
 
     setIsLoading(true)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      // Mock authentication
-      const mockUsers: { [key: string]: { password: string; role: string } } = {
-        'participant@sara2025.ac.in': { password: 'demo123', role: 'participant' },
-        'evaluator@sara2025.ac.in': { password: 'demo123', role: 'evaluator' },
-        'admin@sara2025.ac.in': { password: 'admin123', role: 'admin' },
-      }
-
-      const user = mockUsers[email]
-      if (!user || user.password !== password || user.role !== role) {
-        setError('Invalid email, password, or role combination.')
-        return
-      }
-
-      // Store session
-      localStorage.setItem('user', JSON.stringify({ email, role }))
+      await login(email, password, role)
+      
+      // Show success toast
+      addToast('Login successful!', 'success', 3000)
       
       // Redirect based on role
       const redirectPath = {
         participant: '/dashboard',
+        PARTICIPANT: '/dashboard',
         evaluator: '/evaluator-dashboard',
+        EVALUATOR: '/evaluator-dashboard',
         admin: '/admin-dashboard',
-      }[role] || '/'
+        ADMIN: '/admin-dashboard',
+      }[role.toLowerCase()] || '/dashboard'
 
-      router.push(redirectPath)
-    } catch (err) {
-      setError('Login failed. Please try again.')
+      // Small delay to let user see the toast
+      setTimeout(() => {
+        router.push(redirectPath)
+      }, 500)
+    } catch (err: any) {
+      console.error('Login error:', err)
+      const errorMessage = err?.data?.message || err?.message || 'Login failed. Please try again.'
+      setError(errorMessage)
+      addToast(errorMessage, 'error', 4000)
     } finally {
       setIsLoading(false)
     }
@@ -118,7 +123,7 @@ export default function LoginSection() {
                         />
                       </div>
                       <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
-                        Try: participant@sara2025.ac.in
+                        Use your registered email address
                       </p>
                     </div>
 
@@ -188,7 +193,7 @@ export default function LoginSection() {
                         </button>
                       </div>
                       <p className="mt-1.5 text-xs text-gray-600 dark:text-gray-400">
-                        Try: demo123 (demo123 for admin)
+                        Enter your secure password
                       </p>
                     </div>
 
@@ -209,10 +214,10 @@ export default function LoginSection() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      disabled={isLoading}
+                      disabled={isLoading || authLoading}
                       className="w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-lg rounded-lg transition-all shadow-lg hover:shadow-xl disabled:cursor-not-allowed disabled:shadow-md tracking-wide"
                     >
-                      {isLoading ? (
+                      {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
                           <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />

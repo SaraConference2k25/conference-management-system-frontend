@@ -3,10 +3,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/lib/auth-context'
+import { useToast } from '@/lib/toast-context'
 import { EnvelopeIcon, UserIcon, LockClosedIcon, EyeIcon, EyeOffIcon, CheckCircleIcon, SparklesIcon, AwardIcon } from '@/components/Icons'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { register, isLoading: authLoading } = useAuth()
+  const { addToast } = useToast()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -34,6 +38,7 @@ export default function RegisterPage() {
     setError('')
     setSuccess('')
 
+    // Validation
     if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all required fields.')
       return
@@ -57,22 +62,20 @@ export default function RegisterPage() {
     setIsLoading(true)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      // Mock registration
-      localStorage.setItem('newUser', JSON.stringify({
-        fullName: formData.fullName,
-        email: formData.email,
-      }))
-
+      // Register with PARTICIPANT role as default
+      await register(formData.email, formData.password, formData.fullName, formData.affiliation)
+      
       setSuccess('Account created successfully! Redirecting to login...')
+      addToast('Account created successfully!', 'success', 3000)
       
       setTimeout(() => {
         router.push('/login?registered=true')
       }, 2000)
-    } catch (err) {
-      setError('Registration failed. Please try again.')
+    } catch (err: any) {
+      console.error('Registration error:', err)
+      const errorMessage = err?.data?.message || err?.message || 'Registration failed. Please try again.'
+      setError(errorMessage)
+      addToast(errorMessage, 'error', 4000)
     } finally {
       setIsLoading(false)
     }
@@ -272,10 +275,10 @@ export default function RegisterPage() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      disabled={isLoading}
+                      disabled={isLoading || authLoading}
                       className="w-full py-3 sm:py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-lg rounded-lg transition-all shadow-lg hover:shadow-xl disabled:cursor-not-allowed disabled:shadow-md tracking-wide"
                     >
-                      {isLoading ? (
+                      {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
                           <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
