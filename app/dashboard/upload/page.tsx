@@ -1,16 +1,26 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { DocumentIcon, MenuIcon, XIcon, LogOutIcon, UploadIcon, AlertIcon, CheckIcon } from '@/components/Icons'
+import { apiClient } from '@/lib/api'
+import { useAuth } from '@/lib/auth-context'
+import { getInitials, getDisplayName } from '@/lib/utils/avatar'
 
 export default function UploadPaperPage() {
   const router = useRouter()
+  const { user: authUser, isLoading } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [user] = useState({ name: 'John Doe', email: 'participant@sara2025.ac.in' })
-  const [isLoading, setIsLoading] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!isLoading && !authUser) {
+      router.push('/login')
+    }
+  }, [authUser, isLoading, router])
 
   const [formData, setFormData] = useState({
     title: '',
@@ -60,18 +70,38 @@ export default function UploadPaperPage() {
       return
     }
 
-    setIsLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setUploadSuccess(true)
-    setIsLoading(false)
+    setIsSubmitting(true)
+    try {
+      const submitFormData = new FormData()
+      submitFormData.append('name', authUser?.fullName || authUser?.email || '')
+      submitFormData.append('email', authUser?.email || '')
+      submitFormData.append('contactNo', '9876543210') // TODO: Add contact number field
+      submitFormData.append('department', formData.department)
+      submitFormData.append('collegeName', 'Saranathan College of Engineering') // TODO: Add college name field
+      submitFormData.append('paperTitle', formData.title)
+      submitFormData.append('paperAbstract', formData.abstract)
+      if (formData.file) {
+        submitFormData.append('paperFile', formData.file)
+      }
 
-    setTimeout(() => {
-      router.push('/dashboard/my-papers')
-    }, 2000)
+      await apiClient.submitPaper(submitFormData)
+      setUploadSuccess(true)
+
+      setTimeout(() => {
+        router.push('/dashboard/my-papers')
+      }, 2000)
+    } catch (error: any) {
+      console.error('Error submitting paper:', error)
+      setErrors({
+        submit: error.message || 'Failed to submit paper. Please try again.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('user')
+    apiClient.logout()
     router.push('/login')
   }
 
@@ -81,39 +111,39 @@ export default function UploadPaperPage() {
       <header className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 dark:from-blue-950 dark:via-indigo-950 dark:to-gray-950 shadow-lg border-b border-blue-800 dark:border-blue-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 hover:bg-blue-500/50 dark:hover:bg-blue-900/50 rounded-lg transition-colors"
               >
                 {isMobileMenuOpen ? (
-                  <XIcon className="w-6 h-6 text-white" />
+                  <XIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 ) : (
-                  <MenuIcon className="w-6 h-6 text-white" />
+                  <MenuIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 )}
               </button>
               <div className="flex flex-col">
-                <h1 className="text-3xl font-black text-white tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                   SARA 2025
                 </h1>
-                <p className="text-xs text-blue-100 font-medium">Upload Paper</p>
+                <p className="text-xs sm:text-sm text-blue-100 font-medium">Upload Paper</p>
               </div>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 sm:gap-6">
               <div className="hidden sm:flex flex-col items-end">
-                <span className="text-sm font-semibold text-blue-50">
-                  {user.name}
+                <span className="text-xs sm:text-sm font-semibold text-blue-50 line-clamp-1">
+                  {getDisplayName(authUser?.fullName, authUser?.email)}
                 </span>
                 <span className="text-xs text-blue-100">
                   Participant
                 </span>
               </div>
-              <div className="h-10 w-10 rounded-full bg-white/20 dark:bg-blue-400/20 flex items-center justify-center border border-white/30">
-                <span className="text-white font-bold text-sm">JD</span>
+              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-white/20 dark:bg-blue-400/20 flex items-center justify-center border border-white/30">
+                <span className="text-white font-bold text-xs sm:text-sm">{getInitials(authUser?.fullName || '', authUser?.email || '')}</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-lg font-semibold transition-all text-sm shadow-md hover:shadow-lg transform hover:scale-105"
+                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-lg font-semibold transition-all text-xs sm:text-sm shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 <LogOutIcon className="w-4 h-4" />
                 <span className="hidden sm:inline">Logout</span>
@@ -177,6 +207,17 @@ export default function UploadPaperPage() {
               Fill in the details below and upload your research paper for conference review
             </p>
           </div>
+
+          {/* Submission Error */}
+          {errors.submit && (
+            <div className="mb-8 p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-start gap-4">
+              <AlertIcon className="w-6 h-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-bold text-red-900 dark:text-red-100">Submission Failed</h3>
+                <p className="text-red-800 dark:text-red-200 text-sm mt-1">{errors.submit}</p>
+              </div>
+            </div>
+          )}
 
           {/* Info Alert */}
           <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl flex items-start gap-4">
@@ -311,10 +352,10 @@ export default function UploadPaperPage() {
                 </Link>
                 <button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isSubmitting}
                   className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white rounded-lg font-bold transition-all disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {isLoading ? (
+                  {isSubmitting ? (
                     <>
                       <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />

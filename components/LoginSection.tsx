@@ -46,8 +46,8 @@ export default function LoginSection() {
       const redirectPath = {
         participant: '/dashboard',
         PARTICIPANT: '/dashboard',
-        evaluator: '/evaluator-dashboard',
-        EVALUATOR: '/evaluator-dashboard',
+        evaluator: '/dashboard/evaluator',
+        EVALUATOR: '/dashboard/evaluator',
         admin: '/admin-dashboard',
         ADMIN: '/admin-dashboard',
       }[role.toLowerCase()] || '/dashboard'

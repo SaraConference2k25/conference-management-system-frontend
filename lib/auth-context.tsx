@@ -6,8 +6,8 @@ import { apiClient } from './api'
 export interface User {
   id: string
   email: string
-  role: 'participant' | 'evaluator' | 'admin' | 'PARTICIPANT' | 'EVALUATOR' | 'ADMIN'
   fullName?: string
+  role: 'participant' | 'evaluator' | 'admin' | 'PARTICIPANT' | 'EVALUATOR' | 'ADMIN'
 }
 
 interface AuthContextType {
@@ -67,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         userData = {
           id: response.user.id || email,
           email: response.user.email || email,
+          fullName: (response.user as any).fullName,
           role: (response.user.role || role).toLowerCase() as User['role'],
         }
       } else {
@@ -74,6 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         userData = {
           id: (response as any).id || email,
           email: email,
+          fullName: (response as any).fullName,
           role: (role || 'participant').toLowerCase() as User['role'],
         }
       }

@@ -22,9 +22,16 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
     if (!isLoading && !user) {
       // Redirect to login if not authenticated
       router.push('/login?redirect=' + window.location.pathname)
-    } else if (requiredRole && user?.role !== requiredRole) {
-      // Redirect if user doesn't have required role
-      router.push('/dashboard')
+    } else if (requiredRole && user) {
+      // Normalize both roles to lowercase for comparison
+      const userRole = (user.role || '').toLowerCase()
+      const requiredRoleNormalized = (requiredRole || '').toLowerCase()
+      
+      if (userRole !== requiredRoleNormalized) {
+        // Redirect to appropriate dashboard based on user role
+        const redirectPath = userRole === 'evaluator' ? '/dashboard/evaluator' : '/dashboard'
+        router.push(redirectPath)
+      }
     }
   }, [user, isLoading, requiredRole, router])
 

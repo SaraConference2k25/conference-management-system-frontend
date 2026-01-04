@@ -1,14 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { DocumentIcon, PlusIcon, EyeIcon, LogOutIcon, MenuIcon, XIcon, BarChartIcon } from '@/components/Icons'
+import { DocumentIcon, PlusIcon, EyeIcon, ExitIcon, MenuIcon, XIcon, BarChartIcon } from '@/components/Icons'
+import { apiClient } from '@/lib/api'
+import { useAuth } from '@/lib/auth-context'
+import { getInitials, getDisplayName } from '@/lib/utils/avatar'
 
 export default function ParticipantDashboard() {
   const router = useRouter()
+  const { user: authUser, isLoading } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [user] = useState({ name: 'John Doe', email: 'participant@sara2025.ac.in' })
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!isLoading && !authUser) {
+      router.push('/login')
+    }
+  }, [authUser, isLoading, router])
 
   const dashboardStats = [
     { label: 'Total Papers', value: 3, color: 'from-blue-500 to-blue-600' },
@@ -18,7 +28,7 @@ export default function ParticipantDashboard() {
   ]
 
   const handleLogout = () => {
-    localStorage.removeItem('user')
+    apiClient.logout()
     router.push('/login')
   }
 
@@ -26,7 +36,7 @@ export default function ParticipantDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 dark:from-blue-950 dark:via-indigo-950 dark:to-gray-950 shadow-lg border-b border-blue-800 dark:border-blue-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 sm:gap-4">
               <button
@@ -48,21 +58,21 @@ export default function ParticipantDashboard() {
             </div>
             <div className="flex items-center gap-3 sm:gap-6">
               <div className="hidden sm:flex flex-col items-end">
-                <span className="text-xs sm:text-sm font-semibold text-blue-50">
-                  {user.name}
+                <span className="text-xs sm:text-sm font-semibold text-blue-50 line-clamp-1">
+                  {getDisplayName(authUser?.fullName, authUser?.email)}
                 </span>
                 <span className="text-xs text-blue-100">
                   Participant
                 </span>
               </div>
               <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-white/20 dark:bg-blue-400/20 flex items-center justify-center border border-white/30">
-                <span className="text-white font-bold text-xs sm:text-sm">JD</span>
+                <span className="text-white font-bold text-xs sm:text-sm">{getInitials(authUser?.fullName || '', authUser?.email || '')}</span>
               </div>
               <button
                 onClick={handleLogout}
                 className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-lg font-semibold transition-all text-xs sm:text-sm shadow-md hover:shadow-lg transform hover:scale-105"
               >
-                <LogOutIcon className="w-4 h-4" />
+                <ExitIcon className="w-4 h-4" />
                 <span className="hidden sm:inline">Logout</span>
               </button>
             </div>
@@ -126,7 +136,7 @@ export default function ParticipantDashboard() {
           {/* Page Header */}
           <div className="mb-8">
             <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
-              Welcome Back, {user.name.split(' ')[0]}
+              Welcome Back, {getDisplayName(authUser?.fullName, authUser?.email).split(' ')[0]}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-lg">
               Manage your paper submissions and track their progress

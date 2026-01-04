@@ -38,6 +38,35 @@ export interface RegisterRequest {
   role?: string;
 }
 
+export interface PaperSubmissionResponse {
+  paperId: string;
+  id?: string;
+  name: string;
+  email: string;
+  contactNo: string;
+  department: string;
+  collegeName: string;
+  paperTitle: string;
+  paperAbstract: string;
+  paperFileName: string;
+  paperFileUrl?: string;
+  submittedAt?: string;
+  evaluatorName?: string;
+  status?: string;
+  evaluatorComments?: string;
+}
+
+export interface PaperSubmitRequest {
+  name: string;
+  email: string;
+  contactNo: string;
+  department: string;
+  collegeName: string;
+  paperTitle: string;
+  paperAbstract: string;
+  paperFile: File;
+}
+
 class APIClient {
   private baseURL: string;
 
@@ -113,8 +142,149 @@ class APIClient {
   ): Promise<LoginResponse> {
     return this.request<LoginResponse>('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password, role }),
+      body: JSON.stringify({ 
+        email, 
+        password, 
+        role: role.toUpperCase() // Convert role to uppercase for backend compatibility
+      }),
     });
+  }
+
+  async getUserById(id: string): Promise<AuthResponse> {
+    return this.request<AuthResponse>(`/users/${id}`, {
+      method: 'GET',
+    });
+  }
+
+  // Paper Submission endpoints
+  async submitPaper(formData: FormData): Promise<PaperSubmissionResponse> {
+    const url = `${this.baseURL}/papers/submit`;
+    
+    const headers: Record<string, string> = {};
+
+    // Add token if it exists
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Don't set Content-Type for FormData - let the browser handle it
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: formData,
+      });
+
+      if (!response.ok) {
+        let errorMessage = `HTTP ${response.status}`;
+        const contentType = response.headers.get('content-type');
+        
+        try {
+          if (contentType?.includes('application/json')) {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorData.error || errorMessage;
+          } else {
+            const text = await response.text();
+            errorMessage = text || errorMessage;
+          }
+        } catch (e) {
+          // If parsing fails, just use the status
+        }
+        
+        throw new Error(errorMessage);
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType?.includes('application/json')) {
+        throw new Error('Invalid response from server');
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('Error submitting paper:', error);
+      throw error;
+    }
+  }
+
+  async getPapersByEmail(email: string): Promise<PaperSubmissionResponse[]> {
+    return this.request<PaperSubmissionResponse[]>(`/papers/email/${email}`, {
+      method: 'GET',
+    });
+  }
+
+  async getAllPapers(): Promise<PaperSubmissionResponse[]> {
+    return this.request<PaperSubmissionResponse[]>('/papers/all', {
+      method: 'GET',
+    });
+  }
+
+  async getPaperById(id: string): Promise<PaperSubmissionResponse> {
+    return this.request<PaperSubmissionResponse>(`/papers/${id}`, {
+      method: 'GET',
+    });
+  }
+
+  async getPapersByDepartment(department: string): Promise<PaperSubmissionResponse[]> {
+    return this.request<PaperSubmissionResponse[]>(`/papers/department/${department}`, {
+      method: 'GET',
+    });
+  }
+
+  async searchPapers(query: string): Promise<PaperSubmissionResponse[]> {
+    return this.request<PaperSubmissionResponse[]>(`/papers/search?query=${query}`, {
+      method: 'GET',
+    });
+  }
+
+  async deletePaper(id: string): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/papers/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async updatePaperStatus(paperId: string, status: string): Promise<PaperSubmissionResponse> {
+    return this.request<PaperSubmissionResponse>(`/papers/update-status?paperId=${paperId}&status=${status}`, {
+      method: 'PATCH',
+    });
+  }
+
+  async saveReviewComments(paperId: string, evaluatorComments: string, toggleStatus: string): Promise<PaperSubmissionResponse> {
+    return this.request<PaperSubmissionResponse>('/papers/save-review-comments', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        paperId,
+        evaluatorComments,
+        toggleStatus
+      }),
+    });
+  }
+
+  async evaluatePaper(request: any): Promise<PaperSubmissionResponse> {
+    return this.request<PaperSubmissionResponse>('/admin/evaluators/evaluate-paper', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  }
+
+  async downloadPaper(id: string): Promise<Blob> {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+    
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${this.baseURL}/papers/download/${id}`, {
+      headers,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to download paper');
+    }
+
+    return response.blob();
   }
 
   async logout(): Promise<void> {
