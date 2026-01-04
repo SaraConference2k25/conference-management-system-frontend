@@ -29,7 +29,10 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
       
       if (userRole !== requiredRoleNormalized) {
         // Redirect to appropriate dashboard based on user role
-        const redirectPath = userRole === 'evaluator' ? '/dashboard/evaluator' : '/dashboard'
+        const redirectPath = 
+          userRole === 'evaluator' ? '/dashboard/evaluator' :
+          userRole === 'admin' ? '/dashboard/admin' :
+          '/dashboard'
         router.push(redirectPath)
       }
     }
@@ -53,7 +56,7 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
     return null
   }
 
-  if (requiredRole && user.role !== requiredRole) {
+  if (requiredRole && (user.role || '').toLowerCase() !== requiredRole.toLowerCase()) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

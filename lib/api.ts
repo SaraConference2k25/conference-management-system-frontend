@@ -310,6 +310,117 @@ class APIClient {
   isAuthenticated(): boolean {
     return this.getAuthToken() !== null;
   }
+
+  // ===== EVALUATOR ENDPOINTS =====
+  async createEvaluator(evaluatorData: any) {
+    try {
+      const response = await fetch(`${this.baseURL}/evaluators/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+        body: JSON.stringify(evaluatorData),
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error creating evaluator:', error);
+      throw error;
+    }
+  }
+
+  async getAllEvaluators() {
+    try {
+      const response = await fetch(`${this.baseURL}/evaluators/all`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching evaluators:', error);
+      throw error;
+    }
+  }
+
+  async getEvaluatorById(evaluatorId: string | number) {
+    try {
+      const response = await fetch(`${this.baseURL}/evaluators/${evaluatorId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching evaluator:', error);
+      throw error;
+    }
+  }
+
+  async updateEvaluator(evaluatorId: string | number, evaluatorData: any) {
+    try {
+      const response = await fetch(`${this.baseURL}/evaluators/${evaluatorId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+        body: JSON.stringify(evaluatorData),
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating evaluator:', error);
+      throw error;
+    }
+  }
+
+  async deleteEvaluator(evaluatorId: string | number) {
+    try {
+      const response = await fetch(`${this.baseURL}/evaluators/${evaluatorId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error deleting evaluator:', error);
+      throw error;
+    }
+  }
+
+  async getEvaluatorStats() {
+    try {
+      const response = await fetch(`${this.baseURL}/evaluators/stats`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching evaluator stats:', error);
+      throw error;
+    }
+  }
+
+  // ===== ADDITIONAL PAPER ENDPOINTS =====
+  async assignEvaluatorToPaper(paperId: string, evaluatorId: string | number) {
+    try {
+      const response = await fetch(`${this.baseURL}/papers/${paperId}/assign-evaluator/${evaluatorId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error assigning evaluator to paper:', error);
+      throw error;
+    }
+  }
 }
 
 export const apiClient = new APIClient(API_BASE_URL);

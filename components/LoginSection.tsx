@@ -48,8 +48,8 @@ export default function LoginSection() {
         PARTICIPANT: '/dashboard',
         evaluator: '/dashboard/evaluator',
         EVALUATOR: '/dashboard/evaluator',
-        admin: '/admin-dashboard',
-        ADMIN: '/admin-dashboard',
+        admin: '/dashboard/admin',
+        ADMIN: '/dashboard/admin',
       }[role.toLowerCase()] || '/dashboard'
 
       // Small delay to let user see the toast
