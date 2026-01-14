@@ -63,7 +63,7 @@ export default function Header() {
             {/* Center - Main Title */}
             <div className="text-center">
               <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-lg tracking-tight">
-                SARA 2025
+                SARA 2026
               </h1>
               <h2 className="text-2xl sm:text-3xl font-bold text-yellow-300 mb-4 drop-shadow-lg tracking-wide">
                 National Conference
