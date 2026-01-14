@@ -80,7 +80,7 @@ export default function HomeSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             <div className="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 sm:p-8 border-l-4 border-blue-600 hover:shadow-lg transition-shadow">
               <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-3">
-                <LightBulbIcon className="w-6 h-6" /> Our Mission
+                <AwardIcon className="w-6 h-6" /> Our Mission
               </h4>
               <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
                 SARA 2025 brings together leading researchers, academicians, and industry professionals to share

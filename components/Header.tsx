@@ -1,4 +1,5 @@
 import { CalendarIcon, MapPinIcon, SparklesIcon } from './Icons'
+import Image from 'next/image' 
 
 export default function Header() {
   return (
@@ -8,30 +9,33 @@ export default function Header() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Left Logos Section */}
           <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-md">
-              <span className="text-xs font-bold text-white text-center px-1">SCE</span>
+            <div className="w-24 h-24 rounded-full flex items-center justify-center p-0">
+              <div className="rounded-full overflow-hidden w-20 h-20">
+                <Image src="/saranathan_logo.jpg" alt="Saranathan logo" width={80} height={80} className="object-contain" />
+              </div>
             </div>
             <div className="hidden sm:block h-8 w-px bg-gray-300 dark:bg-gray-700"></div>
             <div className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium text-center sm:text-left">
-              <div className="font-bold text-gray-900 dark:text-white tracking-wide">SARANATHAN</div>
-              <div className="tracking-wide">COLLEGE OF ENGINEERING</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">Affiliated to Anna University</div>
+              <div className="font-bold text-gray-900 dark:text-white tracking-wide text-base sm:text-lg">SARANATHAN</div>
+              <div className="tracking-wide text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium">COLLEGE OF ENGINEERING</div>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide font-medium mt-1">An autonomous institution</div>
+              <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Affiliated to Anna University</div>
             </div>
           </div>
 
           {/* Center - Tagline */}
           <div className="hidden md:block text-center flex-grow">
-            <p className="text-sm font-bold text-blue-600 dark:text-blue-400 tracking-wide">WINNERS BEGIN WITH SARANATHAN</p>
+            <p className="text-lg sm:text-xl md:text-2xl font-extrabold text-blue-600 dark:text-blue-400 tracking-wide uppercase">WINNERS BEGIN WITH SARANATHAN</p>
           </div>
 
           {/* Right - Counselling Code */}
           <div className="flex items-center gap-3">
-            <div className="bg-yellow-400 text-gray-900 px-4 py-3 rounded-lg shadow-lg font-bold text-center border-2 border-yellow-500">
-              <div className="text-xs tracking-wide">Counselling Code</div>
-              <div className="text-2xl font-black">3819</div>
+            <div className="bg-white dark:bg-gray-800 text-gray-900 px-4 py-3 rounded-lg shadow-md font-semibold text-center border border-gray-200 dark:border-gray-700">
+              <div className="text-xs font-medium tracking-wide text-gray-600 dark:text-gray-400">Counselling Code</div>
+              <div className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">3819</div>
             </div>
-            <div className="hidden sm:block w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md">
-              25
+            <div className="hidden sm:flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 relative">
+              <Image src="/silver_jubliee.jpeg" alt="Silver Jubilee" fill className="object-cover" />
             </div>
           </div>
         </div>
