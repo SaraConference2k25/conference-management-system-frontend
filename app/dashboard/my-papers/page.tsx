@@ -7,6 +7,7 @@ import { DocumentIcon, DownloadIcon, TrashIcon, ChevronDownIcon, MenuIcon, XIcon
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { getInitials, getDisplayName } from '@/lib/utils/avatar'
+import { toast } from 'sonner' 
 
 interface Paper {
   id: string
@@ -51,7 +52,7 @@ export default function MyPapersPage() {
         setPapers(userPapers || [])
         setPapersError(null)
       } catch (error: any) {
-        console.error('Error fetching papers:', error)
+        toast.error(error.message || 'Failed to fetch papers')
         setPapersError(error.message || 'Failed to fetch papers')
         setPapers([])
       } finally {
@@ -96,8 +97,9 @@ export default function MyPapersPage() {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
+      toast.success('Download started')
     } catch (error: any) {
-      console.error('Error downloading paper:', error)
+      toast.error(error.message || 'Failed to download paper')
       setDownloadError(error.message || 'Failed to download paper')
     } finally {
       setDownloadingId(null)

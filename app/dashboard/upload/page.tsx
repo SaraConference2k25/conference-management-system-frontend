@@ -7,12 +7,12 @@ import { DocumentIcon, MenuIcon, XIcon, LogOutIcon, UploadIcon, AlertIcon, Check
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { getInitials, getDisplayName } from '@/lib/utils/avatar'
+import { toast } from 'sonner' 
 
 export default function UploadPaperPage() {
   const router = useRouter()
   const { user: authUser, isLoading } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [uploadSuccess, setUploadSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Redirect if not authenticated
@@ -85,13 +85,13 @@ export default function UploadPaperPage() {
       }
 
       await apiClient.submitPaper(submitFormData)
-      setUploadSuccess(true)
+      toast.success('Paper submitted successfully! Redirecting...')
 
       setTimeout(() => {
         router.push('/dashboard/my-papers')
       }, 2000)
     } catch (error: any) {
-      console.error('Error submitting paper:', error)
+      toast.error(error.message || 'Failed to submit paper')
       setErrors({
         submit: error.message || 'Failed to submit paper. Please try again.',
       })
@@ -188,16 +188,6 @@ export default function UploadPaperPage() {
 
         {/* Main Content */}
         <main className="flex-1 p-4 sm:p-8">
-          {uploadSuccess && (
-            <div className="mb-8 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-start gap-4">
-              <CheckIcon className="w-6 h-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-bold text-green-900 dark:text-green-100">Paper Submitted Successfully!</h3>
-                <p className="text-green-800 dark:text-green-200 text-sm mt-1">Your paper has been submitted for review. Redirecting to My Papers...</p>
-              </div>
-            </div>
-          )}
-
           {/* Page Header */}
           <div className="mb-8">
             <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">

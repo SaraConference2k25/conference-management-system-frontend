@@ -6,6 +6,8 @@ import { ProtectedRoute } from '@/lib/components/ProtectedRoute'
 import { useAuth } from '@/lib/auth-context'
 import { ExitIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
+import { toast } from 'sonner'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
 
 interface Evaluator {
   id?: string
@@ -29,6 +31,11 @@ export default function AdminEvaluators() {
   const [evaluators, setEvaluators] = useState<Evaluator[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
+  
+  // Dialog state
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [evaluatorToDelete, setEvaluatorToDelete] = useState<Evaluator | null>(null)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   // Form states
   const [newEvaluator, setNewEvaluator] = useState({
@@ -46,7 +53,7 @@ export default function AdminEvaluators() {
         const evaluatorsData = await apiClient.getAllEvaluators()
         setEvaluators(Array.isArray(evaluatorsData) ? evaluatorsData : [])
       } catch (error) {
-        console.error('Error fetching evaluators:', error)
+        toast.error('Failed to fetch evaluators')
       } finally {
         setLoading(false)
       }
@@ -80,12 +87,12 @@ export default function AdminEvaluators() {
 
   const handleCreateEvaluator = async () => {
     if (!newEvaluator.username || !newEvaluator.email || !newEvaluator.password || !newEvaluator.confirmPassword) {
-      alert('Please fill in all required fields')
+      toast.warning('Please fill in all required fields')
       return
     }
 
     if (newEvaluator.password !== newEvaluator.confirmPassword) {
-      alert('Passwords do not match')
+      toast.error('Passwords do not match')
       return
     }
 
@@ -99,33 +106,37 @@ export default function AdminEvaluators() {
       
       setShowCreateModal(false)
       setNewEvaluator({ username: '', email: '', password: '', confirmPassword: '', department: '' })
-      alert('Evaluator created successfully!')
+      toast.success('Evaluator created successfully!')
     } catch (err: any) {
-      alert(`Error: ${err.message || 'Failed to create evaluator'}`)
-      console.error(err)
+      toast.error(err.message || 'Failed to create evaluator')
     } finally {
       setCreating(false)
     }
   }
 
-  const handleDeleteEvaluator = async (evaluator: Evaluator) => {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete ${evaluator.name || evaluator.email}?`
-    )
+  const handleDeleteEvaluator = (evaluator: Evaluator) => {
+    setEvaluatorToDelete(evaluator)
+    setShowDeleteDialog(true)
+  }
 
-    if (!confirmed) return
+  const handleProceedDelete = async () => {
+    if (!evaluatorToDelete) return
 
+    setIsDeleting(true)
     try {
-      await apiClient.deleteEvaluator(evaluator.id || evaluator.userId || '')
+      await apiClient.deleteEvaluator(evaluatorToDelete.id || evaluatorToDelete.userId || '')
       
       // Refresh evaluators list
       const evaluatorsData = await apiClient.getAllEvaluators()
       setEvaluators(Array.isArray(evaluatorsData) ? evaluatorsData : [])
       
-      alert('Evaluator deleted successfully!')
+      toast.success('Evaluator deleted successfully!')
+      setShowDeleteDialog(false)
+      setEvaluatorToDelete(null)
     } catch (err: any) {
-      alert(`Error: ${err.message || 'Failed to delete evaluator'}`)
-      console.error(err)
+      toast.error(err.message || 'Failed to delete evaluator')
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -513,6 +524,18 @@ export default function AdminEvaluators() {
                 </div>
               </div>
             )}
+
+            <ConfirmDialog
+              isOpen={showDeleteDialog}
+              title="Confirm Deletion"
+              message={`Are you sure you want to delete evaluator "${evaluatorToDelete?.name || evaluatorToDelete?.email}"? This action cannot be undone.`}
+              confirmText="Delete Evaluator"
+              cancelText="Cancel"
+              isDestructive={true}
+              isLoading={isDeleting}
+              onConfirm={handleProceedDelete}
+              onCancel={() => setShowDeleteDialog(false)}
+            />
           </main>
         </div>
       </div>

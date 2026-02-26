@@ -123,7 +123,6 @@ class APIClient {
 
       return response.json();
     } catch (error) {
-      console.error(`API Error (${endpoint}):`, error);
       throw error;
     }
   }

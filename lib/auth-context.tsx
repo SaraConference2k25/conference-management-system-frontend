@@ -100,7 +100,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       // For registration, you might want to auto-login or just redirect to login
       // This depends on your backend behavior
-      console.log('Registration successful:', response)
     } finally {
       setIsLoading(false)
     }

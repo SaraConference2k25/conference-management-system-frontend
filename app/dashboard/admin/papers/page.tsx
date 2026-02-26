@@ -6,6 +6,8 @@ import { ProtectedRoute } from '@/lib/components/ProtectedRoute'
 import { useAuth } from '@/lib/auth-context'
 import { ExitIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
+import { toast } from 'sonner'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
 
 interface Paper {
   id?: string
@@ -34,6 +36,7 @@ export default function AdminPapers() {
   const [evaluators, setEvaluators] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [assigning, setAssigning] = useState(false)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
 
   // Fetch data on mount
   useEffect(() => {
@@ -47,7 +50,7 @@ export default function AdminPapers() {
         setPapers(Array.isArray(papersData) ? papersData : [])
         setEvaluators(Array.isArray(evaluatorsData) ? evaluatorsData : [])
       } catch (error) {
-        console.error('Error fetching data:', error)
+        toast.error('Failed to fetch data')
       } finally {
         setLoading(false)
       }
@@ -93,15 +96,15 @@ export default function AdminPapers() {
 
   const handleConfirmAssignment = async () => {
     if (!selectedPaper || !selectedEvaluator) {
-      alert('Please select an evaluator')
+      toast.warning('Please select an evaluator')
       return
     }
 
-    const confirmed = window.confirm(
-      `Assign ${selectedEvaluator.name || selectedEvaluator.email} to paper ${selectedPaper.paperId}?`
-    )
+    setShowConfirmDialog(true)
+  }
 
-    if (!confirmed) return
+  const handleProceedAssignment = async () => {
+    if (!selectedPaper || !selectedEvaluator) return
 
     setAssigning(true)
     try {
@@ -115,14 +118,15 @@ export default function AdminPapers() {
       setPapers(Array.isArray(papersData) ? papersData : [])
       
       setShowAssignModal(false)
+      setShowConfirmDialog(false)
       setSelectedPaper(null)
       setSelectedEvaluator(null)
-      alert('Evaluator assigned successfully!')
+      toast.success('Evaluator assigned successfully!')
     } catch (err: any) {
-      alert(`Error: ${err.message || 'Failed to assign evaluator'}`)
-      console.error(err)
+      toast.error(err.message || 'Failed to assign evaluator')
     } finally {
       setAssigning(false)
+      setShowConfirmDialog(false) // Just in case
     }
   }
 
@@ -478,6 +482,17 @@ export default function AdminPapers() {
                 </div>
               </div>
             )}
+
+            <ConfirmDialog 
+              isOpen={showConfirmDialog}
+              title="Confirm Assignment"
+              message={`Are you sure you want to assign ${selectedEvaluator?.name || selectedEvaluator?.email} to evaluate the paper "${selectedPaper?.title}"?`}
+              confirmText="Yes, Assign"
+              cancelText="Cancel"
+              isLoading={assigning}
+              onConfirm={handleProceedAssignment}
+              onCancel={() => setShowConfirmDialog(false)}
+            />
           </main>
         </div>
       </div>

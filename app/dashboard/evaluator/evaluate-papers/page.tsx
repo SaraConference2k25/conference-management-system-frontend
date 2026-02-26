@@ -8,6 +8,7 @@ import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { ProtectedRoute } from '@/lib/components/ProtectedRoute'
 import { getInitials, getDisplayName } from '@/lib/utils/avatar'
+import { toast } from 'sonner' 
 
 interface Paper {
   paperId: string
@@ -42,6 +43,7 @@ function EvaluatePapersContent() {
   const [paperFeedback, setPaperFeedback] = useState<{ [key: string]: string }>({})
   const [paperDecisions, setPaperDecisions] = useState<{ [key: string]: string }>({})
   const [savingId, setSavingId] = useState<string | null>(null)
+  const [submittingId, setSubmittingId] = useState<string | null>(null)
   const [savedComments, setSavedComments] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
@@ -85,7 +87,7 @@ function EvaluatePapersContent() {
         setPaperDecisions(decisionsState)
         setSavedComments(savedCommentsState)
       } catch (error: any) {
-        console.error('Error fetching papers:', error)
+        toast.error(error.message || 'Failed to fetch papers')
         setPapersError(error.message || 'Failed to fetch papers')
         setPapers([])
       } finally {
@@ -112,8 +114,9 @@ function EvaluatePapersContent() {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
+      setTimeout(() => toast.success('Download started'), 500)
     } catch (error: any) {
-      console.error('Error downloading paper:', error)
+      toast.error('Failed to download paper')
     } finally {
       setDownloadingId(null)
     }
@@ -137,7 +140,7 @@ function EvaluatePapersContent() {
     const paperId = paper.paperId || paper.id
     
     if (!paperId) {
-      alert('Paper ID is missing')
+      toast.error('Paper ID is missing')
       return
     }
     
@@ -145,12 +148,12 @@ function EvaluatePapersContent() {
     const decision = paperDecisions[paperId]
 
     if (!feedback?.trim()) {
-      alert('Please provide comments before saving')
+      toast.warning('Please provide comments before saving')
       return
     }
 
     if (!decision) {
-      alert('Please select an evaluation decision before saving')
+      toast.warning('Please select an evaluation decision before saving')
       return
     }
 
@@ -165,10 +168,9 @@ function EvaluatePapersContent() {
         [paperId]: new Date().toLocaleString()
       }))
       
-      alert('Evaluation saved successfully!')
+      toast.success('Evaluation saved successfully!')
     } catch (error: any) {
-      console.error('Error saving evaluation:', error)
-      alert('Failed to save evaluation: ' + error.message)
+      toast.error('Failed to save evaluation: ' + error.message)
     } finally {
       setSavingId(null)
     }
@@ -178,7 +180,7 @@ function EvaluatePapersContent() {
     const paperId = paper.paperId || paper.id
     
     if (!paperId) {
-      alert('Paper ID is missing')
+      toast.error('Paper ID is missing')
       return
     }
     
@@ -186,17 +188,17 @@ function EvaluatePapersContent() {
     const decision = paperDecisions[paperId]
 
     if (!feedback?.trim()) {
-      alert('Please provide comments before submitting')
+      toast.warning('Please provide comments before submitting')
       return
     }
 
     if (!decision) {
-      alert('Please select an evaluation decision before submitting')
+      toast.warning('Please select an evaluation decision before submitting')
       return
     }
 
     try {
-      setSavingId(paperId)
+      setSubmittingId(paperId)
       
       // Map frontend decision values to backend enum values
       const statusMap: { [key: string]: string } = {
@@ -220,7 +222,7 @@ function EvaluatePapersContent() {
       
       await apiClient.evaluatePaper(evaluationRequest)
       
-      alert('Evaluation submitted successfully!')
+      toast.success('Evaluation submitted successfully!')
       
       // Optionally refresh the papers list
       setPapers(papers.map(p => 
@@ -229,10 +231,9 @@ function EvaluatePapersContent() {
           : p
       ))
     } catch (error: any) {
-      console.error('Error submitting evaluation:', error)
-      alert('Failed to submit evaluation: ' + error.message)
+      toast.error('Error submitting evaluation: ' + (error.message || 'Unknown error'))
     } finally {
-      setSavingId(null)
+      setSubmittingId(null)
     }
   }
 
@@ -588,7 +589,8 @@ function EvaluatePapersContent() {
                               disabled={
                                 !paperDecisions[paperId] || 
                                 !paperFeedback[paperId]?.trim() ||
-                                savingId === paperId
+                                savingId === paperId ||
+                                paper.status?.toUpperCase() === 'ACCEPTED'
                               }
                               className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded-lg font-semibold transition-colors disabled:cursor-not-allowed"
                             >
@@ -612,11 +614,12 @@ function EvaluatePapersContent() {
                                 disabled={
                                   !paperDecisions[paperId] || 
                                   !paperFeedback[paperId]?.trim() ||
-                                  savingId === paperId
+                                  submittingId === paperId ||
+                                  paper.status?.toUpperCase() === 'ACCEPTED'
                                 }
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white text-sm rounded-lg font-semibold transition-colors disabled:cursor-not-allowed"
                               >
-                                {savingId === paperId ? (
+                                {submittingId === paperId ? (
                                   <>
                                     <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
                                     Submitting...
@@ -631,7 +634,7 @@ function EvaluatePapersContent() {
                               
                               <button
                                 onClick={() => handleDownloadPaper(paper.paperFileUrl || '', paper.paperFileName)}
-                                disabled={downloadingId === paper.paperFileUrl}
+                                disabled={downloadingId === paper.paperFileUrl || paper.status?.toUpperCase() === 'ACCEPTED'}
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white text-sm rounded-lg font-semibold transition-colors disabled:cursor-not-allowed"
                               >
                                 <DownloadIcon className="w-3.5 h-3.5" />
