@@ -32,9 +32,10 @@ export default function AdminEvaluators() {
 
   // Form states
   const [newEvaluator, setNewEvaluator] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
+    confirmPassword: '',
     department: ''
   })
 
@@ -59,7 +60,7 @@ export default function AdminEvaluators() {
     return evaluators.filter(
       (e) =>
         !query ||
-        (e.name || '')?.toLowerCase().includes(query) ||
+        (e.username || e.name || '')?.toLowerCase().includes(query) ||
         (e.email || '')?.toLowerCase().includes(query) ||
         (e.department || '')?.toLowerCase().includes(query)
     )
@@ -78,8 +79,13 @@ export default function AdminEvaluators() {
   }
 
   const handleCreateEvaluator = async () => {
-    if (!newEvaluator.name || !newEvaluator.email || !newEvaluator.password) {
+    if (!newEvaluator.username || !newEvaluator.email || !newEvaluator.password || !newEvaluator.confirmPassword) {
       alert('Please fill in all required fields')
+      return
+    }
+
+    if (newEvaluator.password !== newEvaluator.confirmPassword) {
+      alert('Passwords do not match')
       return
     }
 
@@ -92,7 +98,7 @@ export default function AdminEvaluators() {
       setEvaluators(Array.isArray(evaluatorsData) ? evaluatorsData : [])
       
       setShowCreateModal(false)
-      setNewEvaluator({ name: '', email: '', password: '', department: '' })
+      setNewEvaluator({ username: '', email: '', password: '', confirmPassword: '', department: '' })
       alert('Evaluator created successfully!')
     } catch (err: any) {
       alert(`Error: ${err.message || 'Failed to create evaluator'}`)
@@ -416,16 +422,16 @@ export default function AdminEvaluators() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-1">
-                        Name *
+                        Username *
                       </label>
                       <input
                         type="text"
-                        value={newEvaluator.name}
+                        value={newEvaluator.username}
                         onChange={(e) =>
-                          setNewEvaluator({ ...newEvaluator, name: e.target.value })
+                          setNewEvaluator({ ...newEvaluator, username: e.target.value })
                         }
                         className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                        placeholder="Enter name"
+                        placeholder="Enter username"
                       />
                     </div>
                     <div>
@@ -458,6 +464,20 @@ export default function AdminEvaluators() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-1">
+                        Confirm Password *
+                      </label>
+                      <input
+                        type="password"
+                        value={newEvaluator.confirmPassword}
+                        onChange={(e) =>
+                          setNewEvaluator({ ...newEvaluator, confirmPassword: e.target.value })
+                        }
+                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                        placeholder="Confirm password"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1">
                         Department
                       </label>
                       <input
@@ -475,7 +495,7 @@ export default function AdminEvaluators() {
                     <button
                       onClick={() => {
                         setShowCreateModal(false)
-                        setNewEvaluator({ name: '', email: '', password: '', department: '' })
+                        setNewEvaluator({ username: '', email: '', password: '', confirmPassword: '', department: '' })
                       }}
                       disabled={creating}
                       className="flex-1 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition font-medium text-slate-700 disabled:opacity-50"
