@@ -262,10 +262,27 @@ class APIClient {
   }
 
   async evaluatePaper(request: any): Promise<PaperSubmissionResponse> {
-    return this.request<PaperSubmissionResponse>('/admin/evaluators/evaluate-paper', {
-      method: 'POST',
-      body: JSON.stringify(request),
-    });
+    try {
+      // Use the correct endpoint format consistent with other evaluator methods
+      // Assuming request is PaperSubmissionRequest
+      const response = await fetch(`${this.baseURL}/admin/evaluators/evaluate-paper`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.getAuthToken()}`,
+        },
+        body: JSON.stringify(request),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error in evaluatePaper:', error);
+      throw error;
+    }
   }
 
   async downloadPaper(id: string): Promise<Blob> {
@@ -314,7 +331,7 @@ class APIClient {
   // ===== EVALUATOR ENDPOINTS =====
   async createEvaluator(evaluatorData: any) {
     try {
-      const response = await fetch(`${this.baseURL}/evaluators/create`, {
+      const response = await fetch(`${this.baseURL}/admin/evaluators/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -322,6 +339,9 @@ class APIClient {
         },
         body: JSON.stringify(evaluatorData),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       console.error('Error creating evaluator:', error);
@@ -331,12 +351,15 @@ class APIClient {
 
   async getAllEvaluators() {
     try {
-      const response = await fetch(`${this.baseURL}/evaluators/all`, {
+      const response = await fetch(`${this.baseURL}/admin/evaluators/all`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${this.getAuthToken()}`,
         },
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       console.error('Error fetching evaluators:', error);
@@ -346,12 +369,15 @@ class APIClient {
 
   async getEvaluatorById(evaluatorId: string | number) {
     try {
-      const response = await fetch(`${this.baseURL}/evaluators/${evaluatorId}`, {
+      const response = await fetch(`${this.baseURL}/admin/evaluators/${evaluatorId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${this.getAuthToken()}`,
         },
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       console.error('Error fetching evaluator:', error);
@@ -361,7 +387,7 @@ class APIClient {
 
   async updateEvaluator(evaluatorId: string | number, evaluatorData: any) {
     try {
-      const response = await fetch(`${this.baseURL}/evaluators/${evaluatorId}`, {
+      const response = await fetch(`${this.baseURL}/admin/evaluators/${evaluatorId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -369,6 +395,9 @@ class APIClient {
         },
         body: JSON.stringify(evaluatorData),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       console.error('Error updating evaluator:', error);
@@ -378,12 +407,15 @@ class APIClient {
 
   async deleteEvaluator(evaluatorId: string | number) {
     try {
-      const response = await fetch(`${this.baseURL}/evaluators/${evaluatorId}`, {
+      const response = await fetch(`${this.baseURL}/admin/evaluators/${evaluatorId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${this.getAuthToken()}`,
         },
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       console.error('Error deleting evaluator:', error);
@@ -393,12 +425,15 @@ class APIClient {
 
   async getEvaluatorStats() {
     try {
-      const response = await fetch(`${this.baseURL}/evaluators/stats`, {
+      const response = await fetch(`${this.baseURL}/admin/evaluators/stats/summary`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${this.getAuthToken()}`,
         },
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       console.error('Error fetching evaluator stats:', error);
@@ -415,7 +450,18 @@ class APIClient {
           'Authorization': `Bearer ${this.getAuthToken()}`,
         },
       });
-      return await response.json();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return await response.json();
+      } else {
+        const text = await response.text();
+        return { message: text };
+      }
     } catch (error) {
       console.error('Error assigning evaluator to paper:', error);
       throw error;
