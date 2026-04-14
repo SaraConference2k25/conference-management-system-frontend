@@ -1,4 +1,4 @@
-# SARA Conference 2025 - Frontend Application
+# SARA Conference Management System - Frontend Application
 
 <div align="center">
 
@@ -1031,7 +1031,7 @@ See the [Contributors page](https://github.com/SaraConference2k25/frontend-nextj
 
 <div align="center">
 
-**Built with ❤️ by the SARA Conference 2025 Team**
+**Built by first two benchers of department of CSBS, Saranathan College of Engineering **
 
 [⬆ Back to Top](#sara-conference-2025---frontend-application)
 
