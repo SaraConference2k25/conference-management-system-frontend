@@ -213,6 +213,12 @@ class APIClient {
     });
   }
 
+  async getPapersByEvaluator(evaluatorEmail: string): Promise<PaperSubmissionResponse[]> {
+    return this.request<PaperSubmissionResponse[]>(`/papers/evaluator/email/${evaluatorEmail}`, {
+      method: 'GET',
+    });
+  }
+
   async getAllPapers(): Promise<PaperSubmissionResponse[]> {
     return this.request<PaperSubmissionResponse[]>('/papers/all', {
       method: 'GET',

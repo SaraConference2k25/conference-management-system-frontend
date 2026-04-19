@@ -57,7 +57,8 @@ function EvaluatePapersContent() {
     const fetchPapers = async () => {
       try {
         setPapersLoading(true)
-        const allPapers = await apiClient.getAllPapers()
+        // Only fetch papers assigned to this evaluator using their email
+        const allPapers = await apiClient.getPapersByEvaluator(authUser?.email || '')
         setPapers(allPapers || [])
         setPapersError(null)
 

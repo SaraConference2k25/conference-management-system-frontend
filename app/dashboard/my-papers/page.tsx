@@ -240,33 +240,25 @@ export default function MyPapersPage() {
             </div>
           )}
 
-          {/* Empty State */}
-          {!papersLoading && !papersError && papers.length === 0 && (
-            <div className="text-center py-16 bg-gray-50 dark:bg-gray-800 rounded-xl">
-              <DocumentIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No Papers Submitted</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">You haven't submitted any papers yet. Start by uploading your first paper.</p>
-              <Link href="/dashboard/upload" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors">
-                <DocumentIcon className="w-5 h-5" />
-                Submit Your First Paper
-              </Link>
-            </div>
-          )}
-
           {/* Papers List */}
           <div className="space-y-4">
             {filteredPapers.length === 0 ? (
               <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
                 <DocumentIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No Papers Found</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {papers.length === 0 ? 'No Papers Submitted' : 'No Papers Found'}
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  {filteredPapers.length === 0 && papers.length > 0
+                  {papers.length > 0
                     ? 'No papers match the selected status.'
                     : 'You haven\'t submitted any papers yet.'}
                 </p>
-                <Link href="/dashboard/upload" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors">
-                  Submit Your First Paper
-                </Link>
+                {papers.length === 0 && (
+                  <Link href="/dashboard/upload" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors">
+                    <DocumentIcon className="w-5 h-5" />
+                    Submit Your First Paper
+                  </Link>
+                )}
               </div>
             ) : (
               filteredPapers.map(paper => {
