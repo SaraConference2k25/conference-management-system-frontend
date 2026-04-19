@@ -67,6 +67,15 @@ export interface PaperSubmitRequest {
   paperFile: File;
 }
 
+export interface AdminMetricsResponse {
+  totalAccepted: number;
+  totalAssigned: number;
+  totalEvaluators: number;
+  totalPapers: number;
+  totalPending: number;
+  totalRejected: number;
+}
+
 class APIClient {
   private baseURL: string;
 
@@ -221,6 +230,12 @@ class APIClient {
 
   async getAllPapers(): Promise<PaperSubmissionResponse[]> {
     return this.request<PaperSubmissionResponse[]>('/papers/all', {
+      method: 'GET',
+    });
+  }
+
+  async getAdminMetrics(): Promise<AdminMetricsResponse> {
+    return this.request<AdminMetricsResponse>('/papers/metrics-admin', {
       method: 'GET',
     });
   }

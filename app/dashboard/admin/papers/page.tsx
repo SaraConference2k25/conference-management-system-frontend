@@ -69,8 +69,18 @@ export default function AdminPapers() {
           paper.paperId?.toLowerCase().includes(query) ||
           paper.department?.toLowerCase().includes(query))
 
-      const matchesStatus =
-        filterStatus === 'all' || paper.status === filterStatus
+      let matchesStatus = filterStatus === 'all'
+      if (!matchesStatus) {
+        if (filterStatus === 'pending') {
+          matchesStatus = (paper.status || '').includes('PENDING') || paper.status === 'pending'
+        } else if (filterStatus === 'evaluating') {
+          matchesStatus = (paper.status || '').includes('UNDER_REVIEW') || (paper.status || '').includes('ASSIGNED') || (paper.status || '').includes('EVALUATION') || paper.status === 'evaluating'
+        } else if (filterStatus === 'completed') {
+          matchesStatus = paper.status === 'ACCEPTED'
+        } else {
+          matchesStatus = paper.status === filterStatus
+        }
+      }
 
       return matchesSearch && matchesStatus
     })
@@ -79,8 +89,8 @@ export default function AdminPapers() {
   const stats = useMemo(() => ({
     total: papers.length,
     pending: papers.filter(p => (p.status || '').includes('PENDING') || p.status === 'pending').length,
-    underEvaluation: papers.filter(p => (p.status || '').includes('EVALUATION') || p.status === 'evaluating').length,
-    completed: papers.filter(p => p.status === 'ACCEPTED' || p.status === 'REJECTED' || p.status === 'completed').length
+    underEvaluation: papers.filter(p => (p.status || '').includes('UNDER_REVIEW') || (p.status || '').includes('ASSIGNED') || (p.status || '').includes('EVALUATION') || p.status === 'evaluating').length,
+    completed: papers.filter(p => p.status === 'ACCEPTED').length
   }), [papers])
 
   const handleLogout = () => {
@@ -293,12 +303,12 @@ export default function AdminPapers() {
                   </div>
                 </div>
 
-                {/* Completed Papers */}
+                {/* Accepted Papers */}
                 <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-semibold text-green-600 uppercase tracking-wide mb-1">
-                        Completed
+                        Accepted
                       </p>
                       <p className="text-3xl font-bold text-slate-900">{stats.completed}</p>
                     </div>
@@ -331,7 +341,7 @@ export default function AdminPapers() {
                     <option value="all">All Papers</option>
                     <option value="pending">Pending</option>
                     <option value="evaluating">Evaluating</option>
-                    <option value="completed">Completed</option>
+                    <option value="completed">Accepted</option>
                   </select>
                 </div>
               </div>

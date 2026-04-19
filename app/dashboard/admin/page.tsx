@@ -12,36 +12,29 @@ export default function AdminDashboard() {
   const { user, logout } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [stats, setStats] = useState({
-    total: 0,
-    pending: 0,
-    underEvaluation: 0,
-    completed: 0,
+    totalPapers: 0,
+    pendingPapers: 0,
+    evaluatingPapers: 0,
+    completedPapers: 0,
     totalEvaluators: 0,
-    activeEvaluators: 0,
+    totalRejected: 0,
   })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [papers, evaluators] = await Promise.all([
-          apiClient.getAllPapers(),
-          apiClient.getAllEvaluators(),
-        ])
-
-        const paperArray = Array.isArray(papers) ? papers : []
-        const evaluatorArray = Array.isArray(evaluators) ? evaluators : []
-
+        const metrics = await apiClient.getAdminMetrics()
         setStats({
-          total: paperArray.length,
-          pending: paperArray.filter((p: any) => p.status === 'PENDING').length,
-          underEvaluation: paperArray.filter((p: any) => p.status === 'UNDER_EVALUATION').length,
-          completed: paperArray.filter((p: any) => ['ACCEPTED', 'REJECTED'].includes(p.status)).length,
-          totalEvaluators: evaluatorArray.length,
-          activeEvaluators: evaluatorArray.filter((e: any) => e.workload > 0).length,
+          totalPapers: metrics.totalPapers || 0,
+          pendingPapers: metrics.totalPending || 0,
+          evaluatingPapers: (metrics.totalPapers || 0) - ((metrics.totalPending || 0) + (metrics.totalAccepted || 0) + (metrics.totalRejected || 0)),
+          completedPapers: metrics.totalAccepted || 0,
+          totalEvaluators: metrics.totalEvaluators || 0,
+          totalRejected: metrics.totalRejected || 0,
         })
       } catch (error) {
-        console.error('Error fetching stats:', error)
+        console.error('Error fetching admin metrics:', error)
       } finally {
         setLoading(false)
       }
@@ -174,7 +167,7 @@ export default function AdminDashboard() {
                       <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-1">
                         Total Papers
                       </p>
-                      <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
+                      <p className="text-3xl font-bold text-slate-900">{stats.totalPapers}</p>
                     </div>
                     <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,7 +184,7 @@ export default function AdminDashboard() {
                       <p className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-1">
                         Pending
                       </p>
-                      <p className="text-3xl font-bold text-slate-900">{stats.pending}</p>
+                      <p className="text-3xl font-bold text-slate-900">{stats.pendingPapers}</p>
                     </div>
                     <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,7 +201,7 @@ export default function AdminDashboard() {
                       <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-1">
                         Evaluating
                       </p>
-                      <p className="text-3xl font-bold text-slate-900">{stats.underEvaluation}</p>
+                      <p className="text-3xl font-bold text-slate-900">{stats.evaluatingPapers}</p>
                     </div>
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,14 +211,14 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                {/* Completed Papers */}
+                {/* Accepted Papers */}
                 <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500 hover:shadow-lg transition">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-semibold text-green-600 uppercase tracking-wide mb-1">
-                        Completed
+                        Accepted
                       </p>
-                      <p className="text-3xl font-bold text-slate-900">{stats.completed}</p>
+                      <p className="text-3xl font-bold text-slate-900">{stats.completedPapers}</p>
                     </div>
                     <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -252,18 +245,18 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                {/* Active Evaluators */}
-                <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-cyan-500 hover:shadow-lg transition">
+                {/* Total Rejected */}
+                <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500 hover:shadow-lg transition">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-cyan-600 uppercase tracking-wide mb-1">
-                        Active Evaluators
+                      <p className="text-sm font-semibold text-red-600 uppercase tracking-wide mb-1">
+                        Total Rejected
                       </p>
-                      <p className="text-3xl font-bold text-slate-900">{stats.activeEvaluators}</p>
+                      <p className="text-3xl font-bold text-slate-900">{stats.totalRejected}</p>
                     </div>
-                    <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </div>
                   </div>
