@@ -43,7 +43,7 @@
 
 ## 🎯 Overview
 
-SARA Conference 2025 is a comprehensive, enterprise-grade conference management platform built with modern web technologies. This frontend application provides an intuitive interface for conference participants, evaluators, and administrators to manage academic paper submissions, reviews, and conference logistics.
+SaraConference2025 is a comprehensive, enterprise-grade conference management platform built with modern web technologies. This frontend application provides an intuitive interface for conference participants, evaluators, and administrators to manage academic paper submissions, reviews, and conference logistics.
 
 ### Project Purpose
 
@@ -53,7 +53,7 @@ SARA Conference 2025 is a comprehensive, enterprise-grade conference management 
 
 ### Project Status
 
-�� **Actively Maintained** | 📱 **Responsive Design** | 🔐 **JWT-Based Auth** | 🧩 **Role-Based Dashboards**
+ **Actively Maintained** |  **Responsive Design** |  **JWT-Based Auth** |  **Role-Based Dashboards**
 
 ---
 
@@ -980,7 +980,7 @@ Roadmap details are maintained in GitHub issues and project tracking boards.
 
 <div align="center">
 
-**Built by first two benchers of department of CSBS, Saranathan College of Engineering **
+Built by first two benchers of department of CSBS, Saranathan College of Engineering 
 
 [⬆ Back to Top](#sara-conference-management-system---frontend)
 
