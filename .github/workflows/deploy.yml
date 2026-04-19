@@ -10,31 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # 4. Build Next.js app
+      #  Build + Export 
       - name: Build project
         run: npm run build
 
-      # 5. Install Netlify CLI
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
-      # 6. Deploy to Netlify
+      # Correct deploy command
       - name: Deploy to Netlify
-        run: netlify deploy --prod --dir=.next
+        run: netlify deploy --prod --dir=out --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
