@@ -1,36 +1,14 @@
-name: Deploy Saraconference Frontend to Netlify
+name: Trigger Netlify SSR Build
 
 on:
   push:
     branches:
-      - master  
+      - master
 
 jobs:
-  build-and-deploy:
+  trigger-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      #  Build + Export 
-      - name: Build project
-        run: npm run build
-
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      # Correct deploy command
-      - name: Deploy to Netlify
-        run: netlify deploy --prod --dir=out --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Trigger Netlify Build
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
