@@ -53,7 +53,7 @@ SARA Conference 2025 is a comprehensive, enterprise-grade conference management 
 
 ### Project Status
 
-✅ **Production Ready** | 🔒 **Security Audited** | 📱 **Mobile Responsive** | ♿ **WCAG 2.1 Compliant**
+�� **Actively Maintained** | 📱 **Responsive Design** | 🔐 **JWT-Based Auth** | 🧩 **Role-Based Dashboards**
 
 ---
 
@@ -126,7 +126,7 @@ SARA Conference 2025 is a comprehensive, enterprise-grade conference management 
 ### Project Structure
 
 ```
-frontend-nextjs/
+conference-management-system-frontend/
 ├── app/                          # Next.js App Router pages
 │   ├── layout.tsx               # Root layout with providers
 │   ├── page.tsx                 # Home page
@@ -220,7 +220,7 @@ Before you begin, ensure you have the following installed:
 
 ### Backend Requirements
 - **Spring Boot Backend**: Running on `http://localhost:8080`
-- See [SPRING_BOOT_GUIDE.md](./SPRING_BOOT_GUIDE.md) for backend setup
+- See [docs/SPRING_BOOT_GUIDE.md](./docs/SPRING_BOOT_GUIDE.md) for backend setup
 
 ---
 
@@ -231,8 +231,8 @@ Get up and running in under 5 minutes:
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/SaraConference2k25/frontend-nextjs.git
-cd frontend-nextjs
+git clone https://github.com/SaraConference2k25/conference-management-system-frontend.git
+cd conference-management-system-frontend
 ```
 
 ### 2️⃣ Install Dependencies
@@ -275,19 +275,19 @@ Navigate to **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 ```bash
 # HTTPS
-git clone https://github.com/SaraConference2k25/frontend-nextjs.git
+git clone https://github.com/SaraConference2k25/conference-management-system-frontend.git
 
 # SSH
-git clone git@github.com:SaraConference2k25/frontend-nextjs.git
+git clone git@github.com:SaraConference2k25/conference-management-system-frontend.git
 
 # GitHub CLI
-gh repo clone SaraConference2k25/frontend-nextjs
+gh repo clone SaraConference2k25/conference-management-system-frontend
 ```
 
 #### Step 2: Navigate to Project Directory
 
 ```bash
-cd frontend-nextjs
+cd conference-management-system-frontend
 ```
 
 #### Step 3: Install Dependencies
@@ -598,44 +598,16 @@ try {
 
 ## 🧪 Testing
 
-### Running Tests
+There is currently no dedicated `npm test` script in `package.json`.
+
+For now, use the existing quality checks:
 
 ```bash
-# Run all tests
-npm test
+# Lint the codebase
+npm run lint
 
-# Run tests in watch mode
-npm test -- --watch
-
-# Run tests with coverage
-npm test -- --coverage
-```
-
-### Test Structure
-
-```
-tests/
-├── unit/                 # Unit tests
-│   ├── components/      # Component tests
-│   └── utils/           # Utility function tests
-├── integration/         # Integration tests
-└── e2e/                # End-to-end tests
-```
-
-### Writing Tests
-
-```typescript
-// Example component test
-import { render, screen } from '@testing-library/react'
-import LoginSection from '@/components/LoginSection'
-
-describe('LoginSection', () => {
-  it('renders login form', () => {
-    render(<LoginSection />)
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
-  })
-})
+# Create a production build
+npm run build
 ```
 
 ---
@@ -687,16 +659,6 @@ CMD ["npm", "start"]
 # Build and run
 docker build -t sara-conference-frontend .
 docker run -p 3000:3000 sara-conference-frontend
-```
-
-#### Static Export
-
-```bash
-# Build static export
-npm run build
-npm run export
-
-# Deploy the out/ directory to any static host
 ```
 
 ### Environment Variables for Production
@@ -883,14 +845,15 @@ NEXT_PUBLIC_DEBUG=true
 
 ### Additional Documentation Files
 
-- **[QUICK_START.md](./QUICK_START.md)** - 5-minute setup guide
-- **[BACKEND_INTEGRATION.md](./BACKEND_INTEGRATION.md)** - Detailed API integration guide
-- **[SPRING_BOOT_GUIDE.md](./SPRING_BOOT_GUIDE.md)** - Backend API specifications
-- **[INTEGRATION_COMPLETE.md](./INTEGRATION_COMPLETE.md)** - Integration completion checklist
-- **[DASHBOARD_BACKEND_INTEGRATION.md](./DASHBOARD_BACKEND_INTEGRATION.md)** - Dashboard integration guide
-- **[PAPER_SUBMISSION_INTEGRATION.md](./PAPER_SUBMISSION_INTEGRATION.md)** - Paper submission workflow
-- **[LOGIN_FIX_SUMMARY.md](./LOGIN_FIX_SUMMARY.md)** - Login implementation details
-- **[BACKEND_FIXES.md](./BACKEND_FIXES.md)** - Backend bug fixes and solutions
+- **[docs/QUICK_START.md](./docs/QUICK_START.md)** - 5-minute setup guide
+- **[docs/BACKEND_INTEGRATION.md](./docs/BACKEND_INTEGRATION.md)** - Detailed API integration guide
+- **[docs/SPRING_BOOT_GUIDE.md](./docs/SPRING_BOOT_GUIDE.md)** - Backend API specifications
+- **[docs/INTEGRATION_COMPLETE.md](./docs/INTEGRATION_COMPLETE.md)** - Integration completion checklist
+- **[docs/DASHBOARD_BACKEND_INTEGRATION.md](./docs/DASHBOARD_BACKEND_INTEGRATION.md)** - Dashboard integration guide
+- **[docs/PAPER_SUBMISSION_INTEGRATION.md](./docs/PAPER_SUBMISSION_INTEGRATION.md)** - Paper submission workflow
+- **[docs/LOGIN_FIX_SUMMARY.md](./docs/LOGIN_FIX_SUMMARY.md)** - Login implementation details
+- **[docs/BACKEND_FIXES.md](./docs/BACKEND_FIXES.md)** - Backend bug fixes and solutions
+- **[docs/REGISTRATION_REQUEST_FORMAT.md](./docs/REGISTRATION_REQUEST_FORMAT.md)** - Registration payload and backend expectations
 
 ### External Resources
 
@@ -947,8 +910,8 @@ We welcome contributions from the community! Here's how you can help:
 ### Getting Help
 
 - **Documentation**: Check the `/docs` folder and additional `.md` files
-- **Issues**: Report bugs via [GitHub Issues](https://github.com/SaraConference2k25/frontend-nextjs/issues)
-- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/SaraConference2k25/frontend-nextjs/discussions)
+- **Issues**: Report bugs via [GitHub Issues](https://github.com/SaraConference2k25/conference-management-system-frontend/issues)
+- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/SaraConference2k25/conference-management-system-frontend/discussions)
 
 ### Reporting Bugs
 
@@ -963,13 +926,13 @@ When reporting bugs, please include:
 
 ### Feature Requests
 
-We welcome feature requests! Please use the [Feature Request template](https://github.com/SaraConference2k25/frontend-nextjs/issues/new?template=feature_request.md).
+We welcome feature requests! Please use the [Feature Request template](https://github.com/SaraConference2k25/conference-management-system-frontend/issues/new?template=feature_request.md).
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This repository currently does not include a license file.
 
 ---
 
@@ -983,7 +946,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 Thanks to all contributors who have helped build this project! 
 
-See the [Contributors page](https://github.com/SaraConference2k25/frontend-nextjs/graphs/contributors) for a full list.
+See the [Contributors page](https://github.com/SaraConference2k25/conference-management-system-frontend/graphs/contributors) for a full list.
 
 ---
 
@@ -1011,23 +974,7 @@ See the [Contributors page](https://github.com/SaraConference2k25/frontend-nextj
 
 ## 🗺 Roadmap
 
-### Version 1.1 (Q2 2025)
-- [ ] Enhanced dashboard analytics
-- [ ] Real-time notifications
-- [ ] Advanced search functionality
-- [ ] Export capabilities
-
-### Version 1.2 (Q3 2025)
-- [ ] Mobile app integration
-- [ ] Offline mode support
-- [ ] Multi-language support
-- [ ] Advanced reporting tools
-
-### Version 2.0 (Q4 2025)
-- [ ] AI-powered paper evaluation
-- [ ] Video conferencing integration
-- [ ] Enhanced collaboration tools
-- [ ] Advanced analytics dashboard
+Roadmap details are maintained in GitHub issues and project tracking boards.
 
 ---
 
@@ -1035,6 +982,6 @@ See the [Contributors page](https://github.com/SaraConference2k25/frontend-nextj
 
 **Built by first two benchers of department of CSBS, Saranathan College of Engineering **
 
-[⬆ Back to Top](#sara-conference-2025---frontend-application)
+[⬆ Back to Top](#sara-conference-management-system---frontend)
 
 </div>
