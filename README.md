@@ -1,6 +1,8 @@
-# SARA Conference Management System - Frontend Application
+# SARA Conference Management System - Frontend
 
 <div align="center">
+
+<img src="public/saranathan_logo.jpg" alt="Saranathan Logo" width="120"/>
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.1.1-black?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.3-blue?style=for-the-badge&logo=react)
