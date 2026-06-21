@@ -8,7 +8,8 @@ import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { ProtectedRoute } from '@/lib/components/ProtectedRoute'
 import { getInitials, getDisplayName } from '@/lib/utils/avatar'
-import { toast } from 'sonner' 
+import { toast } from 'sonner'
+import { PaperListSkeleton } from '@/components/ui/loading-skeletons' 
 
 interface Paper {
   paperId: string
@@ -417,14 +418,7 @@ function EvaluatePapersContent() {
           </div>
 
           {/* Loading State */}
-          {papersLoading && (
-            <div className="flex justify-center items-center py-16">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">Loading papers for evaluation...</p>
-              </div>
-            </div>
-          )}
+          {papersLoading && <PaperListSkeleton count={4} />}
 
           {/* Error State */}
           {papersError && !papersLoading && (

@@ -67,16 +67,15 @@ export default function LoginSection() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 lg:py-16">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 sm:px-6 py-12">
       <div className="w-full max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Side - Login Form */}
           <div className="w-full">
             <div className="relative">
-              {/* Back Button */}
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6 sm:mb-8 text-xs sm:text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-6 text-sm font-medium transition-colors"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -85,15 +84,13 @@ export default function LoginSection() {
               </Link>
 
               {/* Form Card */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-                {/* Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 px-6 sm:px-8 lg:px-10 py-6 sm:py-8 lg:py-10">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 tracking-tight">Welcome Back</h1>
-                  <p className="text-blue-100 text-sm sm:text-base lg:text-lg">Sign in to access SARA 2025 Conference Portal</p>
+              <div className="card overflow-hidden">
+                <div className="dashboard-header px-6 sm:px-8 py-8">
+                  <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-1">Welcome back</h1>
+                  <p className="text-blue-200/80 text-sm">Sign in to the SARA 2026 Conference Portal</p>
                 </div>
 
-                {/* Form Content */}
-                <div className="px-6 sm:px-8 lg:px-10 py-6 sm:py-8 lg:py-10">
+                <div className="px-6 sm:px-8 py-8">
                   {/* Error Message */}
                   {error && (
                     <div className="mb-5 sm:mb-6 p-3 sm:p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
@@ -215,18 +212,18 @@ export default function LoginSection() {
                     <button
                       type="submit"
                       disabled={isLoading || authLoading}
-                      className="w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-lg rounded-lg transition-all shadow-lg hover:shadow-xl disabled:cursor-not-allowed disabled:shadow-md tracking-wide"
+                      className="w-full btn-primary py-3 text-base disabled:opacity-60"
                     >
                       {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
-                          <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                          <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
-                          Signing In...
+                          Signing in...
                         </span>
                       ) : (
-                        'Sign In to Portal'
+                        'Sign in to portal'
                       )}
                     </button>
 
@@ -256,22 +253,18 @@ export default function LoginSection() {
 
           {/* Right Side - Showcase */}
           <div className="hidden lg:flex flex-col justify-center">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-100 dark:border-gray-700">
+            <div className="card p-8">
               <div className="relative">
-                {/* College Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-6">
-                  <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                  </svg>
-                  <span className="text-sm font-bold text-blue-700 dark:text-blue-300 tracking-wide">SARA 2025</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-md mb-6">
+                  <span className="text-xs font-medium text-blue-800 tracking-wide">SARA 2026</span>
                 </div>
 
-                <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
+                <h2 className="text-2xl font-semibold text-slate-900 mb-3">
                   Saranathan College of Engineering
                 </h2>
 
-                <p className="text-xl text-gray-700 dark:text-gray-300 mb-6 font-semibold italic">
-                  "Excellence in Engineering Education & Innovation"
+                <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                  Excellence in engineering education and innovation. Access your conference portal to manage submissions, track reviews, and stay updated.
                 </p>
 
                 {/* Feature Cards */}
@@ -283,11 +276,11 @@ export default function LoginSection() {
                   ].map((feature, idx) => {
                     const FeatureIcon = feature.icon
                     return (
-                      <div key={idx} className="flex gap-4 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 hover:shadow-md transition-shadow">
-                        <FeatureIcon className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                      <div key={idx} className="flex gap-3 p-4 rounded-lg bg-slate-50 border border-slate-100">
+                        <FeatureIcon className="w-5 h-5 text-blue-700 flex-shrink-0 mt-0.5" />
                         <div>
-                          <h4 className="font-bold text-gray-900 dark:text-white text-sm">{feature.title}</h4>
-                          <p className="text-gray-600 dark:text-gray-400 text-xs mt-0.5">{feature.desc}</p>
+                          <h4 className="font-medium text-slate-900 text-sm">{feature.title}</h4>
+                          <p className="text-slate-500 text-xs mt-0.5">{feature.desc}</p>
                         </div>
                       </div>
                     )
@@ -295,15 +288,15 @@ export default function LoginSection() {
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-100">
                   {[
                     { number: '500+', label: 'Participants' },
                     { number: '100+', label: 'Papers' },
-                    { number: '4/3-4', label: 'Dates' },
+                    { number: 'Apr 3–4', label: 'Dates' },
                   ].map((stat, idx) => (
                     <div key={idx} className="text-center">
-                      <div className="text-2xl font-black text-blue-600 dark:text-blue-400">{stat.number}</div>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">{stat.label}</p>
+                      <div className="text-xl font-semibold text-slate-900 tabular-nums">{stat.number}</div>
+                      <p className="text-xs text-slate-500 mt-0.5">{stat.label}</p>
                     </div>
                   ))}
                 </div>

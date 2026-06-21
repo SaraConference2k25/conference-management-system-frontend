@@ -7,7 +7,8 @@ import { DocumentIcon, DownloadIcon, TrashIcon, ChevronDownIcon, MenuIcon, XIcon
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { getInitials, getDisplayName } from '@/lib/utils/avatar'
-import { toast } from 'sonner' 
+import { toast } from 'sonner'
+import { DashboardPageSkeleton, PaperListSkeleton } from '@/components/ui/loading-skeletons'
 
 interface Paper {
   id: string
@@ -106,10 +107,14 @@ export default function MyPapersPage() {
     }
   }
 
+  if (isLoading) {
+    return <DashboardPageSkeleton />
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 dark:from-blue-950 dark:via-indigo-950 dark:to-gray-950 shadow-lg border-b border-blue-800 dark:border-blue-900">
+      <header className="sticky top-0 z-40 dashboard-header shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 sm:gap-4">
@@ -223,14 +228,7 @@ export default function MyPapersPage() {
           </div>
 
           {/* Loading State */}
-          {papersLoading && (
-            <div className="flex justify-center items-center py-16">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">Loading your papers...</p>
-              </div>
-            </div>
-          )}
+          {papersLoading && <PaperListSkeleton count={4} />}
 
           {/* Error State */}
           {papersError && !papersLoading && (
@@ -241,6 +239,7 @@ export default function MyPapersPage() {
           )}
 
           {/* Papers List */}
+          {!papersLoading && (
           <div className="space-y-4">
             {filteredPapers.length === 0 ? (
               <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
@@ -394,6 +393,7 @@ export default function MyPapersPage() {
               })
             )}
           </div>
+          )}
         </main>
       </div>
     </div>

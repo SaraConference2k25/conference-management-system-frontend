@@ -7,6 +7,7 @@ import { DocumentIcon, MenuIcon, XIcon, LogOutIcon, UploadIcon, AlertIcon, Check
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { getInitials, getDisplayName } from '@/lib/utils/avatar'
+import { DashboardPageSkeleton } from '@/components/ui/loading-skeletons'
 import { toast } from 'sonner' 
 
 export default function UploadPaperPage() {
@@ -103,6 +104,10 @@ export default function UploadPaperPage() {
   const handleLogout = () => {
     apiClient.logout()
     router.push('/login')
+  }
+
+  if (isLoading) {
+    return <DashboardPageSkeleton />
   }
 
   return (

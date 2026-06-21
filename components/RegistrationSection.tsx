@@ -2,109 +2,79 @@ import Link from 'next/link'
 import { CheckCircleIcon, DocumentIcon } from './Icons'
 
 export default function RegistrationSection() {
-  return (
-    <div className="w-full py-12 sm:py-16 px-4 sm:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">Registration Instructions</h2>
+  const steps = [
+    { title: 'Create an Account', desc: 'Click on the "Create Account" button to create your account with your email address.' },
+    { title: 'Fill Personal Details', desc: 'Complete your profile with accurate information including your academic affiliation and contact details.' },
+    { title: 'Choose Registration Type', desc: 'Select from Student, Faculty, Research Scholar, or Industry Professional categories.' },
+    { title: 'Payment', desc: 'Complete the registration fee payment through our secure payment gateway.' },
+    { title: 'Confirmation', desc: 'You will receive a confirmation email with your registration details and conference schedule.' },
+  ]
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-8 mb-8">
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight">How to Register for the Conference</h3>
-          <ol className="space-y-6">
-            <li className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</span>
-              <div>
-                <strong className="text-gray-900 dark:text-white font-semibold">Create an Account:</strong>
-                <p className="text-gray-700 dark:text-gray-300 mt-1 font-medium">Click on the "Create Account" button to create your account with your email address.</p>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</span>
-              <div>
-                <strong className="text-gray-900 dark:text-white font-semibold">Fill Personal Details:</strong>
-                <p className="text-gray-700 dark:text-gray-300 mt-1 font-medium">Complete your profile with accurate information including your academic affiliation and contact details.</p>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</span>
-              <div>
-                <strong className="text-gray-900 dark:text-white font-semibold">Choose Registration Type:</strong>
-                <p className="text-gray-700 dark:text-gray-300 mt-1 font-medium">Select from Student, Faculty, Research Scholar, or Industry Professional categories.</p>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">4</span>
-              <div>
-                <strong className="text-gray-900 dark:text-white font-semibold">Payment:</strong>
-                <p className="text-gray-700 dark:text-gray-300 mt-1 font-medium">Complete the registration fee payment through our secure payment gateway.</p>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">5</span>
-              <div>
-                <strong className="text-gray-900 dark:text-white font-semibold">Confirmation:</strong>
-                <p className="text-gray-700 dark:text-gray-300 mt-1 font-medium">You will receive a confirmation email with your registration details and conference schedule.</p>
-              </div>
-            </li>
+  return (
+    <div className="w-full py-16 sm:py-20 px-4 sm:px-8 page-enter">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="section-heading text-2xl sm:text-3xl mb-8">Registration Instructions</h2>
+
+        <div className="card p-6 sm:p-8 mb-8 bg-blue-50/50 border-blue-100">
+          <h3 className="text-lg font-semibold text-slate-900 mb-6">How to Register for the Conference</h3>
+          <ol className="space-y-5">
+            {steps.map((step, i) => (
+              <li key={i} className="flex gap-4">
+                <span className="flex-shrink-0 w-7 h-7 bg-blue-700 text-white rounded-md flex items-center justify-center text-xs font-medium">{i + 1}</span>
+                <div>
+                  <strong className="text-slate-900 font-medium text-sm">{step.title}</strong>
+                  <p className="text-slate-600 mt-0.5 text-sm">{step.desc}</p>
+                </div>
+              </li>
+            ))}
           </ol>
         </div>
 
-        {/* Important Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border-l-4 border-indigo-600">
-            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="card p-6 border-l-[3px] border-l-blue-700">
+            <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DocumentIcon /> Registration Details
             </h4>
-            <ul className="space-y-4 text-gray-700 dark:text-gray-300 font-medium">
-              <li className="flex items-start gap-2">
-                <CheckCircleIcon />
-                <span><strong className="text-gray-900 dark:text-white">Early bird registration:</strong> Closes on January 15, 2026</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircleIcon />
-                <span><strong className="text-gray-900 dark:text-white">Student discounts:</strong> Available with valid ID verification</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircleIcon />
-                <span><strong className="text-gray-900 dark:text-white">Group discounts:</strong> For 5+ participants from same institution</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircleIcon />
-                <span><strong className="text-gray-900 dark:text-white">Last date:</strong> March 20, 2026</span>
-              </li>
+            <ul className="space-y-3 text-sm text-slate-600">
+              {[
+                ['Early bird registration:', 'Closes on January 15, 2026'],
+                ['Student discounts:', 'Available with valid ID verification'],
+                ['Group discounts:', 'For 5+ participants from same institution'],
+                ['Last date:', 'March 20, 2026'],
+              ].map(([label, value], i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <CheckCircleIcon />
+                  <span><strong className="text-slate-900 font-medium">{label}</strong> {value}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border-l-4 border-purple-600">
-            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+          <div className="card p-6 border-l-[3px] border-l-slate-700">
+            <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DocumentIcon /> Registration Fees
             </h4>
-            <ul className="space-y-4 text-gray-700 dark:text-gray-300 font-medium">
-              <li className="flex justify-between items-center">
-                <span><strong className="text-gray-900 dark:text-white">Students:</strong></span>
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">₹500 / $10</span>
-              </li>
-              <li className="flex justify-between items-center">
-                <span><strong className="text-gray-900 dark:text-white">Faculty/Scholars:</strong></span>
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">₹1000 / $20</span>
-              </li>
-              <li className="flex justify-between items-center">
-                <span><strong className="text-gray-900 dark:text-white">Industry Professionals:</strong></span>
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">₹1500 / $30</span>
-              </li>
-              <li className="pt-4 border-t border-gray-300 dark:border-gray-600 flex justify-between items-center">
-                <span><strong className="text-gray-900 dark:text-white">Early Bird (All):</strong></span>
-                <span className="font-bold text-green-600 dark:text-green-400">20% Discount</span>
+            <ul className="space-y-3 text-sm text-slate-600">
+              {[
+                ['Students', '₹500 / $10'],
+                ['Faculty/Scholars', '₹1000 / $20'],
+                ['Industry Professionals', '₹1500 / $30'],
+              ].map(([label, price], i) => (
+                <li key={i} className="flex justify-between items-center">
+                  <span className="font-medium text-slate-900">{label}</span>
+                  <span className="font-semibold text-slate-700 tabular-nums">{price}</span>
+                </li>
+              ))}
+              <li className="pt-3 border-t border-slate-100 flex justify-between items-center">
+                <span className="font-medium text-slate-900">Early Bird (All)</span>
+                <span className="font-semibold text-emerald-700">20% Discount</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* CTA */}
         <div className="text-center">
-          <Link
-            href="/register"
-            className="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
-          >
+          <Link href="/register" className="btn-primary px-8 py-3">
             Register Now
           </Link>
         </div>

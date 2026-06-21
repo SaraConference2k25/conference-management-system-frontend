@@ -8,6 +8,7 @@ import { ExitIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
 import { toast } from 'sonner'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { StatCardsSkeleton, TableSkeleton } from '@/components/ui/loading-skeletons'
 
 interface Evaluator {
   id?: string
@@ -262,6 +263,9 @@ export default function AdminEvaluators() {
               </div>
 
               {/* Stats Grid */}
+              {loading ? (
+                <StatCardsSkeleton count={4} />
+              ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {/* Total Evaluators */}
                 <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-600 hover:shadow-lg transition">
@@ -331,7 +335,12 @@ export default function AdminEvaluators() {
                   </div>
                 </div>
               </div>
+              )}
 
+              {loading ? (
+                <TableSkeleton rows={5} cols={5} />
+              ) : (
+              <>
               {/* Search */}
               <div className="bg-white rounded-lg shadow-md p-6 mb-8">
                 <input
@@ -423,6 +432,8 @@ export default function AdminEvaluators() {
                   </table>
                 </div>
               </div>
+              </>
+              )}
             </div>
 
             {/* Create Modal */}

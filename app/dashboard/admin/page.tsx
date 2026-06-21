@@ -6,6 +6,7 @@ import { ProtectedRoute } from '@/lib/components/ProtectedRoute'
 import { useAuth } from '@/lib/auth-context'
 import { ExitIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
+import { AdminStatsSkeleton } from '@/components/ui/loading-skeletons'
 
 export default function AdminDashboard() {
   const router = useRouter()
@@ -50,9 +51,9 @@ export default function AdminDashboard() {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="flex flex-col min-h-screen bg-slate-50">
         {/* Header */}
-        <header className="sticky top-0 z-50 bg-white shadow-md border-b border-slate-200">
+        <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <button
@@ -159,6 +160,9 @@ export default function AdminDashboard() {
               </div>
 
               {/* Stats Grid */}
+              {loading ? (
+                <AdminStatsSkeleton count={6} />
+              ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {/* Total Papers */}
                 <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-600 hover:shadow-lg transition">
@@ -262,8 +266,10 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Quick Actions */}
+              {!loading && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Manage Papers Card */}
                 <button
@@ -301,6 +307,7 @@ export default function AdminDashboard() {
                   </p>
                 </button>
               </div>
+              )}
             </div>
           </main>
         </div>
