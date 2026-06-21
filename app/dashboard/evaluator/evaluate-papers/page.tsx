@@ -241,15 +241,15 @@ function EvaluatePapersContent() {
   const statusBadgeClass = (status?: string) => {
     switch (status?.toUpperCase()) {
       case 'ACCEPTED':
-        return 'badge badge-green'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-emerald-50 text-emerald-700'
       case 'REJECTED':
-        return 'badge badge-red'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-red-50 text-red-700'
       case 'PENDING_ASSIGNMENT':
-        return 'badge badge-amber'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-amber-50 text-amber-700'
       case 'UNDER_REVIEW':
-        return 'badge badge-blue'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-blue-50 text-blue-700'
       default:
-        return 'badge badge-slate'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-slate-100 text-slate-600'
     }
   }
 
@@ -295,7 +295,7 @@ function EvaluatePapersContent() {
       </div>
 
       {/* Search and Filter Bar */}
-      <div className="card p-4 mb-6 flex flex-col sm:flex-row gap-3">
+      <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 flex flex-col sm:flex-row gap-3">
         <div className="flex-1 relative">
           <EyeIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           <input
@@ -303,7 +303,7 @@ function EvaluatePapersContent() {
             placeholder="Search by title, author, department..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="input-field pl-9"
+            className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-9"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -311,7 +311,7 @@ function EvaluatePapersContent() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="input-field sm:w-44"
+            className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 sm:w-44"
           >
             <option value="date-newest">Newest First</option>
             <option value="date-oldest">Oldest First</option>
@@ -328,7 +328,7 @@ function EvaluatePapersContent() {
 
       {/* Error State */}
       {papersError && !papersLoading && (
-        <div className="card p-5 mb-6 bg-red-50 border-red-100">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 mb-6 bg-red-50 border-red-100">
           <h3 className="font-semibold text-red-900 mb-1 flex items-center gap-2">
             <AlertIcon className="w-5 h-5" />
             Error Loading Papers
@@ -339,7 +339,7 @@ function EvaluatePapersContent() {
 
       {/* Empty State */}
       {!papersLoading && !papersError && papers.length === 0 && (
-        <div className="card text-center py-16">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm text-center py-16">
           <DocumentIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-slate-900 mb-1">No Papers Available</h3>
           <p className="text-sm text-slate-500">No papers have been assigned for evaluation yet.</p>
@@ -355,7 +355,7 @@ function EvaluatePapersContent() {
             const isLocked = paper.status?.toUpperCase() === 'ACCEPTED'
 
             return (
-              <div key={paperId} className="card overflow-hidden">
+              <div key={paperId} className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
                 {/* Card Header */}
                 <div
                   className="p-5 cursor-pointer hover:bg-slate-50 transition-colors"
@@ -456,12 +456,12 @@ function EvaluatePapersContent() {
 
                       {/* Comments Textarea */}
                       <div>
-                        <label className="field-label">Comments &amp; Feedback</label>
+                        <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Comments &amp; Feedback</label>
                         <textarea
                           value={paperFeedback[paperId] || ''}
                           onChange={(e) => handleFeedbackChange(paperId, e.target.value)}
                           placeholder="Provide detailed feedback and comments for the author..."
-                          className="input-field h-32 resize-none"
+                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 h-32 resize-none"
                         />
                       </div>
 
@@ -470,7 +470,7 @@ function EvaluatePapersContent() {
                         <button
                           onClick={() => handleSaveEvaluation(paper)}
                           disabled={!paperDecisions[paperId] || !paperFeedback[paperId]?.trim() || savingId === paperId || isLocked}
-                          className="btn-primary py-2 text-sm"
+                          className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 py-2 text-sm"
                         >
                           {savingId === paperId ? (
                             <>
@@ -506,7 +506,7 @@ function EvaluatePapersContent() {
                         <button
                           onClick={() => handleDownloadPaper(paper.paperFileUrl || '', paper.paperFileName)}
                           disabled={downloadingId === paper.paperFileUrl || isLocked}
-                          className="btn-secondary py-2 text-sm"
+                          className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 py-2 text-sm"
                         >
                           <DownloadIcon className="w-3.5 h-3.5" />
                           {downloadingId === paper.paperFileUrl ? 'Downloading...' : 'Download'}

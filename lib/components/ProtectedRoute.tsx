@@ -50,12 +50,12 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
   if (requiredRole && (user.role || '').toLowerCase() !== requiredRole.toLowerCase()) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-        <div className="text-center max-w-md card p-8">
+        <div className="text-center max-w-md rounded-xl border border-slate-200 bg-white shadow-sm p-8">
           <h1 className="text-xl font-semibold text-slate-900 mb-2">Access Denied</h1>
           <p className="text-slate-500 mb-6">You do not have permission to access this page.</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="btn-primary"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Back to Dashboard
           </button>

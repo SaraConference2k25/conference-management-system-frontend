@@ -152,7 +152,7 @@ export default function AdminEvaluators() {
             <h2 className="text-2xl font-semibold text-slate-900 mb-1">Evaluator Management</h2>
             <p className="text-slate-500 text-sm">Create and manage evaluator accounts</p>
           </div>
-          <button onClick={() => setShowCreateModal(true)} className="btn-primary">
+          <button onClick={() => setShowCreateModal(true)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
             <PlusIcon className="w-4 h-4" />
             Create Evaluator
           </button>
@@ -175,18 +175,18 @@ export default function AdminEvaluators() {
         ) : (
           <>
             {/* Search */}
-            <div className="card p-4 mb-6">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6">
               <input
                 type="text"
                 placeholder="Search by name, email, or department..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="input-field"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
               />
             </div>
 
             {/* Evaluators Table */}
-            <div className="card overflow-hidden">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-slate-50 border-b border-slate-200">
@@ -215,12 +215,12 @@ export default function AdminEvaluators() {
                               {evaluator.department || 'N/A'}
                             </td>
                             <td className="px-6 py-4 text-center">
-                              <span className={`badge ${workload === 0 ? 'badge-green' : workload < 5 ? 'badge-blue' : 'badge-amber'}`}>
+                              <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 ${workload === 0 ? 'bg-emerald-50 text-emerald-700' : workload < 5 ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'}`}>
                                 {workload}
                               </span>
                             </td>
                             <td className="px-6 py-4 text-center">
-                              <span className={`badge ${workload > 0 ? 'badge-blue' : 'badge-green'}`}>
+                              <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 ${workload > 0 ? 'bg-blue-50 text-blue-700' : 'bg-emerald-50 text-emerald-700'}`}>
                                 {workload > 0 ? 'Active' : 'Available'}
                               </span>
                             </td>
@@ -252,56 +252,56 @@ export default function AdminEvaluators() {
         {/* Create Modal */}
         {showCreateModal && (
           <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="card-elevated max-w-md w-full p-6">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-md max-w-md w-full p-6">
               <h2 className="text-lg font-semibold text-slate-900 mb-5">Create Evaluator</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="field-label">Username *</label>
+                  <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Username *</label>
                   <input
                     type="text"
                     value={newEvaluator.username}
                     onChange={(e) => setNewEvaluator({ ...newEvaluator, username: e.target.value })}
-                    className="input-field"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
                     placeholder="Enter username"
                   />
                 </div>
                 <div>
-                  <label className="field-label">Email *</label>
+                  <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Email *</label>
                   <input
                     type="email"
                     value={newEvaluator.email}
                     onChange={(e) => setNewEvaluator({ ...newEvaluator, email: e.target.value })}
-                    className="input-field"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
                     placeholder="Enter email"
                   />
                 </div>
                 <div>
-                  <label className="field-label">Password *</label>
+                  <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Password *</label>
                   <input
                     type="password"
                     value={newEvaluator.password}
                     onChange={(e) => setNewEvaluator({ ...newEvaluator, password: e.target.value })}
-                    className="input-field"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
                     placeholder="Enter password"
                   />
                 </div>
                 <div>
-                  <label className="field-label">Confirm Password *</label>
+                  <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Confirm Password *</label>
                   <input
                     type="password"
                     value={newEvaluator.confirmPassword}
                     onChange={(e) => setNewEvaluator({ ...newEvaluator, confirmPassword: e.target.value })}
-                    className="input-field"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
                     placeholder="Confirm password"
                   />
                 </div>
                 <div>
-                  <label className="field-label">Department</label>
+                  <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Department</label>
                   <input
                     type="text"
                     value={newEvaluator.department}
                     onChange={(e) => setNewEvaluator({ ...newEvaluator, department: e.target.value })}
-                    className="input-field"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
                     placeholder="Enter department"
                   />
                 </div>
@@ -313,11 +313,11 @@ export default function AdminEvaluators() {
                     setNewEvaluator({ username: '', email: '', password: '', confirmPassword: '', department: '' })
                   }}
                   disabled={creating}
-                  className="btn-secondary flex-1"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 flex-1"
                 >
                   Cancel
                 </button>
-                <button onClick={handleCreateEvaluator} disabled={creating} className="btn-primary flex-1">
+                <button onClick={handleCreateEvaluator} disabled={creating} className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 flex-1">
                   {creating ? 'Creating...' : 'Create'}
                 </button>
               </div>

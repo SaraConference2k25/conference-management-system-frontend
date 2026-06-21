@@ -20,7 +20,7 @@ interface StatCardProps {
 
 export default function StatCard({ label, value, icon, accent = 'blue' }: StatCardProps) {
   return (
-    <div className="card p-5">
+    <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5">
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           <p className="text-slate-500 text-xs font-medium mb-1">{label}</p>

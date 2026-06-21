@@ -84,8 +84,8 @@ export default function LoginSection() {
               </Link>
 
               {/* Form Card */}
-              <div className="card overflow-hidden">
-                <div className="dashboard-header px-6 sm:px-8 py-8">
+              <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+                <div className="bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] px-6 sm:px-8 py-8">
                   <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-1">Welcome back</h1>
                   <p className="text-blue-200/80 text-sm">Sign in to the SARA 2026 Conference Portal</p>
                 </div>
@@ -104,7 +104,7 @@ export default function LoginSection() {
                   <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="field-label">Email Address</label>
+                      <label htmlFor="email" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Email Address</label>
                       <div className="relative">
                         <EnvelopeIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
@@ -113,7 +113,7 @@ export default function LoginSection() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="input-field pl-11"
+                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-11"
                           required
                         />
                       </div>
@@ -124,7 +124,7 @@ export default function LoginSection() {
 
                     {/* Role Selection */}
                     <div>
-                      <label htmlFor="role" className="field-label">Select Role</label>
+                      <label htmlFor="role" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Select Role</label>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                         {[
                           { value: 'participant', label: 'Participant', icon: UserIcon },
@@ -153,7 +153,7 @@ export default function LoginSection() {
 
                     {/* Password Field */}
                     <div>
-                      <label htmlFor="password" className="field-label">Password</label>
+                      <label htmlFor="password" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Password</label>
                       <div className="relative">
                         <input
                           id="password"
@@ -161,7 +161,7 @@ export default function LoginSection() {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Enter your password"
-                          className="input-field pr-11"
+                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pr-11"
                           required
                         />
                         <button
@@ -206,7 +206,7 @@ export default function LoginSection() {
                     <button
                       type="submit"
                       disabled={isLoading || authLoading}
-                      className="w-full btn-primary py-3 text-base disabled:opacity-60"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
@@ -247,7 +247,7 @@ export default function LoginSection() {
 
           {/* Right Side - Showcase */}
           <div className="hidden lg:flex flex-col justify-center">
-            <div className="card p-8">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-8">
               <div className="relative">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-md mb-6">
                   <span className="text-xs font-medium text-blue-800 tracking-wide">SARA 2026</span>

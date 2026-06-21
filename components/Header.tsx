@@ -23,7 +23,7 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="card px-4 py-2 text-center">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm px-4 py-2 text-center">
               <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">Counselling Code</div>
               <div className="text-xl font-semibold text-slate-900 tabular-nums">3819</div>
             </div>
@@ -35,7 +35,7 @@ export default function Header() {
       </div>
 
       {/* Main Header Banner */}
-      <div className="w-full dashboard-header py-12 sm:py-16 px-4 sm:px-8 relative overflow-hidden">
+      <div className="w-full bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] py-12 sm:py-16 px-4 sm:px-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.07]">
           <svg className="w-full h-full" viewBox="0 0 1200 300" preserveAspectRatio="none">
             <defs>
@@ -62,7 +62,7 @@ export default function Header() {
             </div>
 
             <div className="flex justify-center md:justify-end">
-              <div className="card p-5 max-w-xs w-full">
+              <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 max-w-xs w-full">
                 <h3 className="text-[10px] font-semibold text-slate-400 mb-4 tracking-widest uppercase">Conference Details</h3>
                 <div className="space-y-3 text-sm">
                   <div>

@@ -4,7 +4,7 @@ export function StatCardsSkeleton({ count = 4 }: { count?: number }) {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="card p-5 space-y-3">
+        <div key={i} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 space-y-3">
           <Skeleton className="h-10 w-10 rounded-lg" />
           <Skeleton className="h-3 w-24" />
           <Skeleton className="h-8 w-16" />
@@ -16,7 +16,7 @@ export function StatCardsSkeleton({ count = 4 }: { count?: number }) {
 
 export function PaperCardSkeleton() {
   return (
-    <div className="card p-5 space-y-4">
+    <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 space-y-4">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 space-y-2">
           <Skeleton className="h-5 w-3/4" />
@@ -44,7 +44,7 @@ export function PaperListSkeleton({ count = 3 }: { count?: number }) {
 
 export function TableSkeleton({ rows = 5, cols = 5 }: { rows?: number; cols?: number }) {
   return (
-    <div className="card overflow-hidden">
+    <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
       <div className="border-b border-slate-200 bg-slate-50 px-6 py-3 flex gap-4">
         {Array.from({ length: cols }).map((_, i) => (
           <Skeleton key={i} className="h-4 flex-1" />
@@ -90,7 +90,7 @@ export function DashboardPageSkeleton() {
 export function AuthPageSkeleton() {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-md card p-8 space-y-6">
+      <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white shadow-sm p-8 space-y-6">
         <div className="space-y-2 text-center">
           <Skeleton className="h-8 w-48 mx-auto" />
           <Skeleton className="h-4 w-64 mx-auto" />
@@ -120,7 +120,7 @@ export function AdminStatsSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="card p-6">
+        <div key={i} className="rounded-xl border border-slate-200 bg-white shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div className="space-y-2 flex-1">
               <Skeleton className="h-3 w-24" />

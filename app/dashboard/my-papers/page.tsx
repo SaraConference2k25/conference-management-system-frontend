@@ -54,13 +54,13 @@ export default function MyPapersPage() {
   const statusBadgeClass = (status: string) => {
     switch (status) {
       case 'accepted':
-        return 'badge badge-green'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-emerald-50 text-emerald-700'
       case 'under_review':
-        return 'badge badge-amber'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-amber-50 text-amber-700'
       case 'rejected':
-        return 'badge badge-red'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-red-50 text-red-700'
       default:
-        return 'badge badge-blue'
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-blue-50 text-blue-700'
     }
   }
 
@@ -106,7 +106,7 @@ export default function MyPapersPage() {
           <h2 className="text-2xl font-semibold text-slate-900 mb-1">My Submitted Papers</h2>
           <p className="text-slate-500 text-sm">Track the status and progress of your research submissions</p>
         </div>
-        <Link href="/dashboard/upload" className="btn-primary">
+        <Link href="/dashboard/upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
           <DocumentIcon className="w-4 h-4" />
           Submit Paper
         </Link>
@@ -134,7 +134,7 @@ export default function MyPapersPage() {
 
       {/* Error State */}
       {papersError && !papersLoading && (
-        <div className="card p-5 bg-red-50 border-red-100">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 bg-red-50 border-red-100">
           <h3 className="font-semibold text-red-900 mb-1">Error Loading Papers</h3>
           <p className="text-red-700 text-sm">{papersError}</p>
         </div>
@@ -144,7 +144,7 @@ export default function MyPapersPage() {
       {!papersLoading && !papersError && (
         <div className="space-y-4">
           {filteredPapers.length === 0 ? (
-            <div className="card text-center py-16">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm text-center py-16">
               <DocumentIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-slate-900 mb-1">
                 {papers.length === 0 ? 'No Papers Submitted' : 'No Papers Found'}
@@ -155,7 +155,7 @@ export default function MyPapersPage() {
                   : "You haven't submitted any papers yet."}
               </p>
               {papers.length === 0 && (
-                <Link href="/dashboard/upload" className="btn-primary inline-flex">
+                <Link href="/dashboard/upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 inline-flex">
                   <DocumentIcon className="w-4 h-4" />
                   Submit Your First Paper
                 </Link>
@@ -166,7 +166,7 @@ export default function MyPapersPage() {
               const paperKey = paper.paperId || paper.id
               const isExpanded = expandedPaperId === paperKey
               return (
-                <div key={paperKey} className="card overflow-hidden">
+                <div key={paperKey} className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
                   {/* Card Header */}
                   <div
                     className="p-5 cursor-pointer hover:bg-slate-50 transition-colors"
@@ -277,7 +277,7 @@ export default function MyPapersPage() {
                           <button
                             onClick={() => handleDownloadPaper(paper.paperFileUrl || '', paper.paperFileName || 'paper.pdf')}
                             disabled={downloadingId === paper.paperFileUrl}
-                            className="btn-secondary py-2 text-sm"
+                            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 py-2 text-sm"
                           >
                             <DownloadIcon className="w-3.5 h-3.5" />
                             {downloadingId === paper.paperFileUrl ? 'Downloading...' : 'Download'}

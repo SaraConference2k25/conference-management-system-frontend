@@ -55,7 +55,7 @@ export default function ParticipantDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Link href="/dashboard/upload" className="card p-6 hover:shadow-md transition-shadow group cursor-pointer">
+        <Link href="/dashboard/upload" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group cursor-pointer">
           <div className="flex items-start justify-between mb-4">
             <div className="w-11 h-11 rounded-md bg-blue-700 flex items-center justify-center">
               <PlusIcon className="w-5 h-5 text-white" />
@@ -69,7 +69,7 @@ export default function ParticipantDashboard() {
           <span className="text-sm text-blue-700 font-medium">Get started →</span>
         </Link>
 
-        <Link href="/dashboard/my-papers" className="card p-6 hover:shadow-md transition-shadow group cursor-pointer">
+        <Link href="/dashboard/my-papers" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group cursor-pointer">
           <div className="flex items-start justify-between mb-4">
             <div className="w-11 h-11 rounded-md bg-emerald-600 flex items-center justify-center">
               <DocumentIcon className="w-5 h-5 text-white" />
@@ -84,7 +84,7 @@ export default function ParticipantDashboard() {
         </Link>
       </div>
 
-      <div className="mt-6 card p-5 bg-blue-50/50 border-blue-100">
+      <div className="mt-6 rounded-xl border border-slate-200 bg-white shadow-sm p-5 bg-blue-50/50 border-blue-100">
         <div className="flex items-start gap-3">
           <div className="w-9 h-9 rounded-md bg-blue-700 flex items-center justify-center flex-shrink-0">
             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">

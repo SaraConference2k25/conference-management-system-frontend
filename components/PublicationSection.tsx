@@ -14,7 +14,7 @@ export default function PublicationSection() {
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-semibold text-slate-900 mb-8 tracking-tight">Publication Information</h2>
 
-        <div className="card p-6 sm:p-8 mb-6">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-6">
           <h3 className="text-lg font-semibold text-slate-900 mb-6">Publication Process</h3>
           <ol className="space-y-5">
             {processSteps.map((step, idx) => (
@@ -31,7 +31,7 @@ export default function PublicationSection() {
 
         {/* Publication Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="card p-6 sm:p-8">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
             <h4 className="text-base font-semibold text-slate-900 mb-5 flex items-center gap-2">
               <BookIcon className="w-5 h-5 text-blue-700" /> Publication Details
             </h4>
@@ -51,7 +51,7 @@ export default function PublicationSection() {
             </ul>
           </div>
 
-          <div className="card p-6 sm:p-8">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
             <h4 className="text-base font-semibold text-slate-900 mb-5 flex items-center gap-2">
               <AwardIcon className="w-5 h-5 text-blue-700" /> Special Opportunities
             </h4>
@@ -73,7 +73,7 @@ export default function PublicationSection() {
         </div>
 
         {/* Benefits */}
-        <div className="card p-6 sm:p-8 mb-6">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-6">
           <h4 className="text-base font-semibold text-slate-900 mb-6">Benefits of Publishing with Us</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
@@ -97,7 +97,7 @@ export default function PublicationSection() {
         </div>
 
         {/* Important Notes */}
-        <div className="card p-6 sm:p-8 bg-amber-50/50 border-amber-100">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 bg-amber-50/50 border-amber-100">
           <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
             <ShieldCheckIcon className="w-5 h-5 text-amber-600" /> Important Notes
           </h4>

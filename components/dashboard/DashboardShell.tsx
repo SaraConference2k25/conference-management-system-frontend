@@ -36,7 +36,7 @@ export default function DashboardShell({
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <header className="sticky top-0 z-40 dashboard-header shadow-sm">
+      <header className="sticky top-0 z-40 bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 sm:gap-4">
@@ -51,7 +51,7 @@ export default function DashboardShell({
                   <MenuIcon className="w-5 h-5 text-white" />
                 )}
               </button>
-              <span className="app-logo-mark text-sm">S</span>
+              <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/10 text-sm font-bold tracking-tight text-white">S</span>
               <div className="flex flex-col">
                 <h1 className="text-base sm:text-lg font-semibold text-white tracking-tight leading-tight">
                   SARA 2026
@@ -92,7 +92,7 @@ export default function DashboardShell({
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`nav-link ${isActive(item.href) ? 'nav-link-active' : ''}`}
+                className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${isActive(item.href) ? 'bg-blue-50 text-blue-800' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -110,7 +110,7 @@ export default function DashboardShell({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`nav-link ${isActive(item.href) ? 'nav-link-active' : ''}`}
+                className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${isActive(item.href) ? 'bg-blue-50 text-blue-800' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
               >
                 {item.icon}
                 <span>{item.label}</span>

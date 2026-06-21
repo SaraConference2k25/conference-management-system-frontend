@@ -46,10 +46,10 @@ export default function Navigation({
           </ul>
 
           <div className="hidden md:flex gap-2">
-            <Link href="/login" className="btn-secondary text-sm py-2">
+            <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 text-sm py-2">
               Login
             </Link>
-            <Link href="/register" className="btn-primary text-sm py-2">
+            <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 text-sm py-2">
               Register
             </Link>
           </div>
@@ -85,10 +85,10 @@ export default function Navigation({
               ))}
             </ul>
             <div className="flex gap-2 mt-4 pt-4 border-t border-slate-100">
-              <Link href="/login" className="flex-1 btn-secondary text-center text-sm py-2.5">
+              <Link href="/login" className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 text-center text-sm py-2.5">
                 Login
               </Link>
-              <Link href="/register" className="flex-1 btn-primary text-center text-sm py-2.5">
+              <Link href="/register" className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 text-center text-sm py-2.5">
                 Register
               </Link>
             </div>

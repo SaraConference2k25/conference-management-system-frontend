@@ -123,7 +123,7 @@ export default function UploadPaperPage() {
       <div className="max-w-3xl">
         {/* Submission Error */}
         {errors.submit && (
-          <div className="card p-4 mb-6 bg-red-50 border-red-100 flex items-start gap-3">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 bg-red-50 border-red-100 flex items-start gap-3">
             <AlertIcon className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             <div>
               <h3 className="font-semibold text-red-900 text-sm">Submission Failed</h3>
@@ -133,7 +133,7 @@ export default function UploadPaperPage() {
         )}
 
         {/* Info Alert */}
-        <div className="card p-4 mb-6 bg-blue-50/50 border-blue-100 flex items-start gap-3">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 bg-blue-50/50 border-blue-100 flex items-start gap-3">
           <AlertIcon className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div>
             <h3 className="font-semibold text-slate-900 text-sm">Submission Guidelines</h3>
@@ -147,66 +147,66 @@ export default function UploadPaperPage() {
         </div>
 
         {/* Form */}
-        <div className="card-elevated overflow-hidden">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-md overflow-hidden">
           <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-5">
             {/* Title Field */}
             <div>
-              <label className="field-label">Paper Title *</label>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Paper Title *</label>
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
                 placeholder="Enter the title of your research paper"
-                className={`input-field ${errors.title ? 'border-red-400' : ''}`}
+                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 ${errors.title ? 'border-red-400' : ''}`}
               />
               {errors.title && <p className="text-red-600 text-sm mt-1">{errors.title}</p>}
             </div>
 
             {/* Keywords Field */}
             <div>
-              <label className="field-label">Keywords (comma-separated)</label>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Keywords (comma-separated)</label>
               <input
                 type="text"
                 name="keywords"
                 value={formData.keywords}
                 onChange={handleInputChange}
                 placeholder="e.g., Machine Learning, AI, Data Science"
-                className="input-field"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
               />
             </div>
 
             {/* Abstract Field */}
             <div>
-              <label className="field-label">Abstract *</label>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Abstract *</label>
               <textarea
                 name="abstract"
                 value={formData.abstract}
                 onChange={handleInputChange}
                 placeholder="Provide a concise abstract of your research (250-300 words recommended)"
                 rows={6}
-                className={`input-field resize-none ${errors.abstract ? 'border-red-400' : ''}`}
+                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 resize-none ${errors.abstract ? 'border-red-400' : ''}`}
               />
               {errors.abstract && <p className="text-red-600 text-sm mt-1">{errors.abstract}</p>}
             </div>
 
             {/* Department Field */}
             <div>
-              <label className="field-label">Department *</label>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Department *</label>
               <input
                 type="text"
                 name="department"
                 value={formData.department}
                 onChange={handleInputChange}
                 placeholder="e.g., Computer Science, Engineering"
-                className={`input-field ${errors.department ? 'border-red-400' : ''}`}
+                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 ${errors.department ? 'border-red-400' : ''}`}
               />
               {errors.department && <p className="text-red-600 text-sm mt-1">{errors.department}</p>}
             </div>
 
             {/* File Upload Field */}
             <div>
-              <label className="field-label">Upload Paper (PDF or DOCX) *</label>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Upload Paper (PDF or DOCX) *</label>
               <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                 errors.file
                   ? 'border-red-300 bg-red-50/50'
@@ -241,10 +241,10 @@ export default function UploadPaperPage() {
 
             {/* Form Actions */}
             <div className="flex gap-3 pt-4">
-              <Link href="/dashboard" className="btn-secondary flex-1">
+              <Link href="/dashboard" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 flex-1">
                 Cancel
               </Link>
-              <button type="submit" disabled={isSubmitting} className="btn-primary flex-1 disabled:opacity-60 disabled:cursor-not-allowed">
+              <button type="submit" disabled={isSubmitting} className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 flex-1 disabled:opacity-60 disabled:cursor-not-allowed">
                 {isSubmitting ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

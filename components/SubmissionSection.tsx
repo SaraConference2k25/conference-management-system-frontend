@@ -23,7 +23,7 @@ export default function SubmissionSection() {
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-semibold text-slate-900 mb-8 tracking-tight">Paper Submission Guidelines</h2>
 
-        <div className="card p-6 sm:p-8 mb-6">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-6">
           <h3 className="text-lg font-semibold text-slate-900 mb-6">How to Submit Your Research Paper</h3>
           <ol className="space-y-5">
             {steps.map((step, idx) => (
@@ -40,7 +40,7 @@ export default function SubmissionSection() {
 
         {/* Submission Requirements */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="card p-6 sm:p-8">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
             <h4 className="text-base font-semibold text-slate-900 mb-5 flex items-center gap-2">
               <DocumentIcon className="w-5 h-5 text-blue-700" /> Paper Requirements
             </h4>
@@ -60,7 +60,7 @@ export default function SubmissionSection() {
             </ul>
           </div>
 
-          <div className="card p-6 sm:p-8">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
             <h4 className="text-base font-semibold text-slate-900 mb-5 flex items-center gap-2">
               <CheckCircleIcon className="w-5 h-5 text-blue-700" /> Important Rules
             </h4>
@@ -82,7 +82,7 @@ export default function SubmissionSection() {
         </div>
 
         {/* Timeline */}
-        <div className="card p-6 sm:p-8 mb-8">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-8">
           <h4 className="text-base font-semibold text-slate-900 mb-6 flex items-center gap-2">
             <CalendarIcon className="w-5 h-5 text-blue-700" /> Submission Timeline
           </h4>
@@ -101,7 +101,7 @@ export default function SubmissionSection() {
 
         {/* CTA */}
         <div className="text-center">
-          <Link href="/register" className="btn-primary inline-flex">
+          <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 inline-flex">
             Submit Your Paper
           </Link>
         </div>

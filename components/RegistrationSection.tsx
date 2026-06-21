@@ -11,11 +11,11 @@ export default function RegistrationSection() {
   ]
 
   return (
-    <div className="w-full py-16 sm:py-20 px-4 sm:px-8 page-enter">
+    <div className="w-full py-16 sm:py-20 px-4 sm:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="section-heading text-2xl sm:text-3xl mb-8">Registration Instructions</h2>
+        <h2 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Registration Instructions</h2>
 
-        <div className="card p-6 sm:p-8 mb-8 bg-blue-50/50 border-blue-100">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-8 bg-blue-50/50 border-blue-100">
           <h3 className="text-lg font-semibold text-slate-900 mb-6">How to Register for the Conference</h3>
           <ol className="space-y-5">
             {steps.map((step, i) => (
@@ -31,7 +31,7 @@ export default function RegistrationSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="card p-6 border-l-[3px] border-l-blue-700">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 border-l-[3px] border-l-blue-700">
             <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DocumentIcon /> Registration Details
             </h4>
@@ -50,7 +50,7 @@ export default function RegistrationSection() {
             </ul>
           </div>
 
-          <div className="card p-6 border-l-[3px] border-l-slate-700">
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 border-l-[3px] border-l-slate-700">
             <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DocumentIcon /> Registration Fees
             </h4>
@@ -74,7 +74,7 @@ export default function RegistrationSection() {
         </div>
 
         <div className="text-center">
-          <Link href="/register" className="btn-primary px-8 py-3">
+          <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 px-8 py-3">
             Register Now
           </Link>
         </div>

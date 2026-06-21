@@ -84,7 +84,7 @@ export default function ContactsSection() {
           {contactCards.map((card, index) => {
             const Icon = card.icon
             return (
-              <div key={index} className="card p-6 sm:p-8">
+              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center flex-shrink-0">
                     <Icon className="w-5 h-5" />
@@ -113,7 +113,7 @@ export default function ContactsSection() {
         </div>
 
         {/* Venue Section */}
-        <div className="card p-6 sm:p-8 mb-10">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-10">
           <h3 className="text-lg font-semibold text-slate-900 mb-6 flex items-center gap-2">
             <MapPinIcon className="w-5 h-5 text-blue-700" />
             Conference Venue
@@ -138,7 +138,7 @@ export default function ContactsSection() {
         </div>
 
         {/* FAQ Section */}
-        <div className="card p-6 sm:p-8 mb-10">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 mb-10">
           <h3 className="text-lg font-semibold text-slate-900 mb-6">Frequently Asked Questions</h3>
           <div className="space-y-6">
             {faqs.map((faq, idx) => (
@@ -151,7 +151,7 @@ export default function ContactsSection() {
         </div>
 
         {/* Contact Form CTA */}
-        <div className="dashboard-header rounded-xl p-8 text-center">
+        <div className="bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] rounded-xl p-8 text-center">
           <h3 className="text-xl font-semibold text-white mb-2">Still Have Questions?</h3>
           <p className="mb-6 text-blue-200/80 text-sm">
             We are here to help! Feel free to reach out through any of the contact channels above.

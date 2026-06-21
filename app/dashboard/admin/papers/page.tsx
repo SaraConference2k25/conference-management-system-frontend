@@ -28,11 +28,11 @@ interface Paper {
 
 function statusBadgeClass(status?: string) {
   const s = status || ''
-  if (s.includes('PENDING')) return 'badge badge-amber'
-  if (s.includes('EVALUATION') || s.includes('UNDER_REVIEW') || s.includes('ASSIGNED') || s === 'evaluating') return 'badge badge-blue'
-  if (s.includes('ACCEPTED')) return 'badge badge-green'
-  if (s.includes('REJECTED')) return 'badge badge-red'
-  return 'badge badge-slate'
+  if (s.includes('PENDING')) return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-amber-50 text-amber-700'
+  if (s.includes('EVALUATION') || s.includes('UNDER_REVIEW') || s.includes('ASSIGNED') || s === 'evaluating') return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-blue-50 text-blue-700'
+  if (s.includes('ACCEPTED')) return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-emerald-50 text-emerald-700'
+  if (s.includes('REJECTED')) return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-red-50 text-red-700'
+  return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-slate-100 text-slate-600'
 }
 
 export default function AdminPapers() {
@@ -180,7 +180,7 @@ export default function AdminPapers() {
         ) : (
           <>
             {/* Search and Filter */}
-            <div className="card p-4 mb-6">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6">
               <div className="flex flex-col lg:flex-row gap-3">
                 <div className="flex-1">
                   <input
@@ -188,13 +188,13 @@ export default function AdminPapers() {
                     placeholder="Search by title, email, department, ID..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="input-field"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
                   />
                 </div>
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
-                  className="input-field lg:w-48"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 lg:w-48"
                 >
                   <option value="all">All Papers</option>
                   <option value="pending">Pending</option>
@@ -205,7 +205,7 @@ export default function AdminPapers() {
             </div>
 
             {/* Papers Table */}
-            <div className="card overflow-hidden">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-slate-50 border-b border-slate-200">
@@ -262,7 +262,7 @@ export default function AdminPapers() {
         {/* Assign Modal */}
         {showAssignModal && selectedPaper && (
           <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-            <div className="card-elevated max-w-md w-full p-6 my-6">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-md max-w-md w-full p-6 my-6">
               <h2 className="text-lg font-semibold text-slate-900 mb-1">Assign Evaluator</h2>
               <p className="text-sm text-slate-500 mb-5">
                 Select an evaluator to assign to paper #{selectedPaper.paperId}
@@ -310,14 +310,14 @@ export default function AdminPapers() {
                     setSelectedEvaluator(null)
                   }}
                   disabled={assigning}
-                  className="btn-secondary flex-1"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 flex-1"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleConfirmAssignment}
                   disabled={!selectedEvaluator || assigning}
-                  className="btn-primary flex-1"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 flex-1"
                 >
                   {assigning ? 'Assigning...' : 'Assign'}
                 </button>

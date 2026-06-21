@@ -22,7 +22,7 @@ export default function HomeSection() {
   ]
 
   return (
-    <div className="w-full page-enter">
+    <div className="w-full">
       {/* Hero Section */}
       <section className="relative bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,10 +36,10 @@ export default function HomeSection() {
               and innovative ideas across engineering, technology, and applied sciences.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/register" className="btn-primary px-6 py-3 text-base">
+              <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 px-6 py-3 text-base">
                 Register Now
               </Link>
-              <Link href="/login" className="btn-secondary px-6 py-3 text-base">
+              <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 px-6 py-3 text-base">
                 Sign In
               </Link>
             </div>
@@ -65,9 +65,9 @@ export default function HomeSection() {
       {/* About Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="section-heading text-2xl sm:text-3xl mb-8">About the Conference</h3>
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">About the Conference</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="card p-6 sm:p-8">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
               <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <AwardIcon className="w-5 h-5 text-blue-700" /> Our Mission
               </h4>
@@ -77,7 +77,7 @@ export default function HomeSection() {
                 collaboration across various disciplines of engineering, technology, and applied sciences.
               </p>
             </div>
-            <div className="card p-6 sm:p-8">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
               <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <AwardIcon className="w-5 h-5 text-blue-700" /> Why Attend
               </h4>
@@ -103,10 +103,10 @@ export default function HomeSection() {
       {/* Important Dates */}
       <section className="py-16 sm:py-20 px-4 sm:px-8 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="section-heading text-2xl sm:text-3xl mb-8">Important Dates</h3>
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Important Dates</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {importantDates.map((item, index) => (
-              <div key={index} className="card p-5 hover:shadow-md transition-shadow">
+              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 hover:shadow-md transition-shadow">
                 <p className="text-slate-500 text-xs font-medium uppercase tracking-wide flex items-center gap-2">
                   <CalendarIcon /> {item.event}
                 </p>
@@ -120,10 +120,10 @@ export default function HomeSection() {
       {/* Research Tracks */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="section-heading text-2xl sm:text-3xl mb-8">Research Tracks</h3>
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Research Tracks</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {tracks.map((track, index) => (
-              <div key={index} className="card p-6 sm:p-8 border-l-[3px] border-l-blue-700">
+              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 border-l-[3px] border-l-blue-700">
                 <h4 className="text-xl font-semibold text-slate-900 mb-2">{track.title}</h4>
                 <p className="text-slate-600 text-sm leading-relaxed">{track.description}</p>
               </div>
@@ -135,8 +135,8 @@ export default function HomeSection() {
       {/* Venue */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="section-heading text-2xl sm:text-3xl mb-8">Conference Venue</h3>
-          <div className="card p-6 sm:p-8">
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Conference Venue</h3>
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
@@ -169,10 +169,10 @@ export default function HomeSection() {
       {/* Registration Categories */}
       <section className="py-16 sm:py-20 px-4 sm:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="section-heading text-2xl sm:text-3xl mb-8">Registration Categories</h3>
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Registration Categories</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {['Students', 'Faculty', 'Research Scholars', 'Industry Professionals'].map((title, index) => (
-              <div key={index} className="card p-5 text-center">
+              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-center">
                 <h4 className="font-semibold text-slate-900 mb-1">{title}</h4>
                 <p className="text-xs text-slate-500">Early bird discounts available</p>
               </div>
@@ -188,7 +188,7 @@ export default function HomeSection() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 sm:py-20 px-4 sm:px-8 dashboard-header">
+      <section className="py-16 sm:py-20 px-4 sm:px-8 bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)]">
         <div className="max-w-3xl mx-auto text-center">
           <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-3">Ready to Get Started?</h3>
           <p className="text-blue-100/90 mb-8">

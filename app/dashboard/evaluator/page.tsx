@@ -40,7 +40,7 @@ function EvaluatorDashboardContent() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {/* Evaluate Papers */}
-        <Link href="/dashboard/evaluator/evaluate-papers" className="card p-6 hover:shadow-md transition-shadow group">
+        <Link href="/dashboard/evaluator/evaluate-papers" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group">
           <div className="w-11 h-11 rounded-md bg-blue-700 flex items-center justify-center mb-4">
             <DocumentIcon className="w-5 h-5 text-white" />
           </div>
@@ -52,7 +52,7 @@ function EvaluatorDashboardContent() {
         </Link>
 
         {/* Evaluation Statistics */}
-        <div className="card p-6 opacity-75">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 opacity-75">
           <div className="w-11 h-11 rounded-md bg-emerald-600 flex items-center justify-center mb-4">
             <BarChartIcon className="w-5 h-5 text-white" />
           </div>
@@ -60,11 +60,11 @@ function EvaluatorDashboardContent() {
           <p className="text-sm text-slate-500 mb-3">
             View your evaluation history and track approved and rejected papers at a glance.
           </p>
-          <span className="badge badge-slate">Coming soon</span>
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-slate-100 text-slate-600">Coming soon</span>
         </div>
 
         {/* Settings */}
-        <div className="card p-6 opacity-75">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 opacity-75">
           <div className="w-11 h-11 rounded-md bg-violet-600 flex items-center justify-center mb-4">
             <CogIcon className="w-5 h-5 text-white" />
           </div>
@@ -72,7 +72,7 @@ function EvaluatorDashboardContent() {
           <p className="text-sm text-slate-500 mb-3">
             Configure evaluation criteria and preferences for the paper review process.
           </p>
-          <span className="badge badge-slate">Coming soon</span>
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-slate-100 text-slate-600">Coming soon</span>
         </div>
       </div>
 
