@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import { useToast } from '@/lib/toast-context'
-import { EnvelopeIcon, EyeIcon, EyeOffIcon, UserIcon, CogIcon, TrendingUpIcon, LockClosedIcon, DocumentIcon } from './Icons'
+import { EnvelopeIcon, UserIcon, CogIcon, TrendingUpIcon, LockClosedIcon, DocumentIcon } from './Icons'
 
 export default function LoginSection() {
   const router = useRouter()
@@ -93,42 +93,38 @@ export default function LoginSection() {
                 <div className="px-6 sm:px-8 py-8">
                   {/* Error Message */}
                   {error && (
-                    <div className="mb-5 sm:mb-6 p-3 sm:p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
-                      <svg className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="mb-5 sm:mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                      <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-red-800 dark:text-red-200 text-xs sm:text-sm font-medium">{error}</p>
+                      <p className="text-red-800 text-xs sm:text-sm font-medium">{error}</p>
                     </div>
                   )}
 
                   <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Email Address
-                      </label>
+                      <label htmlFor="email" className="field-label">Email Address</label>
                       <div className="relative">
-                        <EnvelopeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2" />
+                        <EnvelopeIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
                           id="email"
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="input-field pl-11"
                           required
                         />
                       </div>
-                      <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+                      <p className="mt-1 text-xs text-slate-500">
                         Use your registered email address
                       </p>
                     </div>
 
                     {/* Role Selection */}
                     <div>
-                      <label htmlFor="role" className="block text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-3 tracking-wide">
-                        Select Role
-                      </label>
+                      <label htmlFor="role" className="field-label">Select Role</label>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                         {[
                           { value: 'participant', label: 'Participant', icon: UserIcon },
@@ -141,13 +137,13 @@ export default function LoginSection() {
                               key={roleOption.value}
                               type="button"
                               onClick={() => setRole(roleOption.value)}
-                              className={`py-3 px-4 rounded-lg font-semibold transition-all border-2 text-sm flex flex-col items-center gap-2 ${
+                              className={`py-3 px-4 rounded-lg font-medium transition-colors border text-sm flex flex-col items-center gap-2 ${
                                 role === roleOption.value
-                                  ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 shadow-md'
-                                  : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-400 dark:hover:border-blue-500'
+                                  ? 'border-blue-600 bg-blue-50 text-blue-700'
+                                  : 'border-slate-200 bg-white text-slate-600 hover:border-blue-300'
                               }`}
                             >
-                              <IconComponent className="w-6 h-6" />
+                              <IconComponent className="w-5 h-5" />
                               <span>{roleOption.label}</span>
                             </button>
                           )
@@ -157,9 +153,7 @@ export default function LoginSection() {
 
                     {/* Password Field */}
                     <div>
-                      <label htmlFor="password" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Password
-                      </label>
+                      <label htmlFor="password" className="field-label">Password</label>
                       <div className="relative">
                         <input
                           id="password"
@@ -167,13 +161,13 @@ export default function LoginSection() {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Enter your password"
-                          className="w-full pl-4 pr-12 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base"
+                          className="input-field pr-11"
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                           aria-label={showPassword ? 'Hide password' : 'Show password'}
                         >
                           {showPassword ? (
@@ -189,7 +183,7 @@ export default function LoginSection() {
                           )}
                         </button>
                       </div>
-                      <p className="mt-1.5 text-xs text-gray-600 dark:text-gray-400">
+                      <p className="mt-1.5 text-xs text-slate-500">
                         Enter your secure password
                       </p>
                     </div>
@@ -201,9 +195,9 @@ export default function LoginSection() {
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 cursor-pointer accent-blue-600"
+                        className="w-4 h-4 rounded border-slate-300 bg-white cursor-pointer accent-blue-700"
                       />
-                      <label htmlFor="remember" className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer font-medium">
+                      <label htmlFor="remember" className="text-sm text-slate-600 cursor-pointer font-medium">
                         Remember me
                       </label>
                     </div>
@@ -228,19 +222,19 @@ export default function LoginSection() {
                     </button>
 
                     {/* Footer Links */}
-                    <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    <div className="text-center pt-4 border-t border-slate-100">
+                      <p className="text-sm text-slate-500 mb-3">
                         New to our portal?{' '}
                         <Link
                           href="/register"
-                          className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-bold transition-colors"
+                          className="text-blue-700 hover:text-blue-800 font-medium transition-colors"
                         >
                           Create Account
                         </Link>
                       </p>
                       <Link
                         href="/"
-                        className="text-xs text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                        className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
                       >
                         Forgot password?
                       </Link>

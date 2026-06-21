@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import { useToast } from '@/lib/toast-context'
-import { EnvelopeIcon, UserIcon, LockClosedIcon, EyeIcon, EyeOffIcon, CheckCircleIcon, SparklesIcon, AwardIcon } from '@/components/Icons'
+import { EnvelopeIcon, UserIcon, LockClosedIcon, EyeIcon, EyeOffIcon, CheckCircleIcon, DocumentIcon, TrendingUpIcon } from '@/components/Icons'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -64,10 +64,10 @@ export default function RegisterPage() {
     try {
       // Register with PARTICIPANT role as default
       await register(formData.email, formData.password, formData.fullName, formData.affiliation)
-      
+
       setSuccess('Account created successfully! Redirecting to login...')
       addToast('Account created successfully!', 'success', 3000)
-      
+
       setTimeout(() => {
         router.push('/login?registered=true')
       }, 2000)
@@ -82,59 +82,57 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 sm:px-6 py-12">
       <div className="w-full max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Side - Register Form */}
           <div className="w-full">
             <div className="relative">
               {/* Back Button */}
               <Link
                 href="/login"
-                className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-8 text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-6 text-sm font-medium transition-colors"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 Back to Login
               </Link>
 
               {/* Form Card */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+              <div className="card overflow-hidden">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-700 dark:to-emerald-700 px-8 sm:px-10 py-8 sm:py-10">
-                  <h1 className="text-3xl sm:text-4xl font-black text-white mb-2 tracking-tight">Create Account</h1>
-                  <p className="text-green-100 text-lg">Join SARA 2025 Conference Community</p>
+                <div className="dashboard-header px-6 sm:px-8 py-8">
+                  <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-1">Create account</h1>
+                  <p className="text-blue-200/80 text-sm">Join the SARA 2026 Conference community</p>
                 </div>
 
                 {/* Form Content */}
-                <div className="px-8 sm:px-10 py-8 sm:py-10">
+                <div className="px-6 sm:px-8 py-8">
                   {/* Error Message */}
                   {error && (
-                    <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
-                      <svg className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="mb-5 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                      <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-red-800 dark:text-red-200 text-sm font-medium">{error}</p>
+                      <p className="text-red-800 text-sm font-medium">{error}</p>
                     </div>
                   )}
 
                   {/* Success Message */}
                   {success && (
-                    <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg flex items-start gap-3">
-                      <CheckCircleIcon className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-green-800 dark:text-green-200 text-sm font-medium">{success}</p>
+                    <div className="mb-5 p-3 sm:p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-start gap-3">
+                      <CheckCircleIcon className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-emerald-800 text-sm font-medium">{success}</p>
                     </div>
                   )}
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Full Name Field */}
                     <div>
-                      <label htmlFor="fullName" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Full Name *
-                      </label>
+                      <label htmlFor="fullName" className="field-label">Full Name *</label>
                       <div className="relative">
-                        <UserIcon className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                        <UserIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
                           id="fullName"
                           name="fullName"
@@ -142,7 +140,7 @@ export default function RegisterPage() {
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="John Doe"
-                          className="w-full pl-12 pr-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
+                          className="input-field pl-11"
                           required
                         />
                       </div>
@@ -150,11 +148,9 @@ export default function RegisterPage() {
 
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Email Address *
-                      </label>
+                      <label htmlFor="email" className="field-label">Email Address *</label>
                       <div className="relative">
-                        <EnvelopeIcon className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                        <EnvelopeIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
                           id="email"
                           name="email"
@@ -162,7 +158,7 @@ export default function RegisterPage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="your@email.com"
-                          className="w-full pl-12 pr-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
+                          className="input-field pl-11"
                           required
                         />
                       </div>
@@ -170,9 +166,7 @@ export default function RegisterPage() {
 
                     {/* Affiliation Field */}
                     <div>
-                      <label htmlFor="affiliation" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Institution / Organization
-                      </label>
+                      <label htmlFor="affiliation" className="field-label">Institution / Organization</label>
                       <input
                         id="affiliation"
                         name="affiliation"
@@ -180,17 +174,15 @@ export default function RegisterPage() {
                         value={formData.affiliation}
                         onChange={handleChange}
                         placeholder="Your Institution"
-                        className="w-full px-4 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
+                        className="input-field"
                       />
                     </div>
 
                     {/* Password Field */}
                     <div>
-                      <label htmlFor="password" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Password *
-                      </label>
+                      <label htmlFor="password" className="field-label">Password *</label>
                       <div className="relative">
-                        <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                        <LockClosedIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
                           id="password"
                           name="password"
@@ -198,31 +190,25 @@ export default function RegisterPage() {
                           value={formData.password}
                           onChange={handleChange}
                           placeholder="Min. 6 characters"
-                          className="w-full pl-12 pr-12 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
+                          className="input-field pl-11 pr-11"
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                           aria-label={showPassword ? 'Hide password' : 'Show password'}
                         >
-                          {showPassword ? (
-                            <EyeOffIcon className="w-5 h-5" />
-                          ) : (
-                            <EyeIcon className="w-5 h-5" />
-                          )}
+                          {showPassword ? <EyeOffIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                         </button>
                       </div>
                     </div>
 
                     {/* Confirm Password Field */}
                     <div>
-                      <label htmlFor="confirmPassword" className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                        Confirm Password *
-                      </label>
+                      <label htmlFor="confirmPassword" className="field-label">Confirm Password *</label>
                       <div className="relative">
-                        <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+                        <LockClosedIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
                           id="confirmPassword"
                           name="confirmPassword"
@@ -230,42 +216,38 @@ export default function RegisterPage() {
                           value={formData.confirmPassword}
                           onChange={handleChange}
                           placeholder="Confirm your password"
-                          className="w-full pl-12 pr-12 py-3 sm:py-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
+                          className="input-field pl-11 pr-11"
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                           aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
                         >
-                          {showConfirmPassword ? (
-                            <EyeOffIcon className="w-5 h-5" />
-                          ) : (
-                            <EyeIcon className="w-5 h-5" />
-                          )}
+                          {showConfirmPassword ? <EyeOffIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
                         </button>
                       </div>
                     </div>
 
                     {/* Terms & Conditions */}
-                    <div className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800/50">
+                    <div className="flex items-start gap-3 p-4 bg-blue-50/50 rounded-lg border border-blue-100">
                       <input
                         id="agreeTerms"
                         name="agreeTerms"
                         type="checkbox"
                         checked={formData.agreeTerms}
                         onChange={handleChange}
-                        className="w-5 h-5 rounded accent-green-600 cursor-pointer mt-0.5 flex-shrink-0"
+                        className="w-4 h-4 rounded accent-blue-700 cursor-pointer mt-0.5 flex-shrink-0"
                         required
                       />
-                      <label htmlFor="agreeTerms" className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                      <label htmlFor="agreeTerms" className="text-sm text-slate-600 cursor-pointer">
                         I agree to the{' '}
-                        <Link href="/terms" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-bold">
+                        <Link href="/terms" className="text-blue-700 hover:text-blue-800 font-medium">
                           Terms and Conditions
                         </Link>{' '}
                         and{' '}
-                        <Link href="/privacy" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-bold">
+                        <Link href="/privacy" className="text-blue-700 hover:text-blue-800 font-medium">
                           Privacy Policy
                         </Link>{' '}
                         *
@@ -276,29 +258,26 @@ export default function RegisterPage() {
                     <button
                       type="submit"
                       disabled={isLoading || authLoading}
-                      className="w-full py-3 sm:py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold text-lg rounded-lg transition-all shadow-lg hover:shadow-xl disabled:cursor-not-allowed disabled:shadow-md tracking-wide"
+                      className="w-full btn-primary py-3 text-base disabled:opacity-60"
                     >
                       {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
-                          <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                          <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
-                          Creating Account...
+                          Creating account...
                         </span>
                       ) : (
-                        'Create My Account'
+                        'Create my account'
                       )}
                     </button>
 
                     {/* Login Link */}
-                    <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="text-center pt-4 border-t border-slate-100">
+                      <p className="text-sm text-slate-500">
                         Already part of our community?{' '}
-                        <Link
-                          href="/login"
-                          className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-bold transition-colors"
-                        >
+                        <Link href="/login" className="text-blue-700 hover:text-blue-800 font-medium transition-colors">
                           Sign In
                         </Link>
                       </p>
@@ -311,36 +290,33 @@ export default function RegisterPage() {
 
           {/* Right Side - Showcase */}
           <div className="hidden lg:flex flex-col justify-center">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-100 dark:border-gray-700">
+            <div className="card p-8">
               <div className="relative">
-                {/* College Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full mb-6">
-                  <SparklesIcon className="w-5 h-5 text-green-600 dark:text-green-400" />
-                  <span className="text-sm font-bold text-green-700 dark:text-green-300 tracking-wide">SARA 2025</span>
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-md mb-6">
+                  <span className="text-xs font-medium text-blue-800 tracking-wide">SARA 2026</span>
                 </div>
 
-                <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
-                  Join Our Community
-                </h2>
+                <h2 className="text-2xl font-semibold text-slate-900 mb-3">Join Our Community</h2>
 
-                <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 font-semibold">
-                  Become part of the academic excellence journey at Saranathan College of Engineering
+                <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+                  Become part of the academic excellence journey at Saranathan College of Engineering. Submit papers, track reviews, and stay updated.
                 </p>
 
                 {/* Benefits Cards */}
                 <div className="space-y-4">
                   {[
                     { icon: CheckCircleIcon, title: 'Easy Setup', desc: 'Complete registration in seconds' },
-                    { icon: AwardIcon, title: 'Exclusive Access', desc: 'Access papers, presentations & more' },
-                    { icon: SparklesIcon, title: 'Community', desc: 'Connect with researchers worldwide' },
+                    { icon: DocumentIcon, title: 'Exclusive Access', desc: 'Access papers, presentations & more' },
+                    { icon: TrendingUpIcon, title: 'Community', desc: 'Connect with researchers worldwide' },
                   ].map((benefit, idx) => {
                     const BenefitIcon = benefit.icon
                     return (
-                      <div key={idx} className="flex gap-4 p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 hover:shadow-md transition-shadow">
-                        <BenefitIcon className="w-6 h-6 text-green-600 dark:text-green-400 flex-shrink-0" />
+                      <div key={idx} className="flex gap-3 p-4 rounded-lg bg-slate-50 border border-slate-100">
+                        <BenefitIcon className="w-5 h-5 text-blue-700 flex-shrink-0 mt-0.5" />
                         <div>
-                          <h4 className="font-bold text-gray-900 dark:text-white text-sm">{benefit.title}</h4>
-                          <p className="text-gray-600 dark:text-gray-400 text-xs mt-0.5">{benefit.desc}</p>
+                          <h4 className="font-medium text-slate-900 text-sm">{benefit.title}</h4>
+                          <p className="text-slate-500 text-xs mt-0.5">{benefit.desc}</p>
                         </div>
                       </div>
                     )
@@ -348,22 +324,18 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Conference Info */}
-                <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-100">
                   {[
                     { number: '500+', label: 'Participants' },
                     { number: '100+', label: 'Papers' },
+                    { number: 'Apr 3–4', label: 'Dates' },
                   ].map((stat, idx) => (
                     <div key={idx} className="text-center">
-                      <div className="text-2xl font-black text-green-600 dark:text-green-400">{stat.number}</div>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 font-medium">{stat.label}</p>
+                      <div className="text-xl font-semibold text-slate-900 tabular-nums">{stat.number}</div>
+                      <p className="text-xs text-slate-500 mt-0.5">{stat.label}</p>
                     </div>
                   ))}
                 </div>
-
-                {/* Tagline */}
-                <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6 italic">
-                  "Excellence • Innovation • Future Leaders"
-                </p>
               </div>
             </div>
           </div>
