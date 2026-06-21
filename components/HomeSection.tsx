@@ -26,7 +26,7 @@ export default function HomeSection() {
       {/* Hero Section */}
       <section className="relative bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-medium text-blue-700 uppercase tracking-wider mb-4">SARA 2026 National Conference</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 tracking-tight leading-tight">
               A platform for research excellence in engineering and applied sciences
@@ -35,7 +35,7 @@ export default function HomeSection() {
               Join leading researchers, academicians, and industry professionals to share groundbreaking research
               and innovative ideas across engineering, technology, and applied sciences.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 px-6 py-3 text-base">
                 Register Now
               </Link>
@@ -52,7 +52,7 @@ export default function HomeSection() {
               { value: '500+', label: 'Expected Participants', sub: 'From academia & industry' },
               { value: '2', label: 'Research Tracks', sub: 'Multiple specializations' },
             ].map((stat, idx) => (
-              <div key={idx} className="py-4">
+              <div key={idx} className="py-4 text-center">
                 <div className="text-3xl font-semibold text-slate-900 tabular-nums mb-1">{stat.value}</div>
                 <p className="text-sm font-medium text-slate-700">{stat.label}</p>
                 <p className="text-xs text-slate-500 mt-0.5">{stat.sub}</p>
