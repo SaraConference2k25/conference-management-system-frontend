@@ -17,12 +17,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SARA 2025 National Conference - Advancing Research and Academic Excellence",
-  description: "Join SARA 2025 National Conference at Saranathan College of Engineering. A premier platform for researchers, academicians, and industry professionals to share groundbreaking research across engineering, technology, and applied sciences.",
-  keywords: "conference, research, academic, engineering, SARA 2025, Saranathan",
+  title: "SARA 2026 National Conference - Advancing Research and Academic Excellence",
+  description: "Join SARA 2026 National Conference at Saranathan College of Engineering. A premier platform for researchers, academicians, and industry professionals to share groundbreaking research across engineering, technology, and applied sciences.",
+  keywords: "conference, research, academic, engineering, SARA 2026, Saranathan",
   authors: [{ name: "SARA Conference Team" }],
   openGraph: {
-    title: "SARA 2025 National Conference",
+    title: "SARA 2026 National Conference",
     description: "Advancing Research and Academic Excellence",
     type: "website",
   },

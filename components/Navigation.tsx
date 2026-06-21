@@ -25,19 +25,18 @@ export default function Navigation({
   ]
 
   return (
-    <nav className="sticky top-0 z-40 bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-800">
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex gap-1">
+        <div className="flex justify-between items-center h-14">
+          <ul className="hidden md:flex gap-0.5">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => onNavClick(item.id)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  className={`px-3.5 py-2 rounded-md text-sm font-medium transition-colors ${
                     activeSection === item.id
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      ? 'bg-slate-900 text-white'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                 >
                   {item.label}
@@ -46,58 +45,38 @@ export default function Navigation({
             ))}
           </ul>
 
-          {/* Desktop Login Button */}
-          <div className="hidden md:flex gap-3">
-            <Link
-              href="/login"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200"
-            >
+          <div className="hidden md:flex gap-2">
+            <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 text-sm py-2">
               Login
             </Link>
-            <Link
-              href="/register"
-              className="px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors duration-200"
-            >
+            <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 text-sm py-2">
               Register
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="md:hidden p-2 hover:bg-slate-100 rounded-md transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            <span
-              className={`w-6 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}
-            ></span>
-            <span
-              className={`w-6 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all ${
-                isMobileMenuOpen ? 'opacity-0' : ''
-              }`}
-            ></span>
-            <span
-              className={`w-6 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all ${
-                isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}
-            ></span>
+            <span className={`block w-5 h-0.5 bg-slate-700 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+            <span className={`block w-5 h-0.5 bg-slate-700 my-1 transition-all ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-5 h-0.5 bg-slate-700 transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
           </button>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-gray-200 dark:border-gray-800">
-            <ul className="flex flex-col gap-2 mt-4">
+          <div className="md:hidden pb-4 border-t border-slate-100">
+            <ul className="flex flex-col gap-0.5 mt-3">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <button
                     onClick={() => onNavClick(item.id)}
-                    className={`w-full text-left px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    className={`w-full text-left px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                       activeSection === item.id
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        ? 'bg-slate-900 text-white'
+                        : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
                     {item.label}
@@ -105,17 +84,11 @@ export default function Navigation({
                 </li>
               ))}
             </ul>
-            <div className="flex gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
-              <Link
-                href="/login"
-                className="flex-1 px-4 py-2 bg-blue-600 text-white text-center rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
+            <div className="flex gap-2 mt-4 pt-4 border-t border-slate-100">
+              <Link href="/login" className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 text-center text-sm py-2.5">
                 Login
               </Link>
-              <Link
-                href="/register"
-                className="flex-1 px-4 py-2 border-2 border-blue-600 text-blue-600 text-center rounded-lg font-medium hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
-              >
+              <Link href="/register" className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 text-center text-sm py-2.5">
                 Register
               </Link>
             </div>

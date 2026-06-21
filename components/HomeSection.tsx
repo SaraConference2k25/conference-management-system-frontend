@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarIcon, MapPinIcon, LightBulbIcon, UsersIcon, AwardIcon, DocumentIcon } from './Icons'
+import { CalendarIcon, MapPinIcon, AwardIcon, DocumentIcon } from './Icons'
 
 export default function HomeSection() {
   const importantDates = [
@@ -24,164 +24,138 @@ export default function HomeSection() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-16 sm:py-20 lg:py-24">
+      <section className="relative bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 sm:mb-14">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight leading-tight">
-              SARA 2026 National Conference
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-medium text-blue-700 uppercase tracking-wider mb-4">SARA 2026 National Conference</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 tracking-tight leading-tight">
+              A platform for research excellence in engineering and applied sciences
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed px-2">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-10">
               Join leading researchers, academicians, and industry professionals to share groundbreaking research
               and innovative ideas across engineering, technology, and applied sciences.
             </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 px-6 py-3 text-base">
+                Register Now
+              </Link>
+              <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 px-6 py-3 text-base">
+                Sign In
+              </Link>
+            </div>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-14">
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg text-center border-t-4 border-blue-600 hover:shadow-xl transition-shadow">
-              <div className="text-3xl sm:text-4xl font-black text-blue-600 mb-2">2</div>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-semibold">Conference Days</p>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">April 3 & 4, 2026</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg text-center border-t-4 border-indigo-600 hover:shadow-xl transition-shadow">
-              <div className="text-3xl sm:text-4xl font-black text-indigo-600 mb-2">500+</div>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-semibold">Expected Participants</p>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">From academia & industry</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg text-center border-t-4 border-purple-600 hover:shadow-xl transition-shadow">
-              <div className="text-3xl sm:text-4xl font-black text-purple-600 mb-2">2</div>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-semibold">Research Tracks</p>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">Multiple specializations</p>
-            </div>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link
-              href="/register"
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl text-center text-base sm:text-lg w-full sm:w-auto"
-            >
-              Register Now
-            </Link>
-            <Link
-              href="/login"
-              className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors text-center text-base sm:text-lg w-full sm:w-auto"
-            >
-              Sign In
-            </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 pt-14 border-t border-slate-100">
+            {[
+              { value: '2', label: 'Conference Days', sub: 'April 3 & 4, 2026' },
+              { value: '500+', label: 'Expected Participants', sub: 'From academia & industry' },
+              { value: '2', label: 'Research Tracks', sub: 'Multiple specializations' },
+            ].map((stat, idx) => (
+              <div key={idx} className="py-4 text-center">
+                <div className="text-3xl font-semibold text-slate-900 tabular-nums mb-1">{stat.value}</div>
+                <p className="text-sm font-medium text-slate-700">{stat.label}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{stat.sub}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-200 dark:border-gray-800">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 tracking-tight">About the Conference</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            <div className="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 sm:p-8 border-l-4 border-blue-600 hover:shadow-lg transition-shadow">
-              <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-3">
-                <AwardIcon className="w-6 h-6" /> Our Mission
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">About the Conference</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+              <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                <AwardIcon className="w-5 h-5 text-blue-700" /> Our Mission
               </h4>
-              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
-                SARA 2025 brings together leading researchers, academicians, and industry professionals to share
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                SARA conference brings together leading researchers, academicians, and industry professionals to share
                 groundbreaking research and innovative ideas. We provide a platform for intellectual exchange and
                 collaboration across various disciplines of engineering, technology, and applied sciences.
               </p>
             </div>
-            <div className="bg-indigo-50 dark:bg-gray-800 rounded-xl p-6 sm:p-8 border-l-4 border-indigo-600 hover:shadow-lg transition-shadow">
-              <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-3">
-                <AwardIcon className="w-6 h-6" /> Why Attend
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+              <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                <AwardIcon className="w-5 h-5 text-blue-700" /> Why Attend
               </h4>
-              <ul className="text-sm sm:text-base text-gray-700 dark:text-gray-300 space-y-2 sm:space-y-3 font-medium">
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
-                  <span>Network with industry leaders and researchers</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
-                  <span>Present your research to a focused audience</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
-                  <span>Discover the latest trends and innovations</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
-                  <span>Collaborate on future research initiatives</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-bold mt-1 flex-shrink-0">•</span>
-                  <span>Publish in conference proceedings</span>
-                </li>
+              <ul className="text-sm sm:text-base text-slate-600 space-y-2.5">
+                {[
+                  'Network with industry leaders and researchers',
+                  'Present your research to a focused audience',
+                  'Discover the latest trends and innovations',
+                  'Collaborate on future research initiatives',
+                  'Publish in conference proceedings',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Important Dates Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-8 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      {/* Important Dates */}
+      <section className="py-16 sm:py-20 px-4 sm:px-8 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center tracking-tight">Important Dates</h3>
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Important Dates</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {importantDates.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border-l-4 border-blue-600"
-              >
-                <p className="text-gray-600 dark:text-gray-400 text-sm font-semibold flex items-center gap-2">
+              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 hover:shadow-md transition-shadow">
+                <p className="text-slate-500 text-xs font-medium uppercase tracking-wide flex items-center gap-2">
                   <CalendarIcon /> {item.event}
                 </p>
-                <p className="text-2xl font-bold text-blue-600 mt-2">{item.date}</p>
+                <p className="text-lg font-semibold text-slate-900 mt-2">{item.date}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Conference Tracks Section */}
-      <section className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-gray-200 dark:border-gray-800">
+      {/* Research Tracks */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 text-center tracking-tight">Research Tracks</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Research Tracks</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {tracks.map((track, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-700 dark:to-blue-800 rounded-xl p-6 sm:p-8 text-white shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <h4 className="text-xl sm:text-2xl font-bold mb-3 tracking-tight">{track.title}</h4>
-                <p className="text-blue-100 text-sm sm:text-base leading-relaxed">{track.description}</p>
+              <div key={index} className="rounded-xl  border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+                <h4 className="text-xl font-semibold text-slate-900 mb-2">{track.title}</h4>
+                <p className="text-slate-600 text-sm leading-relaxed">{track.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Venue Section */}
-      <section className="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      {/* Venue */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 tracking-tight">Conference Venue</h3>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 sm:p-8 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Conference Venue</h3>
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                  <MapPinIcon className="w-5 h-5 sm:w-6 sm:h-6" /> Saranathan College of Engineering
+                <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                  <MapPinIcon className="w-5 h-5 text-blue-700" /> Saranathan College of Engineering
                 </h4>
-                <div className="space-y-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium">
+                <div className="space-y-3 text-sm text-slate-600">
                   <p>
-                    <strong className="text-gray-900 dark:text-white">Location:</strong><br />
-                    Panjappur, Trichy - 620012<br />
-                    Tamil Nadu, India
+                    <span className="font-medium text-slate-900">Location:</span><br />
+                    Panjappur, Trichy - 620012, Tamil Nadu, India
                   </p>
                   <p>
-                    <strong className="text-gray-900 dark:text-white">Contact:</strong><br />
+                    <span className="font-medium text-slate-900">Contact:</span><br />
                     Phone: +91-431-2760801, 2760802<br />
                     Website: www.saranathan.ac.in
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-5 sm:p-6">
-                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+              <div className="bg-slate-50 rounded-lg p-5 border border-slate-100">
+                <p className="text-sm text-slate-600 leading-relaxed">
                   The conference will be held at our state-of-the-art campus facilities, providing an ideal environment
                   for academic discourse and professional networking. Our modern infrastructure includes spacious
                   auditoriums, seminar halls, and excellent accommodation options.
@@ -192,53 +166,39 @@ export default function HomeSection() {
         </div>
       </section>
 
-      {/* Registration Info Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-8 border-b border-gray-200 dark:border-gray-800">
+      {/* Registration Categories */}
+      <section className="py-16 sm:py-20 px-4 sm:px-8 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">Registration Categories</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Students', color: 'from-blue-500 to-blue-600' },
-              { title: 'Faculty', color: 'from-indigo-500 to-indigo-600' },
-              { title: 'Research Scholars', color: 'from-purple-500 to-purple-600' },
-              { title: 'Industry Professionals', color: 'from-cyan-500 to-cyan-600' },
-            ].map((category, index) => (
-              <div
-                key={index}
-                className={`bg-gradient-to-br ${category.color} text-white rounded-lg p-6 shadow-md text-center hover:shadow-lg transition-shadow`}
-              >
-                <h4 className="font-semibold text-lg mb-2">{category.title}</h4>
-                <p className="text-sm text-white/90 font-medium">Early bird discounts available</p>
+          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Registration Categories</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {['Students', 'Faculty', 'Research Scholars', 'Industry Professionals'].map((title, index) => (
+              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-center">
+                <h4 className="font-semibold text-slate-900 mb-1">{title}</h4>
+                <p className="text-xs text-slate-500">Early bird discounts available</p>
               </div>
             ))}
           </div>
-          <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-            <p className="text-gray-700 dark:text-gray-300 font-medium">
-              <strong className="text-gray-900 dark:text-white">Important:</strong> At least one author of each accepted paper must register for the conference.
+          <div className="mt-6 p-4 bg-blue-50 border  rounded-lg">
+            <p className="text-sm text-slate-700">
+              <span className="font-medium text-slate-900">Important:</span> At least one author of each accepted paper must register for the conference.
               Group registrations from the same institution receive special rates.
             </p>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-8 bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-700 dark:to-indigo-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">Ready to Get Started?</h3>
-          <p className="text-blue-100 text-lg mb-8 font-medium">
+      {/* CTA */}
+      <section className="py-16 sm:py-20 px-4 sm:px-8 bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)]">
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-3">Ready to Get Started?</h3>
+          <p className="text-blue-100/90 mb-8">
             Join us for an extraordinary conference experience. Register now or sign in to your account.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/register"
-              className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-            >
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 bg-white text-slate-900 rounded-md font-medium hover:bg-slate-50 transition-colors text-sm">
               Create Account
             </Link>
-            <Link
-              href="/login"
-              className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
-            >
+            <Link href="/login" className="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-md font-medium hover:bg-white/10 transition-colors text-sm">
               Sign In
             </Link>
           </div>

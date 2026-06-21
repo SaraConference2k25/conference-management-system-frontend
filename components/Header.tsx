@@ -1,40 +1,33 @@
 import { CalendarIcon, MapPinIcon, SparklesIcon } from './Icons'
-import Image from 'next/image' 
+import Image from 'next/image'
 
 export default function Header() {
   return (
-    <header className="w-full">
+    <header className="w-full bg-white border-b border-slate-200">
       {/* Top Bar - College Info */}
-      <div className="w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-4 px-4 sm:px-8">
+      <div className="w-full py-3 px-4 sm:px-8 border-b border-slate-100">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Left Logos Section */}
-          <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
-            <div className="w-24 h-24 rounded-full flex items-center justify-center p-0">
-              <div className="rounded-full overflow-hidden w-20 h-20">
-                <Image src="/saranathan_logo.jpg" alt="Saranathan logo" width={80} height={80} className="object-contain" />
-              </div>
+          <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
+            <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-slate-100 shrink-0">
+              <Image src="/saranathan_logo.jpg" alt="Saranathan logo" width={64} height={64} className="object-contain w-full h-full" />
             </div>
-            <div className="hidden sm:block h-8 w-px bg-gray-300 dark:bg-gray-700"></div>
-            <div className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium text-center sm:text-left">
-              <div className="font-bold text-gray-900 dark:text-white tracking-wide text-base sm:text-lg">SARANATHAN</div>
-              <div className="tracking-wide text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium">COLLEGE OF ENGINEERING</div>
-              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide font-medium mt-1">An autonomous institution</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">Affiliated to Anna University</div>
+            <div className="hidden sm:block h-10 w-px bg-slate-200" />
+            <div className="text-center sm:text-left">
+              <div className="font-semibold text-slate-900 tracking-tight text-base">Saranathan College of Engineering</div>
+              <div className="text-xs text-slate-500 mt-0.5">Autonomous Institution · Affiliated to Anna University</div>
             </div>
           </div>
 
-          {/* Center - Tagline */}
-          <div className="hidden md:block text-center flex-grow">
-            <p className="text-lg sm:text-xl md:text-2xl font-extrabold text-blue-600 dark:text-blue-400 tracking-wide uppercase">WINNERS BEGIN WITH SARANATHAN</p>
+          <div className="hidden md:block text-center">
+            <p className="text-sm font-medium text-blue-800 tracking-wide uppercase">Winners Begin With Saranathan</p>
           </div>
 
-          {/* Right - Counselling Code */}
           <div className="flex items-center gap-3">
-            <div className="bg-white dark:bg-gray-800 text-gray-900 px-4 py-3 rounded-lg shadow-md font-semibold text-center border border-gray-200 dark:border-gray-700">
-              <div className="text-xs font-medium tracking-wide text-gray-600 dark:text-gray-400">Counselling Code</div>
-              <div className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">3819</div>
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm px-4 py-2 text-center">
+              <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">Counselling Code</div>
+              <div className="text-xl font-semibold text-slate-900 tabular-nums">3819</div>
             </div>
-            <div className="hidden sm:flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 relative">
+            <div className="hidden sm:block w-14 h-14 rounded-full overflow-hidden ring-2 ring-slate-100 relative shrink-0">
               <Image src="/silver_jubliee.jpeg" alt="Silver Jubilee" fill className="object-cover" />
             </div>
           </div>
@@ -42,13 +35,12 @@ export default function Header() {
       </div>
 
       {/* Main Header Banner */}
-      <div className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 dark:from-blue-800 dark:via-indigo-800 dark:to-blue-900 py-10 sm:py-16 px-4 sm:px-8 relative overflow-hidden">
-        {/* Decorative Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
+      <div className="w-full bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] py-12 sm:py-16 px-4 sm:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.07]">
           <svg className="w-full h-full" viewBox="0 0 1200 300" preserveAspectRatio="none">
             <defs>
-              <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="white" strokeWidth="1" />
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
               </pattern>
             </defs>
             <rect width="1200" height="300" fill="url(#grid)" />
@@ -57,72 +49,62 @@ export default function Header() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            {/* Left - Empty for balance */}
-            <div className="hidden md:block"></div>
+            <div className="hidden md:block" />
 
-            {/* Center - Main Title */}
             <div className="text-center">
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-lg tracking-tight">
+              <p className="text-blue-200 text-xs font-medium uppercase tracking-[0.2em] mb-3">National Conference</p>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white mb-3 tracking-tight">
                 SARA 2026
               </h1>
-              <h2 className="text-2xl sm:text-3xl font-bold text-yellow-300 mb-4 drop-shadow-lg tracking-wide">
-                National Conference
-              </h2>
-              <p className="text-base sm:text-lg text-blue-100 font-semibold drop-shadow-md">
+              <p className="text-base sm:text-lg text-blue-100/90 font-normal max-w-md mx-auto">
                 Advancing Research and Academic Excellence
               </p>
             </div>
 
-            {/* Right - Info Card */}
             <div className="flex justify-center md:justify-end">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 max-w-xs w-full border border-gray-100 dark:border-gray-700">
-                <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-4 tracking-widest uppercase">Conference Details</h3>
+              <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 max-w-xs w-full">
+                <h3 className="text-[10px] font-semibold text-slate-400 mb-4 tracking-widest uppercase">Conference Details</h3>
                 <div className="space-y-3 text-sm">
                   <div>
-                    <span className="text-gray-600 dark:text-gray-400 font-medium flex items-center gap-2">
+                    <span className="text-slate-500 font-medium flex items-center gap-2 text-xs">
                       <CalendarIcon /> Dates
                     </span>
-                    <p className="text-gray-900 dark:text-white font-semibold mt-1">April 3 & 4, 2026</p>
+                    <p className="text-slate-900 font-medium mt-0.5">April 3 & 4, 2026</p>
                   </div>
                   <div>
-                    <span className="text-gray-600 dark:text-gray-400 font-medium flex items-center gap-2">
+                    <span className="text-slate-500 font-medium flex items-center gap-2 text-xs">
                       <MapPinIcon /> Venue
                     </span>
-                    <p className="text-gray-900 dark:text-white font-semibold mt-1">Saranathan College, Trichy</p>
+                    <p className="text-slate-900 font-medium mt-0.5">Saranathan College, Trichy</p>
                   </div>
-                  <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                    <span className="text-gray-600 dark:text-gray-400 font-medium flex items-center gap-2">
+                  <div className="pt-3 border-t border-slate-100">
+                    <span className="text-slate-500 font-medium flex items-center gap-2 text-xs">
                       <SparklesIcon /> Status
                     </span>
-                    <p className="text-green-600 dark:text-green-400 font-semibold mt-1">Registrations Opening Soon</p>
+                    <p className="text-emerald-600 font-medium mt-0.5 text-sm">Registrations Opening Soon</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Decorative Bottom Wave */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-blue-700 to-indigo-700 opacity-50" style={{
-          clipPath: 'polygon(0 50%, 100% 0%, 100% 100%, 0% 100%)'
-        }}></div>
       </div>
 
       {/* Info Bar */}
-      <div className="w-full bg-gray-50 dark:bg-gray-800 py-3 px-4 sm:px-8 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center gap-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium tracking-wide">
-          <span className="flex items-center gap-1">
-            <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
+      <div className="w-full bg-slate-50 py-2.5 px-4 sm:px-8 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center gap-x-6 gap-y-1 text-xs text-slate-600">
+          <span className="flex items-center gap-2 justify-center">
+            <span className="w-1 h-1 bg-blue-600 rounded-full" />
             Double-blind peer review
           </span>
-          <span className="hidden sm:inline">•</span>
-          <span className="flex items-center gap-1">
-            <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
+          <span className="hidden sm:inline text-slate-300">|</span>
+          <span className="flex items-center gap-2 justify-center">
+            <span className="w-1 h-1 bg-blue-600 rounded-full" />
             ISBN proceedings
           </span>
-          <span className="hidden sm:inline">•</span>
-          <span className="flex items-center gap-1">
-            <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
+          <span className="hidden sm:inline text-slate-300">|</span>
+          <span className="flex items-center gap-2 justify-center">
+            <span className="w-1 h-1 bg-blue-600 rounded-full" />
             Industry & Academia collaboration
           </span>
         </div>

@@ -3,16 +3,17 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { DocumentIcon, MenuIcon, XIcon, LogOutIcon, UploadIcon, AlertIcon, CheckIcon } from '@/components/Icons'
+import { DocumentIcon, UploadIcon, AlertIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
-import { getInitials, getDisplayName } from '@/lib/utils/avatar'
-import { toast } from 'sonner' 
+import { DashboardPageSkeleton } from '@/components/ui/loading-skeletons'
+import { toast } from 'sonner'
+import DashboardShell from '@/components/dashboard/DashboardShell'
+import { participantNav } from '@/components/dashboard/navConfig'
 
 export default function UploadPaperPage() {
   const router = useRouter()
   const { user: authUser, isLoading } = useAuth()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Redirect if not authenticated
@@ -105,266 +106,161 @@ export default function UploadPaperPage() {
     router.push('/login')
   }
 
+  if (isLoading) {
+    return <DashboardPageSkeleton />
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 dark:from-blue-950 dark:via-indigo-950 dark:to-gray-950 shadow-lg border-b border-blue-800 dark:border-blue-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 hover:bg-blue-500/50 dark:hover:bg-blue-900/50 rounded-lg transition-colors"
-              >
-                {isMobileMenuOpen ? (
-                  <XIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+    <DashboardShell roleLabel="Participant" navItems={participantNav} user={authUser} onLogout={handleLogout}>
+      {/* Page Header */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold text-slate-900 mb-1">Submit Your Paper</h2>
+        <p className="text-slate-500 text-sm">
+          Fill in the details below and upload your research paper for conference review
+        </p>
+      </div>
+
+      <div className="max-w-3xl">
+        {/* Submission Error */}
+        {errors.submit && (
+          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 bg-red-50 border-red-100 flex items-start gap-3">
+            <AlertIcon className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold text-red-900 text-sm">Submission Failed</h3>
+              <p className="text-red-700 text-sm mt-0.5">{errors.submit}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Info Alert */}
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 bg-blue-50/50 border-blue-100 flex items-start gap-3">
+          <AlertIcon className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <h3 className="font-semibold text-slate-900 text-sm">Submission Guidelines</h3>
+            <ul className="text-slate-600 text-sm mt-1.5 space-y-1 list-disc list-inside">
+              <li>Paper must be in PDF or DOCX format</li>
+              <li>Maximum file size: 10MB</li>
+              <li>Include a clear abstract (250-300 words)</li>
+              <li>Provide relevant keywords for categorization</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Form */}
+        <div className="rounded-xl border border-slate-200 bg-white shadow-md overflow-hidden">
+          <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-5">
+            {/* Title Field */}
+            <div>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Paper Title *</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                placeholder="Enter the title of your research paper"
+                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 ${errors.title ? 'border-red-400' : ''}`}
+              />
+              {errors.title && <p className="text-red-600 text-sm mt-1">{errors.title}</p>}
+            </div>
+
+            {/* Keywords Field */}
+            <div>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Keywords (comma-separated)</label>
+              <input
+                type="text"
+                name="keywords"
+                value={formData.keywords}
+                onChange={handleInputChange}
+                placeholder="e.g., Machine Learning, AI, Data Science"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
+              />
+            </div>
+
+            {/* Abstract Field */}
+            <div>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Abstract *</label>
+              <textarea
+                name="abstract"
+                value={formData.abstract}
+                onChange={handleInputChange}
+                placeholder="Provide a concise abstract of your research (250-300 words recommended)"
+                rows={6}
+                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 resize-none ${errors.abstract ? 'border-red-400' : ''}`}
+              />
+              {errors.abstract && <p className="text-red-600 text-sm mt-1">{errors.abstract}</p>}
+            </div>
+
+            {/* Department Field */}
+            <div>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Department *</label>
+              <input
+                type="text"
+                name="department"
+                value={formData.department}
+                onChange={handleInputChange}
+                placeholder="e.g., Computer Science, Engineering"
+                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 ${errors.department ? 'border-red-400' : ''}`}
+              />
+              {errors.department && <p className="text-red-600 text-sm mt-1">{errors.department}</p>}
+            </div>
+
+            {/* File Upload Field */}
+            <div>
+              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Upload Paper (PDF or DOCX) *</label>
+              <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                errors.file
+                  ? 'border-red-300 bg-red-50/50'
+                  : 'border-slate-300 bg-slate-50 hover:border-blue-400'
+              }`}>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="file-input"
+                />
+                <label htmlFor="file-input" className="cursor-pointer block">
+                  <UploadIcon className="w-10 h-10 mx-auto mb-3 text-slate-400" />
+                  {formData.file ? (
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">{formData.file.name}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        {(formData.file.size / 1024 / 1024).toFixed(2)} MB
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">Drag and drop your file here</p>
+                      <p className="text-xs text-slate-500 mt-1">or click to browse (PDF or DOCX, max 10MB)</p>
+                    </div>
+                  )}
+                </label>
+              </div>
+              {errors.file && <p className="text-red-600 text-sm mt-1">{errors.file}</p>}
+            </div>
+
+            {/* Form Actions */}
+            <div className="flex gap-3 pt-4">
+              <Link href="/dashboard" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 flex-1">
+                Cancel
+              </Link>
+              <button type="submit" disabled={isSubmitting} className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 flex-1 disabled:opacity-60 disabled:cursor-not-allowed">
+                {isSubmitting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Submitting...
+                  </>
                 ) : (
-                  <MenuIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <>
+                    <DocumentIcon className="w-4 h-4" />
+                    Submit Paper
+                  </>
                 )}
               </button>
-              <div className="flex flex-col">
-                <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  SARA 2025
-                </h1>
-                <p className="text-xs sm:text-sm text-blue-100 font-medium">Upload Paper</p>
-              </div>
             </div>
-            <div className="flex items-center gap-3 sm:gap-6">
-              <div className="hidden sm:flex flex-col items-end">
-                <span className="text-xs sm:text-sm font-semibold text-blue-50 line-clamp-1">
-                  {getDisplayName(authUser?.fullName, authUser?.email)}
-                </span>
-                <span className="text-xs text-blue-100">
-                  Participant
-                </span>
-              </div>
-              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-white/20 dark:bg-blue-400/20 flex items-center justify-center border border-white/30">
-                <span className="text-white font-bold text-xs sm:text-sm">{getInitials(authUser?.fullName || '', authUser?.email || '')}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-lg font-semibold transition-all text-xs sm:text-sm shadow-md hover:shadow-lg transform hover:scale-105"
-              >
-                <LogOutIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">Logout</span>
-              </button>
-            </div>
-          </div>
+          </form>
         </div>
-      </header>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-          <nav className="max-w-7xl mx-auto px-4 py-4 space-y-2">
-            <Link href="/dashboard" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/upload" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium">
-              Upload Paper
-            </Link>
-            <Link href="/dashboard/my-papers" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium">
-              My Papers
-            </Link>
-          </nav>
-        </div>
-      )}
-
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="hidden md:block w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 min-h-screen">
-          <nav className="sticky top-20 p-6 space-y-2">
-            <Link href="/dashboard" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-semibold border-l-4 border-transparent">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/upload" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors font-semibold border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20">
-              Upload Paper
-            </Link>
-            <Link href="/dashboard/my-papers" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-semibold border-l-4 border-transparent">
-              My Papers
-            </Link>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-4 sm:p-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
-              Submit Your Paper
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              Fill in the details below and upload your research paper for conference review
-            </p>
-          </div>
-
-          {/* Submission Error */}
-          {errors.submit && (
-            <div className="mb-8 p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-start gap-4">
-              <AlertIcon className="w-6 h-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-bold text-red-900 dark:text-red-100">Submission Failed</h3>
-                <p className="text-red-800 dark:text-red-200 text-sm mt-1">{errors.submit}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Info Alert */}
-          <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl flex items-start gap-4">
-            <AlertIcon className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-bold text-blue-900 dark:text-blue-100">Submission Guidelines</h3>
-              <ul className="text-blue-800 dark:text-blue-200 text-sm mt-2 space-y-1 list-disc list-inside">
-                <li>Paper must be in PDF or DOCX format</li>
-                <li>Maximum file size: 10MB</li>
-                <li>Include a clear abstract (250-300 words)</li>
-                <li>Provide relevant keywords for categorization</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <form onSubmit={handleSubmit} className="p-8 space-y-6">
-              {/* Title Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                  Paper Title *
-                </label>
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  placeholder="Enter the title of your research paper"
-                  className={`w-full px-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                    errors.title ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  }`}
-                />
-                {errors.title && <p className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.title}</p>}
-              </div>
-
-              {/* Keywords Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                  Keywords (comma-separated)
-                </label>
-                <input
-                  type="text"
-                  name="keywords"
-                  value={formData.keywords}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Machine Learning, AI, Data Science"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                />
-              </div>
-
-              {/* Abstract Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                  Abstract *
-                </label>
-                <textarea
-                  name="abstract"
-                  value={formData.abstract}
-                  onChange={handleInputChange}
-                  placeholder="Provide a concise abstract of your research (250-300 words recommended)"
-                  rows={6}
-                  className={`w-full px-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none ${
-                    errors.abstract ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  }`}
-                />
-                {errors.abstract && <p className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.abstract}</p>}
-              </div>
-
-              {/* Department Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                  Department *
-                </label>
-                <input
-                  type="text"
-                  name="department"
-                  value={formData.department}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Computer Science, Engineering"
-                  className={`w-full px-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                    errors.department ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  }`}
-                />
-                {errors.department && <p className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.department}</p>}
-              </div>
-
-              {/* File Upload Field */}
-              <div>
-                <label className="block text-sm font-bold text-gray-900 dark:text-white mb-2 tracking-wide">
-                  Upload Paper (PDF or DOCX) *
-                </label>
-                <div className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all ${
-                  errors.file
-                    ? 'border-red-400 bg-red-50 dark:bg-red-900/10'
-                    : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 hover:border-blue-500 dark:hover:border-blue-400'
-                }`}>
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleFileChange}
-                    className="hidden"
-                    id="file-input"
-                  />
-                  <label htmlFor="file-input" className="cursor-pointer">
-                    <UploadIcon className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-                    {formData.file ? (
-                      <div>
-                        <p className="text-lg font-bold text-gray-900 dark:text-white">{formData.file.name}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {(formData.file.size / 1024 / 1024).toFixed(2)} MB
-                        </p>
-                      </div>
-                    ) : (
-                      <div>
-                        <p className="text-lg font-bold text-gray-900 dark:text-white">Drag and drop your file here</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">or click to browse (PDF or DOCX, max 10MB)</p>
-                      </div>
-                    )}
-                  </label>
-                </div>
-                {errors.file && <p className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.file}</p>}
-              </div>
-
-              {/* Form Actions */}
-              <div className="flex gap-4 pt-6">
-                <Link
-                  href="/dashboard"
-                  className="flex-1 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-bold hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-center"
-                >
-                  Cancel
-                </Link>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white rounded-lg font-bold transition-all disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      Submitting...
-                    </>
-                  ) : (
-                    <>
-                      <DocumentIcon className="w-5 h-5" />
-                      Submit Paper
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </main>
       </div>
-    </div>
+    </DashboardShell>
   )
 }

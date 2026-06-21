@@ -3,29 +3,17 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { DocumentIcon, DownloadIcon, TrashIcon, ChevronDownIcon, MenuIcon, XIcon, ExitIcon } from '@/components/Icons'
+import { DocumentIcon, DownloadIcon, ChevronDownIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
-import { getInitials, getDisplayName } from '@/lib/utils/avatar'
-import { toast } from 'sonner' 
-
-interface Paper {
-  id: string
-  paperId?: string
-  title: string
-  paperTitle?: string
-  status: 'submitted' | 'under_review' | 'accepted' | 'rejected'
-  submittedDate: string
-  score?: number
-  feedback?: string
-  paperFileUrl?: string
-  paperFileName?: string
-}
+import { toast } from 'sonner'
+import { DashboardPageSkeleton, PaperListSkeleton } from '@/components/ui/loading-skeletons'
+import DashboardShell from '@/components/dashboard/DashboardShell'
+import { participantNav } from '@/components/dashboard/navConfig'
 
 export default function MyPapersPage() {
   const router = useRouter()
   const { user: authUser, isLoading } = useAuth()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [expandedPaperId, setExpandedPaperId] = useState<string | null>(null)
   const [activeFilter, setActiveFilter] = useState('all')
   const [downloadingId, setDownloadingId] = useState<string | null>(null)
@@ -47,7 +35,7 @@ export default function MyPapersPage() {
     const fetchPapers = async () => {
       try {
         if (!authUser?.email) return
-        
+
         const userPapers = await apiClient.getPapersByEmail(authUser.email)
         setPapers(userPapers || [])
         setPapersError(null)
@@ -63,16 +51,16 @@ export default function MyPapersPage() {
     fetchPapers()
   }, [authUser?.email])
 
-  const getStatusColor = (status: string) => {
+  const statusBadgeClass = (status: string) => {
     switch (status) {
       case 'accepted':
-        return { bg: 'bg-green-50 dark:bg-green-900/20', text: 'text-green-700 dark:text-green-300', border: 'border-green-200 dark:border-green-800', badge: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' }
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-emerald-50 text-emerald-700'
       case 'under_review':
-        return { bg: 'bg-amber-50 dark:bg-amber-900/20', text: 'text-amber-700 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-800', badge: 'bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200' }
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-amber-50 text-amber-700'
       case 'rejected':
-        return { bg: 'bg-red-50 dark:bg-red-900/20', text: 'text-red-700 dark:text-red-300', border: 'border-red-200 dark:border-red-800', badge: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' }
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-red-50 text-red-700'
       default:
-        return { bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-700 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-800', badge: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' }
+        return 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium leading-4 bg-blue-50 text-blue-700'
     }
   }
 
@@ -106,296 +94,204 @@ export default function MyPapersPage() {
     }
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 dark:from-blue-950 dark:via-indigo-950 dark:to-gray-950 shadow-lg border-b border-blue-800 dark:border-blue-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 hover:bg-blue-500/50 dark:hover:bg-blue-900/50 rounded-lg transition-colors"
-              >
-                {isMobileMenuOpen ? (
-                  <XIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                ) : (
-                  <MenuIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                )}
-              </button>
-              <div className="flex flex-col">
-                <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  SARA 2025
-                </h1>
-                <p className="text-xs sm:text-sm text-blue-100 font-medium">My Papers</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 sm:gap-6">
-              <div className="hidden sm:flex flex-col items-end">
-                <span className="text-xs sm:text-sm font-semibold text-blue-50 line-clamp-1">
-                  {getDisplayName(authUser?.fullName, authUser?.email)}
-                </span>
-                <span className="text-xs text-blue-100">
-                  Participant
-                </span>
-              </div>
-              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-white/20 dark:bg-blue-400/20 flex items-center justify-center border border-white/30">
-                <span className="text-white font-bold text-xs sm:text-sm">{getInitials(authUser?.fullName || '', authUser?.email || '')}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded-lg font-semibold transition-all text-xs sm:text-sm shadow-md hover:shadow-lg transform hover:scale-105"
-              >
-                <ExitIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">Logout</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+  if (isLoading) {
+    return <DashboardPageSkeleton />
+  }
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-          <nav className="max-w-7xl mx-auto px-4 py-4 space-y-2">
-            <Link href="/dashboard" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/upload" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium">
-              Upload Paper
-            </Link>
-            <Link href="/dashboard/my-papers" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-medium">
-              My Papers
-            </Link>
-          </nav>
+  return (
+    <DashboardShell roleLabel="Participant" navItems={participantNav} user={authUser} onLogout={handleLogout}>
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-8 gap-4">
+        <div>
+          <h2 className="text-2xl font-semibold text-slate-900 mb-1">My Submitted Papers</h2>
+          <p className="text-slate-500 text-sm">Track the status and progress of your research submissions</p>
+        </div>
+        <Link href="/dashboard/upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
+          <DocumentIcon className="w-4 h-4" />
+          Submit Paper
+        </Link>
+      </div>
+
+      {/* Status Filters */}
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
+        {['all', 'submitted', 'under_review', 'accepted', 'rejected'].map(status => (
+          <button
+            key={status}
+            onClick={() => setActiveFilter(status)}
+            className={`px-3.5 py-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-colors ${
+              activeFilter === status
+                ? 'bg-blue-700 text-white'
+                : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            {getStatusLabel(status)}
+          </button>
+        ))}
+      </div>
+
+      {/* Loading State */}
+      {papersLoading && <PaperListSkeleton count={4} />}
+
+      {/* Error State */}
+      {papersError && !papersLoading && (
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 bg-red-50 border-red-100">
+          <h3 className="font-semibold text-red-900 mb-1">Error Loading Papers</h3>
+          <p className="text-red-700 text-sm">{papersError}</p>
         </div>
       )}
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="hidden md:block w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 min-h-screen">
-          <nav className="sticky top-20 p-6 space-y-2">
-            <Link href="/dashboard" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-semibold border-l-4 border-transparent">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/upload" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors font-semibold border-l-4 border-transparent">
-              Upload Paper
-            </Link>
-            <Link href="/dashboard/my-papers" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors font-semibold border-l-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20">
-              My Papers
-            </Link>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-4 sm:p-8">
-          {/* Page Header */}
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
-                My Submitted Papers
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Track the status and progress of your research submissions
+      {/* Papers List */}
+      {!papersLoading && !papersError && (
+        <div className="space-y-4">
+          {filteredPapers.length === 0 ? (
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm text-center py-16">
+              <DocumentIcon className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-1">
+                {papers.length === 0 ? 'No Papers Submitted' : 'No Papers Found'}
+              </h3>
+              <p className="text-sm text-slate-500 mb-6">
+                {papers.length > 0
+                  ? 'No papers match the selected status.'
+                  : "You haven't submitted any papers yet."}
               </p>
+              {papers.length === 0 && (
+                <Link href="/dashboard/upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 inline-flex">
+                  <DocumentIcon className="w-4 h-4" />
+                  Submit Your First Paper
+                </Link>
+              )}
             </div>
-            <Link href="/dashboard/upload" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors">
-              <DocumentIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">Submit Paper</span>
-            </Link>
-          </div>
-
-          {/* Status Filters */}
-          <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
-            {['all', 'submitted', 'under_review', 'accepted', 'rejected'].map(status => (
-              <button
-                key={status}
-                onClick={() => setActiveFilter(status)}
-                className={`px-4 py-2 rounded-lg font-semibold whitespace-nowrap transition-all ${
-                  activeFilter === status
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-blue-600'
-                }`}
-              >
-                {getStatusLabel(status)}
-              </button>
-            ))}
-          </div>
-
-          {/* Loading State */}
-          {papersLoading && (
-            <div className="flex justify-center items-center py-16">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">Loading your papers...</p>
-              </div>
-            </div>
-          )}
-
-          {/* Error State */}
-          {papersError && !papersLoading && (
-            <div className="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
-              <h3 className="font-bold text-red-900 dark:text-red-100 mb-2">Error Loading Papers</h3>
-              <p className="text-red-800 dark:text-red-200 text-sm">{papersError}</p>
-            </div>
-          )}
-
-          {/* Papers List */}
-          <div className="space-y-4">
-            {filteredPapers.length === 0 ? (
-              <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-                <DocumentIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  {papers.length === 0 ? 'No Papers Submitted' : 'No Papers Found'}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  {papers.length > 0
-                    ? 'No papers match the selected status.'
-                    : 'You haven\'t submitted any papers yet.'}
-                </p>
-                {papers.length === 0 && (
-                  <Link href="/dashboard/upload" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors">
-                    <DocumentIcon className="w-5 h-5" />
-                    Submit Your First Paper
-                  </Link>
-                )}
-              </div>
-            ) : (
-              filteredPapers.map(paper => {
-                const colors = getStatusColor(paper.status)
-                return (
+          ) : (
+            filteredPapers.map(paper => {
+              const paperKey = paper.paperId || paper.id
+              const isExpanded = expandedPaperId === paperKey
+              return (
+                <div key={paperKey} className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+                  {/* Card Header */}
                   <div
-                    key={paper.paperId || paper.id}
-                    className={`bg-white dark:bg-gray-800 rounded-xl border ${colors.border} overflow-hidden hover:shadow-lg transition-shadow`}
+                    className="p-5 cursor-pointer hover:bg-slate-50 transition-colors"
+                    onClick={() => setExpandedPaperId(isExpanded ? null : paperKey)}
                   >
-                    {/* Card Header */}
-                    <div className="p-6 cursor-pointer" onClick={() => setExpandedPaperId(expandedPaperId === (paper.paperId || paper.id) ? null : (paper.paperId || paper.id))}>
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1 min-w-0">
-                          {/* Paper ID and Title */}
-                          <div className="flex items-start gap-3 mb-3">
-                            <DocumentIcon className="w-6 h-6 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Paper ID: {paper.paperId || paper.id}</p>
-                              <h3 className="text-lg font-bold text-gray-900 dark:text-white break-words">
-                                {paper.paperTitle || 'Untitled Paper'}
-                              </h3>
-                            </div>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start gap-3 mb-2">
+                          <div className="w-9 h-9 rounded-md bg-slate-100 text-slate-500 flex items-center justify-center flex-shrink-0">
+                            <DocumentIcon className="w-4 h-4" />
                           </div>
-                          {/* Submission Date */}
-                          <p className="text-sm text-gray-600 dark:text-gray-400 ml-9">
-                            Submitted on {paper.submittedAt ? new Date(paper.submittedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Invalid Date'}
-                          </p>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-0.5">Paper ID: {paperKey}</p>
+                            <h3 className="text-base font-semibold text-slate-900 break-words">
+                              {paper.paperTitle || 'Untitled Paper'}
+                            </h3>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-3 flex-shrink-0">
-                          <span className={`px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap ${colors.badge}`}>
-                            {getStatusLabel(paper.status)}
-                          </span>
+                        <p className="text-sm text-slate-500 ml-12">
+                          Submitted on {paper.submittedAt ? new Date(paper.submittedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-3 flex-shrink-0">
+                        <span className={statusBadgeClass(paper.status)}>
+                          {getStatusLabel(paper.status)}
+                        </span>
+                        <ChevronDownIcon className={`w-4 h-4 text-slate-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Expanded Details */}
+                  {isExpanded && (
+                    <div className="border-t border-slate-100 p-5 space-y-6">
+                      {/* Paper Details Grid */}
+                      <div>
+                        <h4 className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">Paper Information</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Paper ID</p>
+                            <p className="text-slate-900 font-mono text-sm">{paperKey}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Submitted Date</p>
+                            <p className="text-slate-900 text-sm">{paper.submittedAt ? new Date(paper.submittedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Status</p>
+                            <p className="text-slate-900 text-sm">{getStatusLabel(paper.status)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Paper File</p>
+                            <p className="text-slate-900 text-sm truncate">{paper.paperFileName}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Author Information */}
+                      <div>
+                        <h4 className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">Author Information</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg">
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Name</p>
+                            <p className="text-slate-900 text-sm">{paper.name}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Email</p>
+                            <p className="text-slate-900 text-sm break-all">{paper.email}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Contact Number</p>
+                            <p className="text-slate-900 text-sm">{paper.contactNo}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">Department</p>
+                            <p className="text-slate-900 text-sm">{paper.department}</p>
+                          </div>
+                          <div className="sm:col-span-2">
+                            <p className="text-xs font-medium text-slate-400 mb-0.5 uppercase tracking-wide">College/Institution</p>
+                            <p className="text-slate-900 text-sm">{paper.collegeName}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Paper Content */}
+                      <div>
+                        <h4 className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">Paper Content</h4>
+                        <div className="space-y-4">
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-1 uppercase tracking-wide">Title</p>
+                            <p className="text-slate-900 text-sm leading-relaxed">{paper.paperTitle}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-slate-400 mb-1 uppercase tracking-wide">Abstract</p>
+                            <p className="text-slate-600 text-sm leading-relaxed bg-slate-50 p-4 rounded-lg">{paper.paperAbstract}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="space-y-3">
+                        {downloadError && (
+                          <div className="p-3 bg-red-50 border border-red-100 rounded-lg">
+                            <p className="text-red-700 text-sm">{downloadError}</p>
+                          </div>
+                        )}
+                        <div className="flex justify-end">
                           <button
-                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={() => handleDownloadPaper(paper.paperFileUrl || '', paper.paperFileName || 'paper.pdf')}
+                            disabled={downloadingId === paper.paperFileUrl}
+                            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 py-2 text-sm"
                           >
-                            <ChevronDownIcon className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${expandedPaperId === (paper.paperId || paper.id) ? 'rotate-180' : ''}`} />
+                            <DownloadIcon className="w-3.5 h-3.5" />
+                            {downloadingId === paper.paperFileUrl ? 'Downloading...' : 'Download'}
                           </button>
                         </div>
                       </div>
                     </div>
-
-                    {/* Expanded Details */}
-                    {expandedPaperId === (paper.paperId || paper.id) && (
-                      <div className={`border-t ${colors.border} p-6 space-y-6`}>
-                        {/* Paper Details Grid */}
-                        <div>
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">Paper Information</h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Paper ID</p>
-                              <p className="text-gray-900 dark:text-white font-mono text-sm">{paper.paperId || paper.id}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Submitted Date</p>
-                              <p className="text-gray-900 dark:text-white text-sm">{paper.submittedAt ? new Date(paper.submittedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Status</p>
-                              <p className="text-gray-900 dark:text-white text-sm">{getStatusLabel(paper.status)}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Paper File</p>
-                              <p className="text-gray-900 dark:text-white text-sm truncate">{paper.paperFileName}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Author Information */}
-                        <div>
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">Author Information</h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Name</p>
-                              <p className="text-gray-900 dark:text-white text-sm">{paper.name}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Email</p>
-                              <p className="text-gray-900 dark:text-white text-sm break-all">{paper.email}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Contact Number</p>
-                              <p className="text-gray-900 dark:text-white text-sm">{paper.contactNo}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">Department</p>
-                              <p className="text-gray-900 dark:text-white text-sm">{paper.department}</p>
-                            </div>
-                            <div className="sm:col-span-2">
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">College/Institution</p>
-                              <p className="text-gray-900 dark:text-white text-sm">{paper.collegeName}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Paper Details */}
-                        <div>
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">Paper Content</h4>
-                          <div className="space-y-4">
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">Title</p>
-                              <p className="text-gray-900 dark:text-white text-sm leading-relaxed">{paper.paperTitle}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">Abstract</p>
-                              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed bg-gray-50 dark:bg-gray-700/30 p-4 rounded">{paper.paperAbstract}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="flex gap-3 flex-col space-y-3">
-                          {downloadError && (
-                            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                              <p className="text-red-700 dark:text-red-300 text-sm">{downloadError}</p>
-                            </div>
-                          )}
-                          <div className="flex justify-end">
-                            <button 
-                              onClick={() => handleDownloadPaper(paper.paperFileUrl || '', paper.paperFileName || 'paper.pdf')}
-                              disabled={downloadingId === paper.paperFileUrl}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white text-sm rounded-lg font-semibold transition-colors disabled:cursor-not-allowed"
-                            >
-                              <DownloadIcon className="w-3.5 h-3.5" />
-                              {downloadingId === paper.paperFileUrl ? 'Downloading...' : 'Download'}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )
-              })
-            )}
-          </div>
-        </main>
-      </div>
-    </div>
+                  )}
+                </div>
+              )
+            })
+          )}
+        </div>
+      )}
+    </DashboardShell>
   )
 }

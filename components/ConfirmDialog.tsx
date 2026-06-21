@@ -58,7 +58,7 @@ export function ConfirmDialog({
             className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 ${
               isDestructive 
                 ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500' 
-                : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
+                : 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-600'
             }`}
           >
             {isLoading && (

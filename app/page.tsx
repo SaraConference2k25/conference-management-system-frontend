@@ -45,7 +45,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-slate-50">
       <Header />
       <Navigation
         activeSection={activeSection}

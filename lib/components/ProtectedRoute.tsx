@@ -8,6 +8,7 @@
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import { useEffect, ReactNode } from 'react'
+import { DashboardPageSkeleton } from '@/components/ui/loading-skeletons'
 
 interface ProtectedRouteProps {
   children: ReactNode
@@ -39,17 +40,7 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
   }, [user, isLoading, requiredRole, router])
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <svg className="animate-spin h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg>
-          <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-        </div>
-      </div>
-    )
+    return <DashboardPageSkeleton />
   }
 
   if (!user) {
@@ -58,13 +49,13 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 
   if (requiredRole && (user.role || '').toLowerCase() !== requiredRole.toLowerCase()) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Access Denied</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">You do not have permission to access this page.</p>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+        <div className="text-center max-w-md rounded-xl border border-slate-200 bg-white shadow-sm p-8">
+          <h1 className="text-xl font-semibold text-slate-900 mb-2">Access Denied</h1>
+          <p className="text-slate-500 mb-6">You do not have permission to access this page.</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
             Back to Dashboard
           </button>
