@@ -31,7 +31,7 @@ export default function RegistrationSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 border-l-[3px] border-l-blue-700">
+          <div className="rounded-xl  border-slate-200 bg-white shadow-sm p-6">
             <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DocumentIcon /> Registration Details
             </h4>
@@ -50,7 +50,7 @@ export default function RegistrationSection() {
             </ul>
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 border-l-[3px] border-l-slate-700">
+          <div className="rounded-xl border-slate-200 bg-white shadow-sm p-6  border-l-slate-700">
             <h4 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DocumentIcon /> Registration Fees
             </h4>

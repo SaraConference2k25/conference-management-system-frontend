@@ -72,7 +72,7 @@ export default function HomeSection() {
                 <AwardIcon className="w-5 h-5 text-blue-700" /> Our Mission
               </h4>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                SARA 2026 brings together leading researchers, academicians, and industry professionals to share
+                SARA conference brings together leading researchers, academicians, and industry professionals to share
                 groundbreaking research and innovative ideas. We provide a platform for intellectual exchange and
                 collaboration across various disciplines of engineering, technology, and applied sciences.
               </p>
@@ -123,7 +123,7 @@ export default function HomeSection() {
           <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Research Tracks</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {tracks.map((track, index) => (
-              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 border-l-[3px] border-l-blue-700">
+              <div key={index} className="rounded-xl  border-slate-200 bg-white shadow-sm p-6 sm:p-8">
                 <h4 className="text-xl font-semibold text-slate-900 mb-2">{track.title}</h4>
                 <p className="text-slate-600 text-sm leading-relaxed">{track.description}</p>
               </div>
@@ -178,7 +178,7 @@ export default function HomeSection() {
               </div>
             ))}
           </div>
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
+          <div className="mt-6 p-4 bg-blue-50 border  rounded-lg">
             <p className="text-sm text-slate-700">
               <span className="font-medium text-slate-900">Important:</span> At least one author of each accepted paper must register for the conference.
               Group registrations from the same institution receive special rates.
