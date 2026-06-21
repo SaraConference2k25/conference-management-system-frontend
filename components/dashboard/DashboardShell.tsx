@@ -51,17 +51,16 @@ export default function DashboardShell({
                   <MenuIcon className="w-5 h-5 text-white" />
                 )}
               </button>
-              <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-white/15 bg-white/10 text-sm font-bold tracking-tight text-white">S</span>
               <div className="flex flex-col">
                 <h1 className="text-base sm:text-lg font-semibold text-white tracking-tight leading-tight">
-                  SARA 2026
+                  SARA Conference 
                 </h1>
                 <p className="text-xs text-blue-200/80">{roleLabel} Dashboard</p>
               </div>
             </div>
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="hidden sm:flex flex-col items-end">
-                <span className="text-sm font-medium text-white/90 line-clamp-1 max-w-[180px]">
+                <span className="text-sm font-medium text-white/90 line-clamp-1 max-w-[200px]">
                   {getDisplayName(user?.fullName, user?.email)}
                 </span>
                 <span className="text-xs text-blue-200/70">{roleLabel}</span>
