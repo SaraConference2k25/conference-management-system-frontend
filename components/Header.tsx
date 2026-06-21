@@ -19,7 +19,7 @@ export default function Header() {
           </div>
 
           <div className="hidden md:block text-center">
-            <p className="text-sm font-medium text-blue-800 tracking-wide uppercase">Winners Begin With Saranathan</p>
+            <p className="text-md font-medium text-blue-800 tracking-wide uppercase">Winners Begin With Saranathan</p>
           </div>
 
           <div className="flex items-center gap-3">
