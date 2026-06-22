@@ -178,30 +178,30 @@ class APIClient {
     });
   }
 
-  async getNetSubmittedPapers(userId: string | number): Promise<number> {
-    return this.request<number>(`/users/net-submitted-papers?userId=${userId}`, {
+  async getNetSubmittedPapers(email: string): Promise<number> {
+    return this.request<number>(`/users/net-submitted-papers?email=${encodeURIComponent(email)}`, {
       method: 'GET',
     });
   }
 
-  async getNetUnderReviewPapers(userId: string | number): Promise<number> {
-    return this.request<number>(`/users/net-underreview-papers?userId=${userId}`, {
+  async getNetUnderReviewPapers(email: string): Promise<number> {
+    return this.request<number>(`/users/net-underreview-papers?email=${encodeURIComponent(email)}`, {
       method: 'GET',
     });
   }
 
-  async getNetAcceptedPapers(userId: string | number): Promise<number> {
-    return this.request<number>(`/users/net-accepted-papers?userId=${userId}`, {
+  async getNetAcceptedPapers(email: string): Promise<number> {
+    return this.request<number>(`/users/net-accepted-papers?email=${encodeURIComponent(email)}`, {
       method: 'GET',
     });
   }
 
-  async getParticipantMetrics(userId: string | number, email: string): Promise<ParticipantMetricsResponse> {
+  async getParticipantMetrics(email: string): Promise<ParticipantMetricsResponse> {
     const [totalPapers, netSubmitted, underReview, accepted] = await Promise.all([
       this.getTotalPapers(email),
-      this.getNetSubmittedPapers(userId),
-      this.getNetUnderReviewPapers(userId),
-      this.getNetAcceptedPapers(userId),
+      this.getNetSubmittedPapers(email),
+      this.getNetUnderReviewPapers(email),
+      this.getNetAcceptedPapers(email),
     ]);
     return { totalPapers, netSubmitted, underReview, accepted };
   }
