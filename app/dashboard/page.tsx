@@ -32,13 +32,13 @@ export default function ParticipantDashboard() {
 
   // Fetch real-time paper metrics for the logged-in participant
   useEffect(() => {
-    if (!authUser?.id) return
+    if (!authUser?.id || !authUser?.email) return
 
     let active = true
     const fetchStats = async () => {
       setStatsLoading(true)
       try {
-        const metrics = await apiClient.getParticipantMetrics(authUser.id)
+        const metrics = await apiClient.getParticipantMetrics(authUser.id, authUser.email)
         if (active) {
           setStats({
             totalPapers: metrics.totalPapers || 0,
@@ -58,7 +58,7 @@ export default function ParticipantDashboard() {
     return () => {
       active = false
     }
-  }, [authUser?.id])
+  }, [authUser?.id, authUser?.email])
 
   const dashboardStats = [
     { label: 'Total Papers', value: stats.totalPapers, icon: <DocumentIcon className="w-5 h-5" />, accent: 'blue' as const },

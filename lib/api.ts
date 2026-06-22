@@ -172,8 +172,8 @@ class APIClient {
   }
 
   // ===== PARTICIPANT PAPER METRICS =====
-  async getTotalSubmittedPapers(userId: string | number): Promise<number> {
-    return this.request<number>(`/users/get-total-papers?userId=${userId}`, {
+  async getTotalPapers(email: string): Promise<number> {
+    return this.request<number>(`/users/total-papers?email=${encodeURIComponent(email)}`, {
       method: 'GET',
     });
   }
@@ -196,9 +196,9 @@ class APIClient {
     });
   }
 
-  async getParticipantMetrics(userId: string | number): Promise<ParticipantMetricsResponse> {
+  async getParticipantMetrics(userId: string | number, email: string): Promise<ParticipantMetricsResponse> {
     const [totalPapers, netSubmitted, underReview, accepted] = await Promise.all([
-      this.getTotalSubmittedPapers(userId),
+      this.getTotalPapers(email),
       this.getNetSubmittedPapers(userId),
       this.getNetUnderReviewPapers(userId),
       this.getNetAcceptedPapers(userId),
