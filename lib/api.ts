@@ -76,6 +76,13 @@ export interface AdminMetricsResponse {
   totalRejected: number;
 }
 
+export interface ParticipantMetricsResponse {
+  totalPapers: number;
+  netSubmitted: number;
+  underReview: number;
+  accepted: number;
+}
+
 class APIClient {
   private baseURL: string;
 
@@ -162,6 +169,41 @@ class APIClient {
     return this.request<AuthResponse>(`/users/${id}`, {
       method: 'GET',
     });
+  }
+
+  // ===== PARTICIPANT PAPER METRICS =====
+  async getTotalSubmittedPapers(userId: string | number): Promise<number> {
+    return this.request<number>(`/users/get-total-papers?userId=${userId}`, {
+      method: 'GET',
+    });
+  }
+
+  async getNetSubmittedPapers(userId: string | number): Promise<number> {
+    return this.request<number>(`/users/net-submitted-papers?userId=${userId}`, {
+      method: 'GET',
+    });
+  }
+
+  async getNetUnderReviewPapers(userId: string | number): Promise<number> {
+    return this.request<number>(`/users/net-underreview-papers?userId=${userId}`, {
+      method: 'GET',
+    });
+  }
+
+  async getNetAcceptedPapers(userId: string | number): Promise<number> {
+    return this.request<number>(`/users/net-accepted-papers?userId=${userId}`, {
+      method: 'GET',
+    });
+  }
+
+  async getParticipantMetrics(userId: string | number): Promise<ParticipantMetricsResponse> {
+    const [totalPapers, netSubmitted, underReview, accepted] = await Promise.all([
+      this.getTotalSubmittedPapers(userId),
+      this.getNetSubmittedPapers(userId),
+      this.getNetUnderReviewPapers(userId),
+      this.getNetAcceptedPapers(userId),
+    ]);
+    return { totalPapers, netSubmitted, underReview, accepted };
   }
 
   // Paper Submission endpoints

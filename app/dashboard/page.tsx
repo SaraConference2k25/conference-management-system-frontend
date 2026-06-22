@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { DocumentIcon, PlusIcon, CheckCircleIcon, ClockIcon } from '@/components/Icons'
 import { apiClient } from '@/lib/api'
 import { useAuth } from '@/lib/auth-context'
 import { getDisplayName } from '@/lib/utils/avatar'
-import { DashboardPageSkeleton } from '@/components/ui/loading-skeletons'
+import { DashboardPageSkeleton, StatCardsSkeleton } from '@/components/ui/loading-skeletons'
 import DashboardShell from '@/components/dashboard/DashboardShell'
 import StatCard from '@/components/dashboard/StatCard'
 import { participantNav } from '@/components/dashboard/navConfig'
@@ -15,6 +15,13 @@ import { participantNav } from '@/components/dashboard/navConfig'
 export default function ParticipantDashboard() {
   const router = useRouter()
   const { user: authUser, isLoading } = useAuth()
+  const [stats, setStats] = useState({
+    totalPapers: 0,
+    netSubmitted: 0,
+    underReview: 0,
+    accepted: 0,
+  })
+  const [statsLoading, setStatsLoading] = useState(true)
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -23,11 +30,41 @@ export default function ParticipantDashboard() {
     }
   }, [authUser, isLoading, router])
 
+  // Fetch real-time paper metrics for the logged-in participant
+  useEffect(() => {
+    if (!authUser?.id) return
+
+    let active = true
+    const fetchStats = async () => {
+      setStatsLoading(true)
+      try {
+        const metrics = await apiClient.getParticipantMetrics(authUser.id)
+        if (active) {
+          setStats({
+            totalPapers: metrics.totalPapers || 0,
+            netSubmitted: metrics.netSubmitted || 0,
+            underReview: metrics.underReview || 0,
+            accepted: metrics.accepted || 0,
+          })
+        }
+      } catch (error) {
+        console.error('Error fetching participant metrics:', error)
+      } finally {
+        if (active) setStatsLoading(false)
+      }
+    }
+
+    fetchStats()
+    return () => {
+      active = false
+    }
+  }, [authUser?.id])
+
   const dashboardStats = [
-    { label: 'Total Papers', value: 3, icon: <DocumentIcon className="w-5 h-5" />, accent: 'blue' as const },
-    { label: 'Submitted', value: 2, icon: <CheckCircleIcon className="w-5 h-5" />, accent: 'green' as const },
-    { label: 'Under Review', value: 1, icon: <ClockIcon className="w-5 h-5" />, accent: 'amber' as const },
-    { label: 'Accepted', value: 0, icon: <CheckCircleIcon className="w-5 h-5" />, accent: 'purple' as const },
+    { label: 'Total Papers', value: stats.totalPapers, icon: <DocumentIcon className="w-5 h-5" />, accent: 'blue' as const },
+    { label: 'Submitted', value: stats.netSubmitted, icon: <CheckCircleIcon className="w-5 h-5" />, accent: 'green' as const },
+    { label: 'Under Review', value: stats.underReview, icon: <ClockIcon className="w-5 h-5" />, accent: 'amber' as const },
+    { label: 'Accepted', value: stats.accepted, icon: <CheckCircleIcon className="w-5 h-5" />, accent: 'purple' as const },
   ]
 
   const handleLogout = () => {
@@ -48,11 +85,17 @@ export default function ParticipantDashboard() {
         <p className="text-slate-500 text-sm">Manage your paper submissions and track their progress</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {dashboardStats.map((stat, idx) => (
-          <StatCard key={idx} label={stat.label} value={stat.value} icon={stat.icon} accent={stat.accent} />
-        ))}
-      </div>
+      {statsLoading ? (
+        <div className="mb-8">
+          <StatCardsSkeleton count={4} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {dashboardStats.map((stat, idx) => (
+            <StatCard key={idx} label={stat.label} value={stat.value} icon={stat.icon} accent={stat.accent} />
+          ))}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Link href="/dashboard/upload" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group cursor-pointer">
