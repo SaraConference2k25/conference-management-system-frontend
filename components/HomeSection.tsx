@@ -187,6 +187,113 @@ export default function HomeSection() {
         </div>
       </section>
 
+      {/* Our Projects */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-10">
+            <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-2">Our Projects</h3>
+            <p className="text-slate-500 text-sm">Built by our team to solve real-world problems</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: 'SaraSell',
+                tagline: 'Online Campus Marketplace',
+                description: 'A community-driven platform revolutionizing how students access educational materials. Solving a real campus problem with affordable, sustainable solutions.',
+                stats: [
+                  { value: '470+', label: 'Users' },
+                  { value: '6,000+', label: 'Net Sales' },
+                  { value: '170+', label: 'Products' },
+                ],
+                url: 'https://sarasell.netlify.app',
+                github: 'https://github.com/Minus-one-enterprise/sarasell',
+                accent: 'emerald',
+              },
+              {
+                name: 'ExplainIt',
+                tagline: 'AI-Powered Jargon Simplifier',
+                description: 'An open-source AI-powered web application that transforms dense technical jargon and academic terminology into clear, beginner-friendly explanations.',
+                stats: [
+                  { value: 'React', label: 'Frontend' },
+                  { value: 'Gemini AI', label: 'Engine' },
+                  { value: 'Open Source', label: 'License' },
+                ],
+                url: 'https://explainit.netlify.app',
+                github: 'https://github.com/Minus-one-enterprise/explain-it',
+                accent: 'violet',
+              },
+              {
+                name: 'SaraConference',
+                tagline: 'Conference Management Platform',
+                description: 'A comprehensive, enterprise-grade conference management platform for academic paper submissions, reviews, and conference logistics.',
+                stats: [
+                  { value: 'JWT Auth', label: 'Security' },
+                  { value: 'Role-Based', label: 'Dashboards' },
+                  { value: 'Real-time', label: 'Analytics' },
+                ],
+                url: 'https://saraconference2026.netlify.app',
+                github: 'https://github.com/SaraConference2k25/conference-management-system-frontend',
+                accent: 'blue',
+              },
+            ].map((project, index) => {
+              const accentClasses = {
+                emerald: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-100', dot: 'bg-emerald-500' },
+                violet: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-100', dot: 'bg-violet-500' },
+                blue: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-100', dot: 'bg-blue-500' },
+              }[project.accent] || { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-100', dot: 'bg-blue-500' }
+
+              return (
+                <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow flex flex-col">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`w-2.5 h-2.5 rounded-full ${accentClasses.dot}`} />
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-900">{project.name}</h4>
+                      <p className={`text-xs font-medium ${accentClasses.text}`}>{project.tagline}</p>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-slate-600 leading-relaxed mb-5 flex-1">{project.description}</p>
+
+                  <div className="grid grid-cols-3 gap-3 mb-5 pt-4 border-t border-slate-100">
+                    {project.stats.map((stat, idx) => (
+                      <div key={idx} className="text-center">
+                        <div className="text-sm font-semibold text-slate-900">{stat.value}</div>
+                        <p className="text-[10px] text-slate-500 mt-0.5">{stat.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-2">
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg ${accentClasses.bg} ${accentClasses.text} border ${accentClasses.border} px-3 py-2 text-xs font-medium transition-colors hover:opacity-80`}
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                      Live Demo
+                    </a>
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                      </svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 sm:py-20 px-4 sm:px-8 bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)]">
         <div className="max-w-3xl mx-auto text-center">
