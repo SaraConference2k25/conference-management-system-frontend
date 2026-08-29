@@ -56,7 +56,8 @@ export default function AdminDashboard() {
     <ProtectedRoute requiredRole="admin">
       <DashboardShell roleLabel="Administrator" navItems={adminNav} user={user} onLogout={handleLogout}>
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-1">Welcome back, Admin</h2>
+          <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-700">Administration</p>
+          <h2 className="mb-1 text-2xl font-semibold tracking-[-0.03em] text-[#10213f]">Conference operations</h2>
           <p className="text-slate-500 text-sm">
             Manage papers, evaluators, and track conference progress in real time
           </p>
@@ -76,8 +77,8 @@ export default function AdminDashboard() {
         )}
 
         {!loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link href="/dashboard/admin/papers" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <Link href="/dashboard/admin/papers" className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg hover:shadow-slate-900/5">
               <div className="flex items-start justify-between mb-4">
                 <div className="w-11 h-11 rounded-md bg-blue-700 flex items-center justify-center">
                   <DocumentIcon className="w-5 h-5 text-white" />
@@ -90,7 +91,7 @@ export default function AdminDashboard() {
               <p className="text-sm text-slate-500">Assign evaluators, track progress, and manage paper submissions</p>
             </Link>
 
-            <Link href="/dashboard/admin/evaluators" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group">
+            <Link href="/dashboard/admin/evaluators" className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-lg hover:shadow-slate-900/5">
               <div className="flex items-start justify-between mb-4">
                 <div className="w-11 h-11 rounded-md bg-violet-600 flex items-center justify-center">
                   <UsersIcon className="w-5 h-5 text-white" />

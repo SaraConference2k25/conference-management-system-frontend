@@ -20,14 +20,14 @@ interface StatCardProps {
 
 export default function StatCard({ label, value, icon, accent = 'blue' }: StatCardProps) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5">
+    <div className="rounded-xl border border-slate-200/90 bg-white p-5 shadow-[0_1px_2px_rgb(15_23_42_/_0.03),0_8px_22px_rgb(15_23_42_/_0.035)] transition-shadow hover:shadow-[0_3px_8px_rgb(15_23_42_/_0.06),0_12px_28px_rgb(15_23_42_/_0.06)]">
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-slate-500 text-xs font-medium mb-1">{label}</p>
-          <p className="text-2xl font-semibold text-slate-900 tabular-nums">{value}</p>
+          <p className="mb-1 text-xs font-semibold text-slate-500">{label}</p>
+          <p className="text-2xl font-semibold tracking-[-0.03em] text-[#10213f] tabular-nums">{value}</p>
         </div>
         {icon && (
-          <div className={`w-10 h-10 rounded-md flex items-center justify-center flex-shrink-0 ${accentMap[accent]}`}>
+          <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${accentMap[accent]}`}>
             {icon}
           </div>
         )}

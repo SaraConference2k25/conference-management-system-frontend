@@ -115,7 +115,7 @@
     background: linear-gradient(125deg, #091c3b 0%, #123c83 62%, #1d5cbb 100%);
   }
 
-  .auth-input {
+  .auth-input, .app-input {
     width: 100%;
     border: 1px solid #cbd5e1;
     border-radius: 0.625rem;
@@ -126,9 +126,9 @@
     transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
   }
 
-  .auth-input:hover { border-color: #94a3b8; }
-  .auth-input:focus { border-color: #1d5cbb; box-shadow: 0 0 0 3px rgb(29 92 187 / 0.14); outline: none; }
-  .auth-input:disabled { cursor: not-allowed; background: #f1f5f9; }
+  .auth-input:hover, .app-input:hover { border-color: #94a3b8; }
+  .auth-input:focus, .app-input:focus { border-color: #1d5cbb; box-shadow: 0 0 0 3px rgb(29 92 187 / 0.14); outline: none; }
+  .auth-input:disabled, .app-input:disabled { cursor: not-allowed; background: #f1f5f9; }
 }
 
 @keyframes loading-shimmer {
