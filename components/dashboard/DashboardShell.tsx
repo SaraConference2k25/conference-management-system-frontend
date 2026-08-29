@@ -34,15 +34,15 @@ export default function DashboardShell({
   const isActive = (href: string) => pathname === href
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#f6f8fc] text-slate-900">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#10213f] shadow-[0_1px_0_rgb(15_23_42_/_0.2)]">
+        <div className="mx-auto max-w-[90rem] px-3 py-3 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 sm:gap-4">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 hover:bg-white/10 rounded-md transition-colors"
+                className="rounded-lg p-2 transition-colors hover:bg-white/10 md:hidden"
                 aria-label="Toggle navigation menu"
               >
                 {isMobileMenuOpen ? (
@@ -51,28 +51,29 @@ export default function DashboardShell({
                   <MenuIcon className="w-5 h-5 text-white" />
                 )}
               </button>
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-xs font-bold tracking-tight text-white shadow-inner shadow-blue-300/20">S</div>
               <div className="flex flex-col">
-                <h1 className="text-base sm:text-lg font-semibold text-white tracking-tight leading-tight">
-                  SARA Conference 
+                <h1 className="text-sm font-semibold tracking-[-0.02em] text-white leading-tight sm:text-base">
+                  SARA <span className="hidden font-normal text-blue-200 sm:inline">|</span> <span className="hidden sm:inline">Workspace</span>
                 </h1>
-                <p className="text-xs text-blue-200/80">{roleLabel} Dashboard</p>
+                <p className="text-xs text-blue-200/75">{roleLabel}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:gap-4">
-              <div className="hidden sm:flex flex-col items-end">
-                <span className="text-sm font-medium text-white/90 line-clamp-1 max-w-[200px]">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="hidden min-w-0 flex-col items-end sm:flex">
+                <span className="max-w-[min(42vw,24rem)] break-all text-right text-sm font-medium leading-5 text-white/90">
                   {getDisplayName(user?.fullName, user?.email)}
                 </span>
                 <span className="text-xs text-blue-200/70">{roleLabel}</span>
               </div>
-              <div className="h-9 w-9 rounded-full bg-white/15 flex items-center justify-center ring-1 ring-white/20">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15">
                 <span className="text-white font-medium text-xs">
                   {getInitials(user?.fullName || '', user?.email || '')}
                 </span>
               </div>
               <button
                 onClick={onLogout}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md font-medium transition-colors text-xs sm:text-sm"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/15 sm:text-sm"
               >
                 <ExitIcon className="w-4 h-4" />
                 <span className="hidden sm:inline">Logout</span>
@@ -84,16 +85,16 @@ export default function DashboardShell({
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200">
-          <nav className="max-w-7xl mx-auto px-4 py-3 space-y-0.5">
+        <div className="border-b border-slate-200 bg-white md:hidden">
+          <nav className="mx-auto max-w-[90rem] space-y-1 px-3 py-3 sm:px-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${isActive(item.href) ? 'bg-blue-50 text-blue-800' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors ${isActive(item.href) ? 'bg-blue-50 text-blue-800' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
               >
-                {item.icon}
+                {item.icon && <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${isActive(item.href) ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500'}`}>{item.icon}</span>}
                 <span>{item.label}</span>
               </Link>
             ))}
@@ -101,25 +102,28 @@ export default function DashboardShell({
         </div>
       )}
 
-      <div className="flex">
+      <div className="mx-auto flex max-w-[90rem]">
         {/* Sidebar */}
-        <aside className="hidden md:block w-60 bg-white border-r border-slate-200 min-h-[calc(100vh-3.75rem)]">
-          <nav className="sticky top-[3.75rem] p-4 space-y-0.5">
+        <aside className="hidden min-h-[calc(100vh-3.75rem)] w-[4.75rem] shrink-0 border-r border-slate-200/80 bg-white/80 md:block lg:w-64">
+          <nav className="sticky top-[3.75rem] space-y-1 p-4">
+            <p className="hidden px-3 pb-2 pt-1 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-slate-400 lg:block">Workspace</p>
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${isActive(item.href) ? 'bg-blue-50 text-blue-800' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                title={item.label}
+                className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-2 py-2.5 text-left text-sm font-semibold transition-all lg:justify-start lg:px-3 ${isActive(item.href) ? 'bg-blue-50 text-blue-800 ring-1 ring-blue-100' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}
               >
-                {item.icon}
-                <span>{item.label}</span>
+                {item.icon && <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors ${isActive(item.href) ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500'}`}>{item.icon}</span>}
+                <span className="hidden lg:inline">{item.label}</span>
               </Link>
             ))}
           </nav>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0 p-4 sm:p-8">{children}</main>
+        <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>
   )

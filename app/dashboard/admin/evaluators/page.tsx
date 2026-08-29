@@ -149,10 +149,11 @@ export default function AdminEvaluators() {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
           <div>
-            <h2 className="text-2xl font-semibold text-slate-900 mb-1">Evaluator Management</h2>
+            <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-700">Administration</p>
+            <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[#10213f] mb-1">Evaluator management</h2>
             <p className="text-slate-500 text-sm">Create and manage evaluator accounts</p>
           </div>
-          <button onClick={() => setShowCreateModal(true)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
+          <button onClick={() => setShowCreateModal(true)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#123c83] px-4 py-2.5 text-sm font-semibold leading-5 text-white shadow-sm transition-colors hover:bg-[#0e3270] disabled:cursor-not-allowed disabled:opacity-60">
             <PlusIcon className="w-4 h-4" />
             Create Evaluator
           </button>
@@ -175,20 +176,20 @@ export default function AdminEvaluators() {
         ) : (
           <>
             {/* Search */}
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6">
+            <div className="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
               <input
                 type="text"
                 placeholder="Search by name, email, or department..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
+                className="app-input px-3.5 py-2.5 placeholder:text-slate-400"
               />
             </div>
 
             {/* Evaluators Table */}
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
+            <div className="-mx-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm sm:mx-0">
+              <div className="overflow-x-auto overscroll-x-contain">
+                <table className="w-full min-w-[760px]">
                   <thead className="bg-slate-50 border-b border-slate-200">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name</th>
@@ -204,7 +205,7 @@ export default function AdminEvaluators() {
                       filteredEvaluators.map((evaluator) => {
                         const workload = evaluator.workload || 0
                         return (
-                          <tr key={evaluator.id || evaluator.userId} className="hover:bg-slate-50 transition-colors">
+                          <tr key={evaluator.id || evaluator.userId} className="transition-colors hover:bg-blue-50/30">
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
                               {evaluator.name || evaluator.username || 'N/A'}
                             </td>

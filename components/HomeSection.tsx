@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarIcon, MapPinIcon, AwardIcon, DocumentIcon } from './Icons'
+import { CalendarIcon, MapPinIcon, AwardIcon } from './Icons'
 
 export default function HomeSection() {
   const importantDates = [
@@ -24,36 +24,38 @@ export default function HomeSection() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-200">
+      <section className="relative overflow-hidden border-b border-slate-200/80 bg-white py-20 sm:py-24 lg:py-32">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
+        <div className="absolute -right-24 top-8 h-72 w-72 rounded-full bg-blue-100/60 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-medium text-blue-700 uppercase tracking-wider mb-4">SARA 2026 National Conference</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 tracking-tight leading-tight">
+          <div className="relative max-w-4xl mx-auto text-center">
+            <p className="section-kicker mb-5">SARA 2026 · National Conference</p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#10213f] mb-6 tracking-[-0.045em] leading-[1.05]">
               A platform for research excellence in engineering and applied sciences
             </h2>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-10">
+            <p className="mx-auto max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed mb-10">
               Join leading researchers, academicians, and industry professionals to share groundbreaking research
               and innovative ideas across engineering, technology, and applied sciences.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 px-6 py-3 text-base">
+              <Link href="/register" className="inline-flex items-center justify-center rounded-lg bg-[#123c83] px-6 py-3 text-base font-semibold text-white shadow-lg shadow-blue-900/15 transition-all hover:-translate-y-0.5 hover:bg-[#0e3270] hover:shadow-xl hover:shadow-blue-900/20">
                 Register Now
               </Link>
-              <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 px-6 py-3 text-base">
+              <Link href="/login" className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-900">
                 Sign In
               </Link>
             </div>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-14 pt-14 border-t border-slate-100">
+          <div className="relative mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 shadow-sm sm:grid-cols-3">
             {[
               { value: '2', label: 'Conference Days', sub: 'April 3 & 4, 2026' },
               { value: '500+', label: 'Expected Participants', sub: 'From academia & industry' },
               { value: '2', label: 'Research Tracks', sub: 'Multiple specializations' },
             ].map((stat, idx) => (
-              <div key={idx} className="py-4 text-center">
-                <div className="text-3xl font-semibold text-slate-900 tabular-nums mb-1">{stat.value}</div>
+              <div key={idx} className="bg-white px-6 py-6 text-center">
+                <div className="text-3xl font-semibold text-[#10213f] tabular-nums mb-1">{stat.value}</div>
                 <p className="text-sm font-medium text-slate-700">{stat.label}</p>
                 <p className="text-xs text-slate-500 mt-0.5">{stat.sub}</p>
               </div>
@@ -63,11 +65,12 @@ export default function HomeSection() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto">
-          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">About the Conference</h3>
+          <p className="section-kicker mb-3">The SARA experience</p>
+          <h3 className="section-title mb-9">About the Conference</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+            <div className="surface-card rounded-2xl p-6 sm:p-8">
               <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <AwardIcon className="w-5 h-5 text-blue-700" /> Our Mission
               </h4>
@@ -77,7 +80,7 @@ export default function HomeSection() {
                 collaboration across various disciplines of engineering, technology, and applied sciences.
               </p>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+            <div className="surface-card rounded-2xl p-6 sm:p-8">
               <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <AwardIcon className="w-5 h-5 text-blue-700" /> Why Attend
               </h4>
@@ -101,12 +104,15 @@ export default function HomeSection() {
       </section>
 
       {/* Important Dates */}
-      <section className="py-16 sm:py-20 px-4 sm:px-8 border-b border-slate-200">
+      <section className="py-20 sm:py-24 px-4 sm:px-8 border-b border-slate-200/80 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Important Dates</h3>
+          <div className="mb-9 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <div><p className="section-kicker mb-3">Plan ahead</p><h3 className="section-title">Important Dates</h3></div>
+            <p className="text-sm text-slate-500">All deadlines are based on Indian Standard Time.</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {importantDates.map((item, index) => (
-              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 hover:shadow-md transition-shadow">
+              <div key={index} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg hover:shadow-slate-900/5">
                 <p className="text-slate-500 text-xs font-medium uppercase tracking-wide flex items-center gap-2">
                   <CalendarIcon /> {item.event}
                 </p>
@@ -118,12 +124,13 @@ export default function HomeSection() {
       </section>
 
       {/* Research Tracks */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto">
-          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Research Tracks</h3>
+          <p className="section-kicker mb-3">Share your work</p>
+          <h3 className="section-title mb-9">Research Tracks</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {tracks.map((track, index) => (
-              <div key={index} className="rounded-xl  border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+              <div key={index} className="surface-card rounded-2xl border-l-4 border-l-blue-700 p-6 sm:p-8">
                 <h4 className="text-xl font-semibold text-slate-900 mb-2">{track.title}</h4>
                 <p className="text-slate-600 text-sm leading-relaxed">{track.description}</p>
               </div>
@@ -133,10 +140,11 @@ export default function HomeSection() {
       </section>
 
       {/* Venue */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+      <section className="py-20 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Conference Venue</h3>
-          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+          <p className="section-kicker mb-3">Meet in Trichy</p>
+          <h3 className="section-title mb-9">Conference Venue</h3>
+          <div className="surface-card rounded-2xl p-6 sm:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
@@ -167,18 +175,19 @@ export default function HomeSection() {
       </section>
 
       {/* Registration Categories */}
-      <section className="py-16 sm:py-20 px-4 sm:px-8 bg-slate-50 border-b border-slate-200">
+      <section className="py-20 sm:py-24 px-4 sm:px-8 bg-slate-50 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto">
-          <h3 className="font-semibold tracking-tight text-slate-900 text-2xl sm:text-3xl mb-8">Registration Categories</h3>
+          <p className="section-kicker mb-3">Join the community</p>
+          <h3 className="section-title mb-9">Registration Categories</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {['Students', 'Faculty', 'Research Scholars', 'Industry Professionals'].map((title, index) => (
-              <div key={index} className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 text-center">
+              <div key={index} className="surface-card rounded-2xl p-5 text-center">
                 <h4 className="font-semibold text-slate-900 mb-1">{title}</h4>
                 <p className="text-xs text-slate-500">Early bird discounts available</p>
               </div>
             ))}
           </div>
-          <div className="mt-6 p-4 bg-blue-50 border  rounded-lg">
+          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50/70 p-4">
             <p className="text-sm text-slate-700">
               <span className="font-medium text-slate-900">Important:</span> At least one author of each accepted paper must register for the conference.
               Group registrations from the same institution receive special rates.
@@ -188,17 +197,18 @@ export default function HomeSection() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 sm:py-20 px-4 sm:px-8 bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)]">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative overflow-hidden py-20 sm:py-24 px-4 sm:px-8 bg-[linear-gradient(122deg,#081a36_0%,#123c83_58%,#1d5cbb_100%)]">
+        <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full border border-white/10" />
+        <div className="relative max-w-3xl mx-auto text-center">
           <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-3">Ready to Get Started?</h3>
           <p className="text-blue-100/90 mb-8">
             Join us for an extraordinary conference experience. Register now or sign in to your account.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 bg-white text-slate-900 rounded-md font-medium hover:bg-slate-50 transition-colors text-sm">
+            <Link href="/register" className="inline-flex items-center justify-center px-6 py-3 bg-white text-slate-900 rounded-lg font-semibold hover:bg-blue-50 transition-colors text-sm">
               Create Account
             </Link>
-            <Link href="/login" className="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-md font-medium hover:bg-white/10 transition-colors text-sm">
+            <Link href="/login" className="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white rounded-lg font-semibold hover:bg-white/10 transition-colors text-sm">
               Sign In
             </Link>
           </div>

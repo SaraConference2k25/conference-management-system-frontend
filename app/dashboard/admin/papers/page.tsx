@@ -157,7 +157,8 @@ export default function AdminPapers() {
       <DashboardShell roleLabel="Administrator" navItems={adminNav} user={user} onLogout={handleLogout}>
         {/* Page Header */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-1">Paper Management</h2>
+          <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-700">Administration</p>
+          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[#10213f] mb-1">Paper management</h2>
           <p className="text-slate-500 text-sm">
             Assign evaluators to submitted papers and monitor evaluation progress
           </p>
@@ -180,7 +181,7 @@ export default function AdminPapers() {
         ) : (
           <>
             {/* Search and Filter */}
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6">
+            <div className="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
               <div className="flex flex-col lg:flex-row gap-3">
                 <div className="flex-1">
                   <input
@@ -188,13 +189,13 @@ export default function AdminPapers() {
                     placeholder="Search by title, email, department, ID..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
+                    className="app-input px-3.5 py-2.5 placeholder:text-slate-400"
                   />
                 </div>
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
-                  className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 lg:w-48"
+                  className="app-input w-full px-3.5 py-2.5 lg:w-48"
                 >
                   <option value="all">All Papers</option>
                   <option value="pending">Pending</option>
@@ -205,10 +206,10 @@ export default function AdminPapers() {
             </div>
 
             {/* Papers Table */}
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-slate-50 border-b border-slate-200">
+            <div className="-mx-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm sm:mx-0">
+              <div className="overflow-x-auto overscroll-x-contain">
+                <table className="w-full min-w-[680px]">
+                  <thead className="border-b border-slate-200 bg-slate-50/80">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Paper ID</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Title</th>
@@ -220,7 +221,7 @@ export default function AdminPapers() {
                   <tbody className="divide-y divide-slate-100">
                     {filteredPapers.length > 0 ? (
                       filteredPapers.map((paper) => (
-                        <tr key={paper.id || paper.paperId} className="hover:bg-slate-50 transition-colors">
+                        <tr key={paper.id || paper.paperId} className="transition-colors hover:bg-blue-50/30">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
                             {paper.paperId}
                           </td>

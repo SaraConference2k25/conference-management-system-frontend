@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Header() {
   return (
-    <header className="w-full bg-white border-b border-slate-200">
+    <header className="w-full bg-white border-b border-slate-200/80">
       {/* Top Bar - College Info */}
       <div className="w-full py-3 px-4 sm:px-8 border-b border-slate-100">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -35,7 +35,7 @@ export default function Header() {
       </div>
 
       {/* Main Header Banner */}
-      <div className="w-full bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] py-12 sm:py-16 px-4 sm:px-8 relative overflow-hidden">
+      <div className="w-full bg-[linear-gradient(122deg,#081a36_0%,#123c83_58%,#1d5cbb_100%)] py-14 sm:py-20 px-4 sm:px-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.07]">
           <svg className="w-full h-full" viewBox="0 0 1200 300" preserveAspectRatio="none">
             <defs>
@@ -52,8 +52,8 @@ export default function Header() {
             <div className="hidden md:block" />
 
             <div className="text-center">
-              <p className="text-blue-200 text-xs font-medium uppercase tracking-[0.2em] mb-3">National Conference</p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white mb-3 tracking-tight">
+              <p className="text-blue-200 text-xs font-semibold uppercase tracking-[0.22em] mb-3">National Conference</p>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white mb-3 tracking-[-0.04em]">
                 SARA 2026
               </h1>
               <p className="text-base sm:text-lg text-blue-100/90 font-normal max-w-md mx-auto">
@@ -62,7 +62,7 @@ export default function Header() {
             </div>
 
             <div className="flex justify-center md:justify-end">
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-5 max-w-xs w-full">
+              <div className="rounded-2xl border border-white/40 bg-white/95 shadow-2xl shadow-slate-950/20 p-5 max-w-xs w-full backdrop-blur-sm">
                 <h3 className="text-[10px] font-semibold text-slate-400 mb-4 tracking-widest uppercase">Conference Details</h3>
                 <div className="space-y-3 text-sm">
                   <div>

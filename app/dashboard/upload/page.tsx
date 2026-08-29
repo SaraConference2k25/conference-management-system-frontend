@@ -114,7 +114,8 @@ export default function UploadPaperPage() {
     <DashboardShell roleLabel="Participant" navItems={participantNav} user={authUser} onLogout={handleLogout}>
       {/* Page Header */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-1">Submit Your Paper</h2>
+        <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-700">Participant workspace</p>
+        <h2 className="mb-1 text-2xl font-semibold tracking-[-0.03em] text-[#10213f]">Submit a paper</h2>
         <p className="text-slate-500 text-sm">
           Fill in the details below and upload your research paper for conference review
         </p>
@@ -123,7 +124,7 @@ export default function UploadPaperPage() {
       <div className="max-w-3xl">
         {/* Submission Error */}
         {errors.submit && (
-          <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 bg-red-50 border-red-100 flex items-start gap-3">
+        <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-100 bg-red-50 p-4">
             <AlertIcon className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             <div>
               <h3 className="font-semibold text-red-900 text-sm">Submission Failed</h3>
@@ -133,7 +134,7 @@ export default function UploadPaperPage() {
         )}
 
         {/* Info Alert */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-4 mb-6 bg-blue-50/50 border-blue-100 flex items-start gap-3">
+        <div className="mb-6 flex items-start gap-3 rounded-xl border border-blue-100 bg-blue-50/60 p-4">
           <AlertIcon className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div>
             <h3 className="font-semibold text-slate-900 text-sm">Submission Guidelines</h3>
@@ -147,67 +148,71 @@ export default function UploadPaperPage() {
         </div>
 
         {/* Form */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-md overflow-hidden">
-          <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-5">
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_12px_28px_rgb(15_23_42_/_0.055)]">
+          <div className="border-b border-slate-100 px-6 py-5 sm:px-8">
+            <h3 className="text-base font-semibold text-[#10213f]">Manuscript details</h3>
+            <p className="mt-1 text-sm text-slate-500">Fields marked with an asterisk are required.</p>
+          </div>
+          <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-8">
             {/* Title Field */}
             <div>
-              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Paper Title *</label>
+              <label className="mb-2 block text-sm font-semibold text-slate-700">Paper title <span className="text-blue-700">*</span></label>
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
                 placeholder="Enter the title of your research paper"
-                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 ${errors.title ? 'border-red-400' : ''}`}
+                className={`app-input px-3.5 py-3 placeholder:text-slate-400 ${errors.title ? 'border-red-400' : ''}`}
               />
               {errors.title && <p className="text-red-600 text-sm mt-1">{errors.title}</p>}
             </div>
 
             {/* Keywords Field */}
             <div>
-              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Keywords (comma-separated)</label>
+              <label className="mb-2 block text-sm font-semibold text-slate-700">Keywords <span className="font-normal text-slate-400">(comma-separated)</span></label>
               <input
                 type="text"
                 name="keywords"
                 value={formData.keywords}
                 onChange={handleInputChange}
                 placeholder="e.g., Machine Learning, AI, Data Science"
-                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
+                className="app-input px-3.5 py-3 placeholder:text-slate-400"
               />
             </div>
 
             {/* Abstract Field */}
             <div>
-              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Abstract *</label>
+              <label className="mb-2 block text-sm font-semibold text-slate-700">Abstract <span className="text-blue-700">*</span></label>
               <textarea
                 name="abstract"
                 value={formData.abstract}
                 onChange={handleInputChange}
                 placeholder="Provide a concise abstract of your research (250-300 words recommended)"
                 rows={6}
-                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 resize-none ${errors.abstract ? 'border-red-400' : ''}`}
+                className={`app-input resize-none px-3.5 py-3 placeholder:text-slate-400 ${errors.abstract ? 'border-red-400' : ''}`}
               />
               {errors.abstract && <p className="text-red-600 text-sm mt-1">{errors.abstract}</p>}
             </div>
 
             {/* Department Field */}
             <div>
-              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Department *</label>
+              <label className="mb-2 block text-sm font-semibold text-slate-700">Department <span className="text-blue-700">*</span></label>
               <input
                 type="text"
                 name="department"
                 value={formData.department}
                 onChange={handleInputChange}
                 placeholder="e.g., Computer Science, Engineering"
-                className={`w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 ${errors.department ? 'border-red-400' : ''}`}
+                className={`app-input px-3.5 py-3 placeholder:text-slate-400 ${errors.department ? 'border-red-400' : ''}`}
               />
               {errors.department && <p className="text-red-600 text-sm mt-1">{errors.department}</p>}
             </div>
 
             {/* File Upload Field */}
             <div>
-              <label className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Upload Paper (PDF or DOCX) *</label>
-              <div className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+              <label className="mb-2 block text-sm font-semibold text-slate-700">Upload manuscript <span className="text-blue-700">*</span></label>
+              <div className={`rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
                 errors.file
                   ? 'border-red-300 bg-red-50/50'
                   : 'border-slate-300 bg-slate-50 hover:border-blue-400'
@@ -240,11 +245,11 @@ export default function UploadPaperPage() {
             </div>
 
             {/* Form Actions */}
-            <div className="flex gap-3 pt-4">
-              <Link href="/dashboard" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 flex-1">
+            <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+              <Link href="/dashboard" className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-200 hover:bg-blue-50">
                 Cancel
               </Link>
-              <button type="submit" disabled={isSubmitting} className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 flex-1 disabled:opacity-60 disabled:cursor-not-allowed">
+              <button type="submit" disabled={isSubmitting} className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#123c83] px-5 py-2.5 text-sm font-semibold leading-5 text-white shadow-sm transition-colors hover:bg-[#0e3270] disabled:cursor-not-allowed disabled:opacity-60">
                 {isSubmitting ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

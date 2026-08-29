@@ -30,7 +30,8 @@ function EvaluatorDashboardContent() {
   return (
     <DashboardShell roleLabel="Evaluator" navItems={evaluatorNav} user={authUser} onLogout={handleLogout}>
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-1">
+        <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-700">Reviewer workspace</p>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[#10213f] mb-1">
           Welcome back, {getDisplayName(authUser?.fullName, authUser?.email).split(' ')[0]}
         </h2>
         <p className="text-slate-500 text-sm">
@@ -38,9 +39,9 @@ function EvaluatorDashboardContent() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3 mb-8">
         {/* Evaluate Papers */}
-        <Link href="/dashboard/evaluator/evaluate-papers" className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 hover:shadow-md transition-shadow group">
+        <Link href="/dashboard/evaluator/evaluate-papers" className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg hover:shadow-slate-900/5">
           <div className="w-11 h-11 rounded-md bg-blue-700 flex items-center justify-center mb-4">
             <DocumentIcon className="w-5 h-5 text-white" />
           </div>
@@ -52,7 +53,7 @@ function EvaluatorDashboardContent() {
         </Link>
 
         {/* Evaluation Statistics */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 opacity-75">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 opacity-75 shadow-sm">
           <div className="w-11 h-11 rounded-md bg-emerald-600 flex items-center justify-center mb-4">
             <BarChartIcon className="w-5 h-5 text-white" />
           </div>
@@ -64,7 +65,7 @@ function EvaluatorDashboardContent() {
         </div>
 
         {/* Settings */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6 opacity-75">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 opacity-75 shadow-sm">
           <div className="w-11 h-11 rounded-md bg-violet-600 flex items-center justify-center mb-4">
             <CogIcon className="w-5 h-5 text-white" />
           </div>

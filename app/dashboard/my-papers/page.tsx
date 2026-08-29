@@ -103,10 +103,11 @@ export default function MyPapersPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-8 gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900 mb-1">My Submitted Papers</h2>
+          <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-700">Participant workspace</p>
+          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[#10213f] mb-1">My submitted papers</h2>
           <p className="text-slate-500 text-sm">Track the status and progress of your research submissions</p>
         </div>
-        <Link href="/dashboard/upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
+        <Link href="/dashboard/upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#123c83] px-4 py-2.5 text-sm font-semibold leading-5 text-white shadow-sm transition-colors hover:bg-[#0e3270]">
           <DocumentIcon className="w-4 h-4" />
           Submit Paper
         </Link>
@@ -118,10 +119,10 @@ export default function MyPapersPage() {
           <button
             key={status}
             onClick={() => setActiveFilter(status)}
-            className={`px-3.5 py-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-colors ${
+            className={`rounded-lg px-3.5 py-2 text-sm font-semibold whitespace-nowrap transition-colors ${
               activeFilter === status
                 ? 'bg-blue-700 text-white'
-                : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
+                : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
             }`}
           >
             {getStatusLabel(status)}
@@ -166,13 +167,13 @@ export default function MyPapersPage() {
               const paperKey = paper.paperId || paper.id
               const isExpanded = expandedPaperId === paperKey
               return (
-                <div key={paperKey} className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+                <div key={paperKey} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
                   {/* Card Header */}
                   <div
                     className="p-5 cursor-pointer hover:bg-slate-50 transition-colors"
                     onClick={() => setExpandedPaperId(isExpanded ? null : paperKey)}
                   >
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3 mb-2">
                           <div className="w-9 h-9 rounded-md bg-slate-100 text-slate-500 flex items-center justify-center flex-shrink-0">
@@ -189,7 +190,7 @@ export default function MyPapersPage() {
                           Submitted on {paper.submittedAt ? new Date(paper.submittedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
                         </p>
                       </div>
-                      <div className="flex items-center gap-3 flex-shrink-0">
+                      <div className="flex shrink-0 items-center gap-3 self-end sm:self-auto">
                         <span className={statusBadgeClass(paper.status)}>
                           {getStatusLabel(paper.status)}
                         </span>
@@ -273,11 +274,11 @@ export default function MyPapersPage() {
                             <p className="text-red-700 text-sm">{downloadError}</p>
                           </div>
                         )}
-                        <div className="flex justify-end">
+                        <div className="flex justify-stretch sm:justify-end">
                           <button
                             onClick={() => handleDownloadPaper(paper.paperFileUrl || '', paper.paperFileName || 'paper.pdf')}
                             disabled={downloadingId === paper.paperFileUrl}
-                            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 py-2 text-sm"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-200 hover:bg-blue-50 sm:w-auto"
                           >
                             <DownloadIcon className="w-3.5 h-3.5" />
                             {downloadingId === paper.paperFileUrl ? 'Downloading...' : 'Download'}
