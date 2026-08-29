@@ -63,7 +63,7 @@ export function TableSkeleton({ rows = 5, cols = 5 }: { rows?: number; cols?: nu
 
 export function DashboardPageSkeleton() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="site-shell min-h-screen">
       <Skeleton className="h-16 w-full rounded-none" />
       <div className="flex">
         <div className="hidden md:block w-64 border-r border-slate-200 bg-white p-6 space-y-2">
@@ -71,7 +71,7 @@ export function DashboardPageSkeleton() {
             <Skeleton key={i} className="h-10 w-full rounded-lg" />
           ))}
         </div>
-        <div className="flex-1 p-6 lg:p-8 space-y-8">
+        <main className="flex-1 p-6 lg:p-8 space-y-8" aria-label="Loading dashboard">
           <div className="space-y-2">
             <Skeleton className="h-8 w-64" />
             <Skeleton className="h-4 w-96 max-w-full" />
@@ -81,8 +81,28 @@ export function DashboardPageSkeleton() {
             <Skeleton className="h-48 rounded-xl" />
             <Skeleton className="h-48 rounded-xl" />
           </div>
-        </div>
+        </main>
       </div>
+    </div>
+  )
+}
+
+export function ConferencePageSkeleton() {
+  return (
+    <div className="site-shell min-h-screen" aria-label="Loading conference website">
+      <Skeleton className="h-24 w-full rounded-none sm:h-20" />
+      <Skeleton className="h-16 w-full rounded-none" />
+      <main className="mx-auto max-w-7xl px-4 py-20 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-3xl space-y-5 text-center">
+          <Skeleton className="mx-auto h-3 w-44" />
+          <Skeleton className="mx-auto h-12 w-full max-w-2xl" />
+          <Skeleton className="mx-auto h-5 w-4/5" />
+          <div className="flex justify-center gap-3 pt-4"><Skeleton className="h-12 w-32" /><Skeleton className="h-12 w-28" /></div>
+        </div>
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-28 rounded-2xl" />)}
+        </div>
+      </main>
     </div>
   )
 }

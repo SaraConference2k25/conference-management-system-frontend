@@ -82,16 +82,16 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 sm:px-6 py-12">
-      <div className="w-full max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+    <div className="auth-page flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
+      <div className="w-full max-w-6xl">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_0.82fr] lg:gap-16">
           {/* Left Side - Register Form */}
           <div className="w-full">
             <div className="relative">
               {/* Back Button */}
               <Link
                 href="/login"
-                className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-6 text-sm font-medium transition-colors"
+                className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-blue-900"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -100,15 +100,17 @@ export default function RegisterPage() {
               </Link>
 
               {/* Form Card */}
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+              <div className="auth-card">
                 {/* Header */}
-                <div className="bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] px-6 sm:px-8 py-8">
-                  <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-1">Create account</h1>
-                  <p className="text-blue-200/80 text-sm">Join the SARA 2026 Conference community</p>
+                <div className="auth-hero relative px-6 py-7 sm:px-8 sm:py-8">
+                  <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full border-b border-l border-white/10" />
+                  <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-blue-200">SARA 2026 conference portal</p>
+                  <h1 className="mb-1 text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">Create your account</h1>
+                  <p className="text-sm text-blue-100/85">Your researcher profile starts here.</p>
                 </div>
 
                 {/* Form Content */}
-                <div className="px-6 sm:px-8 py-8">
+                <div className="px-6 py-7 sm:px-8 sm:py-8">
                   {/* Error Message */}
                   {error && (
                     <div className="mb-5 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
@@ -130,7 +132,7 @@ export default function RegisterPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Full Name Field */}
                     <div>
-                      <label htmlFor="fullName" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Full Name *</label>
+                      <label htmlFor="fullName" className="mb-2 block text-sm font-semibold text-slate-700">Full name <span className="text-blue-700">*</span></label>
                       <div className="relative">
                         <UserIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
@@ -140,7 +142,7 @@ export default function RegisterPage() {
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="John Doe"
-                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-11"
+                          className="auth-input px-3.5 py-3 pl-11 placeholder:text-slate-400"
                           required
                         />
                       </div>
@@ -148,7 +150,7 @@ export default function RegisterPage() {
 
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Email Address *</label>
+                      <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-700">Email address <span className="text-blue-700">*</span></label>
                       <div className="relative">
                         <EnvelopeIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
@@ -158,7 +160,7 @@ export default function RegisterPage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="your@email.com"
-                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-11"
+                          className="auth-input px-3.5 py-3 pl-11 placeholder:text-slate-400"
                           required
                         />
                       </div>
@@ -166,7 +168,7 @@ export default function RegisterPage() {
 
                     {/* Affiliation Field */}
                     <div>
-                      <label htmlFor="affiliation" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Institution / Organization</label>
+                      <label htmlFor="affiliation" className="mb-2 block text-sm font-semibold text-slate-700">Institution or organization <span className="font-normal text-slate-400">(optional)</span></label>
                       <input
                         id="affiliation"
                         name="affiliation"
@@ -174,13 +176,13 @@ export default function RegisterPage() {
                         value={formData.affiliation}
                         onChange={handleChange}
                         placeholder="Your Institution"
-                        className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100"
+                        className="auth-input px-3.5 py-3 placeholder:text-slate-400"
                       />
                     </div>
 
                     {/* Password Field */}
                     <div>
-                      <label htmlFor="password" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Password *</label>
+                      <label htmlFor="password" className="mb-2 block text-sm font-semibold text-slate-700">Password <span className="text-blue-700">*</span></label>
                       <div className="relative">
                         <LockClosedIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
@@ -190,7 +192,7 @@ export default function RegisterPage() {
                           value={formData.password}
                           onChange={handleChange}
                           placeholder="Min. 6 characters"
-                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-11 pr-11"
+                          className="auth-input px-3.5 py-3 pl-11 pr-11 placeholder:text-slate-400"
                           required
                         />
                         <button
@@ -206,7 +208,7 @@ export default function RegisterPage() {
 
                     {/* Confirm Password Field */}
                     <div>
-                      <label htmlFor="confirmPassword" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Confirm Password *</label>
+                      <label htmlFor="confirmPassword" className="mb-2 block text-sm font-semibold text-slate-700">Confirm password <span className="text-blue-700">*</span></label>
                       <div className="relative">
                         <LockClosedIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
@@ -216,7 +218,7 @@ export default function RegisterPage() {
                           value={formData.confirmPassword}
                           onChange={handleChange}
                           placeholder="Confirm your password"
-                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-11 pr-11"
+                          className="auth-input px-3.5 py-3 pl-11 pr-11 placeholder:text-slate-400"
                           required
                         />
                         <button
@@ -231,7 +233,7 @@ export default function RegisterPage() {
                     </div>
 
                     {/* Terms & Conditions */}
-                    <div className="flex items-start gap-3 p-4 bg-blue-50/50 rounded-lg border border-blue-100">
+                    <div className="flex items-start gap-3 rounded-xl border border-blue-100 bg-blue-50/60 p-4">
                       <input
                         id="agreeTerms"
                         name="agreeTerms"
@@ -258,7 +260,7 @@ export default function RegisterPage() {
                     <button
                       type="submit"
                       disabled={isLoading || authLoading}
-                      className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#123c83] px-5 py-3 text-base font-semibold text-white shadow-lg shadow-blue-950/10 transition-all hover:-translate-y-0.5 hover:bg-[#0e3270] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
@@ -290,29 +292,29 @@ export default function RegisterPage() {
 
           {/* Right Side - Showcase */}
           <div className="hidden lg:flex flex-col justify-center">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-8">
+            <div className="rounded-2xl border border-slate-200 bg-white/80 p-8 shadow-[0_12px_35px_rgb(15_23_42_/_0.06)] backdrop-blur-sm">
               <div className="relative">
                 {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-md mb-6">
-                  <span className="text-xs font-medium text-blue-800 tracking-wide">SARA 2026</span>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1">
+                  <span className="text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-800">SARA 2026</span>
                 </div>
 
-                <h2 className="text-2xl font-semibold text-slate-900 mb-3">Join Our Community</h2>
+                <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em] text-[#10213f]">Join the research community</h2>
 
                 <p className="text-slate-600 mb-6 text-sm leading-relaxed">
-                  Become part of the academic excellence journey at Saranathan College of Engineering. Submit papers, track reviews, and stay updated.
+                  Register once to submit your work, follow review decisions, and receive official conference updates.
                 </p>
 
                 {/* Benefits Cards */}
                 <div className="space-y-4">
                   {[
-                    { icon: CheckCircleIcon, title: 'Easy Setup', desc: 'Complete registration in seconds' },
-                    { icon: DocumentIcon, title: 'Exclusive Access', desc: 'Access papers, presentations & more' },
-                    { icon: TrendingUpIcon, title: 'Community', desc: 'Connect with researchers worldwide' },
+                    { icon: CheckCircleIcon, title: 'One profile', desc: 'Use it for registration and submissions' },
+                    { icon: DocumentIcon, title: 'Paper workspace', desc: 'Track your submission from one place' },
+                    { icon: TrendingUpIcon, title: 'Timely updates', desc: 'Receive important conference notices' },
                   ].map((benefit, idx) => {
                     const BenefitIcon = benefit.icon
                     return (
-                      <div key={idx} className="flex gap-3 p-4 rounded-lg bg-slate-50 border border-slate-100">
+                      <div key={idx} className="flex gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-4">
                         <BenefitIcon className="w-5 h-5 text-blue-700 flex-shrink-0 mt-0.5" />
                         <div>
                           <h4 className="font-medium text-slate-900 text-sm">{benefit.title}</h4>
@@ -327,7 +329,7 @@ export default function RegisterPage() {
                 <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-100">
                   {[
                     { number: '500+', label: 'Participants' },
-                    { number: '100+', label: 'Papers' },
+                    { number: '03–04 Apr', label: 'Conference dates' },
                     { number: 'Apr 3–4', label: 'Dates' },
                   ].map((stat, idx) => (
                     <div key={idx} className="text-center">

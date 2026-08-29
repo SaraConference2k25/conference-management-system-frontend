@@ -67,15 +67,15 @@ export default function LoginSection() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 sm:px-6 py-12">
-      <div className="w-full max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+    <div className="auth-page flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
+      <div className="w-full max-w-6xl">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_0.82fr] lg:gap-16">
           {/* Left Side - Login Form */}
           <div className="w-full">
             <div className="relative">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-6 text-sm font-medium transition-colors"
+                className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-blue-900"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -84,13 +84,15 @@ export default function LoginSection() {
               </Link>
 
               {/* Form Card */}
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-                <div className="bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_50%,#1e40af_100%)] px-6 sm:px-8 py-8">
-                  <h1 className="text-2xl sm:text-3xl font-semibold text-white mb-1">Welcome back</h1>
-                  <p className="text-blue-200/80 text-sm">Sign in to the SARA 2026 Conference Portal</p>
+              <div className="auth-card">
+                <div className="auth-hero relative px-6 py-7 sm:px-8 sm:py-8">
+                  <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full border-b border-l border-white/10" />
+                  <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-blue-200">SARA 2026 conference portal</p>
+                  <h1 className="mb-1 text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">Welcome back</h1>
+                  <p className="text-sm text-blue-100/85">Sign in to manage your conference activity.</p>
                 </div>
 
-                <div className="px-6 sm:px-8 py-8">
+                <div className="px-6 py-7 sm:px-8 sm:py-8">
                   {/* Error Message */}
                   {error && (
                     <div className="mb-5 sm:mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
@@ -104,7 +106,7 @@ export default function LoginSection() {
                   <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Email Address</label>
+                      <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-700">Email address</label>
                       <div className="relative">
                         <EnvelopeIcon className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
@@ -113,19 +115,19 @@ export default function LoginSection() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
-                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pl-11"
+                          className="auth-input px-3.5 py-3 pl-11 placeholder:text-slate-400"
                           required
                         />
                       </div>
-                      <p className="mt-1 text-xs text-slate-500">
+                      <p className="mt-1.5 text-xs text-slate-500">
                         Use your registered email address
                       </p>
                     </div>
 
                     {/* Role Selection */}
                     <div>
-                      <label htmlFor="role" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Select Role</label>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                      <label htmlFor="role" className="mb-2 block text-sm font-semibold text-slate-700">Signing in as</label>
+                      <div className="grid grid-cols-3 gap-2">
                         {[
                           { value: 'participant', label: 'Participant', icon: UserIcon },
                           { value: 'evaluator', label: 'Evaluator', icon: CogIcon },
@@ -137,10 +139,10 @@ export default function LoginSection() {
                               key={roleOption.value}
                               type="button"
                               onClick={() => setRole(roleOption.value)}
-                              className={`py-3 px-4 rounded-lg font-medium transition-colors border text-sm flex flex-col items-center gap-2 ${
+                              className={`min-h-20 rounded-xl border px-2 py-3 text-xs font-semibold transition-all duration-200 flex flex-col items-center justify-center gap-1.5 ${
                                 role === roleOption.value
-                                  ? 'border-blue-600 bg-blue-50 text-blue-700'
-                                  : 'border-slate-200 bg-white text-slate-600 hover:border-blue-300'
+                                  ? 'border-blue-700 bg-blue-50 text-blue-800 shadow-sm'
+                                  : 'border-slate-200 bg-white text-slate-600 hover:border-blue-300 hover:bg-slate-50'
                               }`}
                             >
                               <IconComponent className="w-5 h-5" />
@@ -153,7 +155,7 @@ export default function LoginSection() {
 
                     {/* Password Field */}
                     <div>
-                      <label htmlFor="password" className="mb-1.5 block text-[0.8125rem] font-medium text-slate-600">Password</label>
+                      <label htmlFor="password" className="mb-2 block text-sm font-semibold text-slate-700">Password</label>
                       <div className="relative">
                         <input
                           id="password"
@@ -161,7 +163,7 @@ export default function LoginSection() {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Enter your password"
-                          className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm leading-5 text-slate-900 transition-colors placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-[3px] focus:ring-blue-600/15 disabled:cursor-not-allowed disabled:bg-slate-100 pr-11"
+                          className="auth-input px-3.5 py-3 pr-11 placeholder:text-slate-400"
                           required
                         />
                         <button
@@ -189,7 +191,7 @@ export default function LoginSection() {
                     </div>
 
                     {/* Remember Me */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       <input
                         id="remember"
                         type="checkbox"
@@ -206,7 +208,7 @@ export default function LoginSection() {
                     <button
                       type="submit"
                       disabled={isLoading || authLoading}
-                      className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-3 text-base font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#123c83] px-5 py-3 text-base font-semibold text-white shadow-lg shadow-blue-950/10 transition-all hover:-translate-y-0.5 hover:bg-[#0e3270] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isLoading || authLoading ? (
                         <span className="flex items-center justify-center gap-2">
@@ -247,18 +249,18 @@ export default function LoginSection() {
 
           {/* Right Side - Showcase */}
           <div className="hidden lg:flex flex-col justify-center">
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-8">
+            <div className="rounded-2xl border border-slate-200 bg-white/80 p-8 shadow-[0_12px_35px_rgb(15_23_42_/_0.06)] backdrop-blur-sm">
               <div className="relative">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-md mb-6">
-                  <span className="text-xs font-medium text-blue-800 tracking-wide">SARA 2026</span>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1">
+                  <span className="text-[0.6875rem] font-bold uppercase tracking-[0.13em] text-blue-800">SARA 2026</span>
                 </div>
 
-                <h2 className="text-2xl font-semibold text-slate-900 mb-3">
+                <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em] text-[#10213f]">
                   Saranathan College of Engineering
                 </h2>
 
                 <p className="text-slate-600 mb-6 text-sm leading-relaxed">
-                  Excellence in engineering education and innovation. Access your conference portal to manage submissions, track reviews, and stay updated.
+                  A focused workspace for submissions, peer review, and conference updates.
                 </p>
 
                 {/* Feature Cards */}
@@ -270,7 +272,7 @@ export default function LoginSection() {
                   ].map((feature, idx) => {
                     const FeatureIcon = feature.icon
                     return (
-                      <div key={idx} className="flex gap-3 p-4 rounded-lg bg-slate-50 border border-slate-100">
+                      <div key={idx} className="flex gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-4">
                         <FeatureIcon className="w-5 h-5 text-blue-700 flex-shrink-0 mt-0.5" />
                         <div>
                           <h4 className="font-medium text-slate-900 text-sm">{feature.title}</h4>
@@ -285,7 +287,7 @@ export default function LoginSection() {
                 <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-slate-100">
                   {[
                     { number: '500+', label: 'Participants' },
-                    { number: '100+', label: 'Papers' },
+                    { number: '03–04 Apr', label: 'Conference dates' },
                     { number: 'Apr 3–4', label: 'Dates' },
                   ].map((stat, idx) => (
                     <div key={idx} className="text-center">

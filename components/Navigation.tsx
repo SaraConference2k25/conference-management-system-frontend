@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 
 interface NavigationProps {
@@ -25,18 +24,18 @@ export default function Navigation({
   ]
 
   return (
-    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+    <nav className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 shadow-[0_1px_0_rgb(15_23_42_/_0.02)] backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex justify-between items-center h-14">
-          <ul className="hidden md:flex gap-0.5">
+          <ul className="hidden md:flex gap-1">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => onNavClick(item.id)}
-                  className={`px-3.5 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     activeSection === item.id
-                      ? 'bg-slate-900 text-white'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      ? 'bg-[#10213f] text-white shadow-sm'
+                      : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
                   }`}
                 >
                   {item.label}
@@ -46,10 +45,10 @@ export default function Navigation({
           </ul>
 
           <div className="hidden md:flex gap-2">
-            <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-transparent px-5 py-2.5 text-sm font-medium text-blue-800 transition-colors hover:border-blue-200 hover:bg-blue-50 text-sm py-2">
+            <Link href="/login" className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-900">
               Login
             </Link>
-            <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-medium leading-5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 text-sm py-2">
+            <Link href="/register" className="inline-flex items-center justify-center rounded-lg bg-[#123c83] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#0e3270] disabled:cursor-not-allowed disabled:opacity-60">
               Register
             </Link>
           </div>
