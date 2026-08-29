@@ -60,8 +60,8 @@ export default function DashboardShell({
               </div>
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
-              <div className="hidden sm:flex flex-col items-end">
-                <span className="text-sm font-medium text-white/90 line-clamp-1 max-w-[200px]">
+              <div className="hidden min-w-0 flex-col items-end sm:flex">
+                <span className="max-w-[min(42vw,24rem)] break-all text-right text-sm font-medium leading-5 text-white/90">
                   {getDisplayName(user?.fullName, user?.email)}
                 </span>
                 <span className="text-xs text-blue-200/70">{roleLabel}</span>
